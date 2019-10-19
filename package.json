@@ -1,0 +1,19 @@
+{
+  "name": "andela_challenge_two",
+  "version": "1.0.0",
+  "description": "my diary api",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aime19/Andela_Cycle_12_Chalenge_Two.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aime19/Andela_Cycle_12_Chalenge_Two/issues"
+  },
+  "homepage": "https://github.com/aime19/Andela_Cycle_12_Chalenge_Two#readme"
+}
