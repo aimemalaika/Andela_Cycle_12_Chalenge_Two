@@ -4,6 +4,7 @@
   "description": "my diary api",
   "main": "app.js",
   "scripts": {
+    "start": "nodemon start.js"
   },
   "repository": {
     "type": "git",
@@ -14,5 +15,17 @@
   "bugs": {
     "url": "https://github.com/aime19/Andela_Cycle_12_Chalenge_Two/issues"
   },
-  "homepage": "https://github.com/aime19/Andela_Cycle_12_Chalenge_Two#readme"
+  "homepage": "https://github.com/aime19/Andela_Cycle_12_Chalenge_Two#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.6.4",
+    "@babel/preset-env": "^7.6.3",
+    "@babel/register": "^7.6.2",
+    "eslint": "^6.5.1",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-plugin-import": "^2.18.2",
+    "nodemon": "^1.19.4"
+  }
 }
