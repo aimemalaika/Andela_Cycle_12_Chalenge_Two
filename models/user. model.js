@@ -1,4 +1,4 @@
-const User = {
+exports.UserRegitration = {
     First_Name: {
       type: 'text',
       required: true,
@@ -24,6 +24,14 @@ const User = {
       maxLenght: 50,
       matches: true,
     },
-  };
+};
   
-  module.exports = User;
+exports.UserLogin = {
+  Email: {
+    type: 'email',
+    required: true,
+  },
+  Password: {
+    required: true,
+  }
+}

@@ -6,6 +6,6 @@ import authController from '../controllers/user.controller';
 
 const route = express.Router();
 
-route.get('/Register', authController.getRegisterAuth);
+route.post('/Register', authController.getRegisterAuth);
 
 module.exports = route;
