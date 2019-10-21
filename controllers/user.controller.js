@@ -1,5 +1,5 @@
 import localStorage from 'localStorage';
-import bycrypt from 'body-parser';
+import bcrypt from 'bcrypt';
 
 import userModule from '../models/user. model';
 import Validate from '../helpers/validation.helper';
@@ -15,7 +15,7 @@ exports.getRegisterAuth = (req, res, next) => {
   const usersRecord = JSON.parse(localStorage.getItem('users')) || [];
   const passed = validation.check(userModule.UserRegitration, values, usersRecord);
   if (passed === true) {
-    const salt = bcrypt.genSaltSync(20);
+    const salt = bcrypt.genSaltSync(10);
     const hash = bcrypt.hashSync(values.Password, salt);
     usersRecord.push({
       First_Name: values.First_Name,

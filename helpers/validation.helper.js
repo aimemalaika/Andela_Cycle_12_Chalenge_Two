@@ -36,9 +36,10 @@ class Validator {
               if (String(inpt[fieldname]) !== String(inpt[`c${fieldname}`])) validationError.push(`${fieldname.replace(/_/g, ' ')} don't match`);
               break;
             case 'unique':
-              if (typeof (localStorage.find((user) => user.fieldname !== String(inpt[fieldname]))) !== 'undefined') {
-                console.log(localStorage.find((user) => user.fieldname !== String(inpt[fieldname])));
-              }
+              // eslint-disable-next-line array-callback-return
+              localStorage.map((values) => {
+                if (values.Email === String(inpt[fieldname])) validationError.push(`${fieldname.replace(/_/g, ' ')} is already used`);
+              });
               break;
           }
         }
