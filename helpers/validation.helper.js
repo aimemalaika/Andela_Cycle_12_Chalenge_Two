@@ -3,7 +3,7 @@
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable class-methods-use-this */
 class Validator {
-  check(source, inpt) {
+  check(source, inpt, localStorage) {
     const validationError = [];
     for (const fieldname in source) {
       for (const rulename in source[fieldname]) {
@@ -34,6 +34,11 @@ class Validator {
               break;
             case 'matches':
               if (String(inpt[fieldname]) !== String(inpt[`c${fieldname}`])) validationError.push(`${fieldname.replace(/_/g, ' ')} don't match`);
+              break;
+            case 'unique':
+              if (typeof (localStorage.find((user) => user.fieldname !== String(inpt[fieldname]))) !== 'undefined') {
+                console.log(localStorage.find((user) => user.fieldname !== String(inpt[fieldname])));
+              }
               break;
           }
         }

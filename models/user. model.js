@@ -16,6 +16,7 @@ exports.UserRegitration = {
     required: true,
     minLenght: 10,
     maxLenght: 255,
+    unique: 'users',
   },
   Password: {
     type: 'password',
