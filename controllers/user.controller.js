@@ -6,7 +6,7 @@ import userModule from '../models/user. model';
 import Validate from '../helpers/validation.helper';
 
 exports.getLoginAuth = (req, res, next) => {
-  res.json();
+  res.json({ message: 'get the response' });
   next();
 };
 
