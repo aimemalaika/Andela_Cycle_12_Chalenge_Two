@@ -34,5 +34,6 @@ exports.UserLogin = {
   },
   Password: {
     required: true,
+    type: 'password',
   },
 };

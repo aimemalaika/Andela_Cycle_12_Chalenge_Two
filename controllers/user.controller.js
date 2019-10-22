@@ -6,8 +6,36 @@ import userModule from '../models/user. model';
 import Validate from '../helpers/validation.helper';
 
 exports.getLoginAuth = (req, res, next) => {
-  res.json({ message: 'get the response' });
-  next();
+  const validation = new Validate();
+  const values = req.body;
+  const usersRecord = JSON.parse(localStorage.getItem('users')) || [];
+  const passed = validation.check(userModule.UserLogin, values, usersRecord);
+  if (passed === true) {
+    if (usersRecord.length > 0) {
+      usersRecord.map((user) => {
+        if (user.Email === req.body.Email) {
+          if (bcrypt.compareSync(values.Password, user.Password)) {
+            res.status(200).json({
+              message: user,
+            });
+          } else {
+            res.status(200).json({
+              message: 'user password',
+            });
+          }
+        }
+        return true;
+      });
+    } else {
+      res.status(200).json({
+        message: 'user not found',
+      });
+    }
+  } else {
+    res.status(404).json({
+      message: passed,
+    });
+  }
 };
 
 exports.getRegisterAuth = (req, res, next) => {
