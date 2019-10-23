@@ -1,4 +1,4 @@
-const Story = {
+exports.StoryCreation = {
   Title: {
     type: 'text',
     required: true,
@@ -17,4 +17,15 @@ const Story = {
   },
 };
 
-module.exports = Story;
+exports.StoryEdition = {
+  Title: {
+    type: 'text',
+    minLenght: 5,
+    maxLenght: 100,
+  },
+  Content: {
+    type: 'text',
+    minLenght: 20,
+    maxLenght: 500,
+  },
+};

@@ -9,7 +9,7 @@ exports.addStory = (req, res, next) => {
   const validation = new Validate();
   const values = req.body;
   const storyrecord = JSON.parse(localStorage.getItem('stories')) || [];
-  const passed = validation.check(storymodule.Story, values);
+  const passed = validation.check(storymodule.StoryCreation, values);
   let postId;
   if (passed === true) {
     if (storyrecord.length === 0) {
@@ -86,6 +86,29 @@ exports.deleteStory = (req, res, next) => {
       delete storyrecord[key];
       res.status(200).json({
         message: storyrecord,
+      });
+    } else {
+      res.status(200).json({
+        message: 'storyId not found',
+      });
+    }
+  } else {
+    res.status(200).json({
+      message: 'story not found',
+    });
+  }
+  next();
+};
+
+exports.updateStory = (req, res, next) => {
+  const { storyId } = req.params;
+  const storyrecord = JSON.parse(localStorage.getItem('stories')) || [];
+  if (storyrecord.length > 0) {
+    const found = storyrecord.find((storydata) => storydata.id === parseInt(storyId));
+    if (typeof (found) !== 'undefined') {
+      const key = storyrecord.indexOf(found);
+      res.status(200).json({
+        message: storyrecord[key],
       });
     } else {
       res.status(200).json({
