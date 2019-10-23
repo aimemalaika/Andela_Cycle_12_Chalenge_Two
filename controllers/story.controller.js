@@ -116,8 +116,9 @@ exports.updateStory = (req, res, next) => {
         const key = storyRecord.indexOf(found);
         storyRecord[key].Subject = values.Subject;
         storyRecord[key].Content = values.Content;
+        localStorage.setItem('stories', JSON.stringify(storyRecord));
         res.status(200).json({
-          message: storyRecord[key],
+          message: storyRecord,
         });
       } else {
         res.status(200).json({
