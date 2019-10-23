@@ -44,19 +44,16 @@ exports.getOneStory = (req, res, next) => {
   const { storyId } = req.params;
   const storyrecord = JSON.parse(localStorage.getItem('stories')) || [];
   if (storyrecord.length > 0) {
-    storyrecord.map((story) => {
-      if (story.id === parseInt(storyId)) {
-        res.status(200).json({
-          message: story,
-          
-        });
-      } else {
-        res.status(200).json({
-          message: storyrecord,
-        });
-      }
-      return true;
-    });
+    const found = storyrecord.find((storydata) => storydata.id === parseInt(storyId));
+    if (typeof (found) !== 'undefined') {
+      res.status(200).json({
+        message: found,
+      });
+    } else {
+      res.status(200).json({
+        message: 'storyId not found',
+      });
+    }
   } else {
     res.status(200).json({
       message: 'story not found',
