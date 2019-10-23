@@ -1,15 +1,14 @@
 exports.StoryCreation = {
-  Title: {
-    type: 'text',
+  Subject: {
     required: true,
-    minLenght: 5,
+    minLenght: 10,
     maxLenght: 100,
+    unique: true,
   },
   Content: {
-    type: 'text',
     required: true,
     minLenght: 20,
-    maxLenght: 500,
+    maxLenght: 1000,
   },
   Auther: {
     type: 'number',
@@ -17,15 +16,16 @@ exports.StoryCreation = {
   },
 };
 
-exports.StoryEdition = {
-  Title: {
-    type: 'text',
-    minLenght: 5,
+exports.StoryUpdate = {
+  Subject: {
+    required: true,
+    minLenght: 10,
     maxLenght: 100,
+    unique: true,
   },
   Content: {
-    type: 'text',
+    required: true,
     minLenght: 20,
-    maxLenght: 500,
+    maxLenght: 1000,
   },
 };
