@@ -61,3 +61,17 @@ exports.getOneStory = (req, res, next) => {
   }
   next();
 };
+
+exports.getAllStories = (req, res, next) => {
+  const storyrecord = JSON.parse(localStorage.getItem('stories')) || [];
+  if (storyrecord.length > 0) {
+    res.status(200).json({
+      message: storyrecord,
+    });
+  } else {
+    res.status(200).json({
+      message: 'story not found',
+    });
+  }
+  next();
+};

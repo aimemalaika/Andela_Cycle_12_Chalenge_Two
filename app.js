@@ -5,6 +5,7 @@ import registerRoute from './routes/register.route';
 import loginRoute from './routes/login.route';
 import addStoryRoute from './routes/createstory.route';
 import readStory from './routes/singlestory.route';
+import allStories from './routes/allstories.route';
 
 const app = express();
 
@@ -23,5 +24,6 @@ app.use('/api/v1/auth', registerRoute);
 app.use('/api/v1/auth', loginRoute);
 app.use('/api/v1', addStoryRoute);
 app.use('/api/v1', readStory);
+app.use('/api/v1', allStories);
 
 app.listen(3000);
