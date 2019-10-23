@@ -116,7 +116,7 @@ exports.updateStory = (req, res, next) => {
       });
     }
   } else {
-    res.status(200).json({
+    res.status(404).json({
       message: 'story not found',
     });
   }
