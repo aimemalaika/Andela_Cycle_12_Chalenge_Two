@@ -47,7 +47,6 @@ exports.getRegisterAuth = (req, res, next) => {
   if (passed === true) {
     if (usersRecord.length === 0) {
       idUser = 1;
-      console.log(usersRecord);
     } else {
       const maxId = (array, prop) => {
         let max;
