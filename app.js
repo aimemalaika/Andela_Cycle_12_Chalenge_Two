@@ -4,8 +4,9 @@ import bodyParser from 'body-parser';
 import registerRoute from './routes/register.route';
 import loginRoute from './routes/login.route';
 import addStoryRoute from './routes/createstory.route';
-import readStory from './routes/singlestory.route';
-import allStories from './routes/allstories.route';
+import readStoryRoute from './routes/singlestory.route';
+import allStoriesRoute from './routes/allstories.route';
+import deleteStoryRoute from './routes/deletestory.route';
 
 const app = express();
 
@@ -23,7 +24,8 @@ app.use((req, res, next) => {
 app.use('/api/v1/auth', registerRoute);
 app.use('/api/v1/auth', loginRoute);
 app.use('/api/v1', addStoryRoute);
-app.use('/api/v1', readStory);
-app.use('/api/v1', allStories);
+app.use('/api/v1', readStoryRoute);
+app.use('/api/v1', allStoriesRoute);
+app.use('/api/v1', deleteStoryRoute);
 
 app.listen(3000);

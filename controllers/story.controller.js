@@ -75,3 +75,27 @@ exports.getAllStories = (req, res, next) => {
   }
   next();
 };
+
+exports.deleteStory = (req, res, next) => {
+  const { storyId } = req.params;
+  const storyrecord = JSON.parse(localStorage.getItem('stories')) || [];
+  if (storyrecord.length > 0) {
+    const found = storyrecord.find((storydata) => storydata.id === parseInt(storyId));
+    if (typeof (found) !== 'undefined') {
+      const key = storyrecord.indexOf(found);
+      delete storyrecord[key];
+      res.status(200).json({
+        message: storyrecord,
+      });
+    } else {
+      res.status(200).json({
+        message: 'storyId not found',
+      });
+    }
+  } else {
+    res.status(200).json({
+      message: 'story not found',
+    });
+  }
+  next();
+};
