@@ -48,6 +48,7 @@ exports.getOneStory = (req, res, next) => {
       if (story.id === parseInt(storyId)) {
         res.status(200).json({
           message: story,
+          
         });
       } else {
         res.status(200).json({
