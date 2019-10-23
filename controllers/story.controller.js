@@ -1,19 +1,18 @@
 /* eslint-disable radix */
 import localStorage from 'localStorage';
 
-
-import storymodule from '../models/story.model';
+import storyModule from '../models/story.model';
 import Validate from '../helpers/validation.helper';
 
 exports.addStory = (req, res, next) => {
   const validation = new Validate();
   const values = req.body;
-  const storyrecord = JSON.parse(localStorage.getItem('stories')) || [];
-  const passed = validation.check(storymodule.Story, values);
-  let postId;
+  let storyId;
+  const storyRecord = JSON.parse(localStorage.getItem('stories')) || [];
+  const passed = validation.check(storyModule.StoryCreation, values, storyRecord);
   if (passed === true) {
-    if (storyrecord.length === 0) {
-      postId = 1;
+    if (storyRecord.length === 0) {
+      storyId = 1;
     } else {
       const maxId = (array, prop) => {
         let max;
@@ -23,17 +22,21 @@ exports.addStory = (req, res, next) => {
         return max.id + 1;
       };
 
-      postId = maxId(storyrecord, 'id');
+      storyId = maxId(storyRecord, 'id');
     }
-    storyrecord.push({
-      id: postId,
-      Title: values.Title,
+    storyRecord.push({
+      id: storyId,
+      Subject: values.Subject,
       Content: values.Content,
       Auther: values.Auther,
     });
-    localStorage.setItem('stories', JSON.stringify(storyrecord));
+    localStorage.setItem('stories', JSON.stringify(storyRecord));
     res.status(200).json({
-      message: storyrecord,
+      message: storyRecord,
+    });
+  } else {
+    res.status(404).json({
+      message: passed,
     });
   }
   next();
@@ -95,6 +98,40 @@ exports.deleteStory = (req, res, next) => {
   } else {
     res.status(200).json({
       message: 'story not found',
+    });
+  }
+  next();
+};
+
+exports.updateStory = (req, res, next) => {
+  const { storyId } = req.params;
+  const validation = new Validate();
+  const values = req.body;
+  const storyRecord = JSON.parse(localStorage.getItem('stories')) || [];
+  const passed = validation.check(storyModule.StoryUpdate, values, storyRecord);
+  if (passed === true) {
+    if (storyRecord.length > 0) {
+      const found = storyRecord.find((storydata) => storydata.id === parseInt(storyId));
+      if (typeof (found) !== 'undefined') {
+        const key = storyRecord.indexOf(found);
+        storyRecord[key].Subject = values.Subject;
+        storyRecord[key].Content = values.Content;
+        res.status(200).json({
+          message: storyRecord[key],
+        });
+      } else {
+        res.status(200).json({
+          message: 'storyId not found',
+        });
+      }
+    } else {
+      res.status(404).json({
+        message: 'story not found',
+      });
+    }
+  } else {
+    res.status(404).json({
+      message: passed,
     });
   }
   next();

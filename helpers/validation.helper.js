@@ -11,8 +11,8 @@ class Validator {
         if (rulename === 'required' && inpt[fieldname] === '') {
           validationError.push(`${fieldname.replace(/_/g, ' ')} is required`);
         } else {
-          const contraint = rulename;
-          switch (contraint) {
+          const constraint = rulename;
+          switch (constraint) {
             case 'minLenght':
               if (String(inpt[fieldname]).length < rulevalue) validationError.push(`${fieldname.replace(/_/g, ' ')} field must contain at least ${rulevalue} characters`);
               break;
@@ -42,6 +42,7 @@ class Validator {
               // eslint-disable-next-line array-callback-return
               localStorage.map((values) => {
                 if (values.Email === String(inpt[fieldname])) validationError.push(`${fieldname.replace(/_/g, ' ')} is already used`);
+                if (values.Subject === String(inpt[fieldname])) validationError.push(`this ${fieldname.replace(/_/g, ' ')} is already created`);
               });
               break;
           }

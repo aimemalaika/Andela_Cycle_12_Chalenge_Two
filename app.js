@@ -7,6 +7,7 @@ import addStoryRoute from './routes/createstory.route';
 import readStoryRoute from './routes/singlestory.route';
 import allStoriesRoute from './routes/allstories.route';
 import deleteStoryRoute from './routes/deletestory.route';
+import updateStoryRoute from './routes/editstory.route';
 
 const app = express();
 
@@ -27,5 +28,6 @@ app.use('/api/v1', addStoryRoute);
 app.use('/api/v1', readStoryRoute);
 app.use('/api/v1', allStoriesRoute);
 app.use('/api/v1', deleteStoryRoute);
+app.use('/api/v1', updateStoryRoute);
 
 app.listen(3000);

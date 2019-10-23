@@ -1,15 +1,14 @@
-const Story = {
-  Title: {
-    type: 'text',
+exports.StoryCreation = {
+  Subject: {
     required: true,
-    minLenght: 5,
+    minLenght: 10,
     maxLenght: 100,
+    unique: true,
   },
   Content: {
-    type: 'text',
     required: true,
     minLenght: 20,
-    maxLenght: 500,
+    maxLenght: 1000,
   },
   Auther: {
     type: 'number',
@@ -17,4 +16,16 @@ const Story = {
   },
 };
 
-module.exports = Story;
+exports.StoryUpdate = {
+  Subject: {
+    required: true,
+    minLenght: 10,
+    maxLenght: 100,
+    unique: true,
+  },
+  Content: {
+    required: true,
+    minLenght: 20,
+    maxLenght: 1000,
+  },
+};
