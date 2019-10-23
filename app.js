@@ -1,7 +1,10 @@
 import express from 'express';
 import bodyParser from 'body-parser';
+
 import registerRoute from './routes/register.route';
 import loginRoute from './routes/login.route';
+import addStoryRoute from './routes/createstory.route';
+import readStory from './routes/singlestory.route';
 
 const app = express();
 
@@ -18,6 +21,7 @@ app.use((req, res, next) => {
 
 app.use('/api/v1/auth', registerRoute);
 app.use('/api/v1/auth', loginRoute);
-
+app.use('/api/v1', addStoryRoute);
+app.use('/api/v1', readStory);
 
 app.listen(3000);
