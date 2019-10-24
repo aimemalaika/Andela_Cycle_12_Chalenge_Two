@@ -38,6 +38,10 @@ exports.UserLogin = {
   },
 };
 exports.UserProfileUpdate = {
+  id: {
+    type: 'number',
+    required: true,
+  },
   First_Name: {
     type: 'text',
     required: true,
@@ -55,6 +59,15 @@ exports.UserProfileUpdate = {
     required: true,
     minLenght: 10,
     maxLenght: 255,
-    unique: true,
+    uniqueupdate: true,
+  },
+};
+
+exports.resetPassword = {
+  Email: {
+    type: 'email',
+    required: true,
+    minLenght: 10,
+    maxLenght: 255,
   },
 };

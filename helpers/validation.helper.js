@@ -2,6 +2,8 @@
 /* eslint-disable guard-for-in */
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable class-methods-use-this */
+/* eslint-disable array-callback-return */
+/* eslint-disable radix */
 class Validator {
   check(source, inpt, localStorage = []) {
     const validationError = [];
@@ -39,10 +41,15 @@ class Validator {
               if (String(inpt[fieldname]) !== String(inpt[`c${fieldname}`])) validationError.push(`${fieldname.replace(/_/g, ' ')} don't match`);
               break;
             case 'unique':
-              // eslint-disable-next-line array-callback-return
               localStorage.map((values) => {
                 if (values.Email === String(inpt[fieldname])) validationError.push(`${fieldname.replace(/_/g, ' ')} is already used`);
                 if (values.Subject === String(inpt[fieldname])) validationError.push(`this ${fieldname.replace(/_/g, ' ')} is already created`);
+              });
+              break;
+            case 'uniqueupdate':
+              localStorage.map((values) => {
+                if (values.Email === String(inpt[fieldname]) && values.id !== parseInt(inpt.id)) validationError.push(`${fieldname.replace(/_/g, ' ')} is already used`);
+                if (values.Subject === String(inpt[fieldname]) && values.id !== parseInt(inpt.id)) validationError.push(`this ${fieldname.replace(/_/g, ' ')} is already created`);
               });
               break;
           }

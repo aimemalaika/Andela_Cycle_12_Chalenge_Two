@@ -17,11 +17,15 @@ exports.StoryCreation = {
 };
 
 exports.StoryUpdate = {
+  id: {
+    type: 'number',
+    required: true,
+  },
   Subject: {
     required: true,
     minLenght: 10,
     maxLenght: 100,
-    unique: true,
+    uniqueupdate: true,
   },
   Content: {
     required: true,
