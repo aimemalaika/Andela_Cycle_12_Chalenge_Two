@@ -8,6 +8,7 @@ import readStoryRoute from './routes/singlestory.route';
 import allStoriesRoute from './routes/allstories.route';
 import deleteStoryRoute from './routes/deletestory.route';
 import updateStoryRoute from './routes/editstory.route';
+import updateProfile from './routes/updateprofile.route';
 
 const app = express();
 
@@ -24,6 +25,7 @@ app.use((req, res, next) => {
 
 app.use('/api/v1/auth', registerRoute);
 app.use('/api/v1/auth', loginRoute);
+app.use('/api/v1/auth', updateProfile);
 app.use('/api/v1', addStoryRoute);
 app.use('/api/v1', readStoryRoute);
 app.use('/api/v1', allStoriesRoute);

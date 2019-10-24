@@ -37,3 +37,24 @@ exports.UserLogin = {
     type: 'password',
   },
 };
+exports.UserProfileUpdate = {
+  First_Name: {
+    type: 'text',
+    required: true,
+    minLenght: 3,
+    maxLenght: 10,
+  },
+  Last_Name: {
+    type: 'text',
+    required: true,
+    minLenght: 3,
+    maxLenght: 10,
+  },
+  Email: {
+    type: 'email',
+    required: true,
+    minLenght: 10,
+    maxLenght: 255,
+    unique: true,
+  },
+};
