@@ -184,3 +184,45 @@ exports.recoverPassword = (req, res, next) => {
   }
   next();
 };
+
+exports.updatePassword = (req, res, next) => {
+  const validation = new Validate();
+  const values = req.body;
+  const usersRecord = JSON.parse(localStorage.getItem('users')) || [];
+  const passed = validation.check(userModule.userPasswordUpdate, values, usersRecord);
+  if (passed === true) {
+    if (usersRecord.length > 0) {
+      const found = usersRecord.find((userdata) => userdata.id === values.id);
+      if (typeof (found) !== 'undefined') {
+        const password = values.Password;
+        const salt = bcrypt.genSaltSync(10);
+        const hash = bcrypt.hashSync(String(password), salt);
+        const key = usersRecord.indexOf(found);
+        usersRecord[key].Password = hash;
+        localStorage.setItem('users', JSON.stringify(usersRecord));
+        try {
+          res.status(200).json({
+            message: 'Updated',
+          });
+        } catch (error) {
+          res.status(200).json({
+            message: 'user found',
+          });
+        }
+      } else {
+        res.status(200).json({
+          message: 'user not found',
+        });
+      }
+    } else {
+      res.status(200).json({
+        message: 'user not found',
+      });
+    }
+  } else {
+    res.status(404).json({
+      message: passed,
+    });
+  }
+  next();
+};

@@ -71,3 +71,17 @@ exports.resetPassword = {
     maxLenght: 255,
   },
 };
+
+exports.userPasswordUpdate = {
+  id: {
+    type: 'number',
+    required: true,
+  },
+  Password: {
+    type: 'password',
+    required: true,
+    minLenght: 6,
+    maxLenght: 50,
+    matches: true,
+  },
+};
