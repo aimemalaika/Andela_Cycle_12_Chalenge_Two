@@ -45,9 +45,9 @@ exports.addStory = (req, res, next) => {
 
 exports.getOneStory = (req, res, next) => {
   const { storyId } = req.params;
-  const storyrecord = JSON.parse(localStorage.getItem('stories')) || [];
-  if (storyrecord.length > 0) {
-    const found = storyrecord.find((storydata) => storydata.id === parseInt(storyId));
+  const storyRecord = JSON.parse(localStorage.getItem('stories')) || [];
+  if (storyRecord.length > 0) {
+    const found = storyRecord.find((storydata) => storydata.id === parseInt(storyId));
     if (typeof (found) !== 'undefined') {
       res.status(200).json({
         message: found,
@@ -66,10 +66,10 @@ exports.getOneStory = (req, res, next) => {
 };
 
 exports.getAllStories = (req, res, next) => {
-  const storyrecord = JSON.parse(localStorage.getItem('stories')) || [];
-  if (storyrecord.length > 0) {
+  const storyRecord = JSON.parse(localStorage.getItem('stories')) || [];
+  if (storyRecord.length > 0) {
     res.status(200).json({
-      message: storyrecord,
+      message: storyRecord,
     });
   } else {
     res.status(200).json({
@@ -81,14 +81,16 @@ exports.getAllStories = (req, res, next) => {
 
 exports.deleteStory = (req, res, next) => {
   const { storyId } = req.params;
-  const storyrecord = JSON.parse(localStorage.getItem('stories')) || [];
-  if (storyrecord.length > 0) {
-    const found = storyrecord.find((storydata) => storydata.id === parseInt(storyId));
+  const storyRecord = JSON.parse(localStorage.getItem('stories')) || [];
+  if (storyRecord.length > 0) {
+    const found = storyRecord.find((storydata) => storydata.id === parseInt(storyId));
     if (typeof (found) !== 'undefined') {
-      const key = storyrecord.indexOf(found);
-      delete storyrecord[key];
+      const key = storyRecord.indexOf(found);
+      delete storyRecord[key];
+      const data = storyRecord.filter((x) => x !== null);
+      localStorage.setItem('stories', JSON.stringify(data));
       res.status(200).json({
-        message: storyrecord,
+        message: data,
       });
     } else {
       res.status(200).json({
@@ -116,6 +118,7 @@ exports.updateStory = (req, res, next) => {
         const key = storyRecord.indexOf(found);
         storyRecord[key].Subject = values.Subject;
         storyRecord[key].Content = values.Content;
+        localStorage.setItem('stories', JSON.stringify(storyRecord));
         res.status(200).json({
           message: storyRecord[key],
         });

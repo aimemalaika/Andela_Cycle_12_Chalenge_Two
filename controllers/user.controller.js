@@ -78,3 +78,39 @@ exports.getRegisterAuth = (req, res, next) => {
   }
   next();
 };
+
+exports.updateUser = (req, res, next) => {
+  const { userId } = req.params;
+  const validation = new Validate();
+  const values = req.body;
+  const usersRecord = JSON.parse(localStorage.getItem('users')) || [];
+  const passed = validation.check(userModule.UserProfileUpdate, values, usersRecord);
+  if (usersRecord.length > 0) {
+    if (passed === true) {
+      const found = usersRecord.find((userdata) => userdata.id === parseInt(userId));
+      if (typeof (found) !== 'undefined') {
+        const key = usersRecord.indexOf(found);
+        usersRecord[key].First_Name = values.First_Name;
+        usersRecord[key].Last_Name = values.Last_Name;
+        usersRecord[key].Email = values.Email;
+        localStorage.setItem('users', JSON.stringify(usersRecord));
+        res.status(200).json({
+          message: usersRecord[key],
+        });
+      } else {
+        res.status(200).json({
+          message: 'userId not found',
+        });
+      }
+    } else {
+      res.status(404).json({
+        message: passed,
+      });
+    }
+  } else {
+    res.status(404).json({
+      message: 'user not found',
+    });
+  }
+  next();
+};
