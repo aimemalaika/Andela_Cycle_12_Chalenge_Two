@@ -69,6 +69,5 @@ exports.resetPassword = {
     required: true,
     minLenght: 10,
     maxLenght: 255,
-    unique: true,
   },
 };
