@@ -73,6 +73,15 @@ exports.getRegisterAuth = (req, res, next) => {
     const salt = bcrypt.genSaltSync(10);
     const hash = bcrypt.hashSync(values.Password, salt);
     usersRecord.push({
+      message: 'User created successfully',
+      id: idUser,
+      First_Name: values.First_Name,
+      Last_Name: values.Last_Name,
+      Email: values.Email,
+      Password: hash,
+    });
+    localStorage.setItem('users', JSON.stringify(usersRecord));
+    res.status(200).json({
       status: 201,
       message: 'User created successfully',
       data: {
@@ -83,12 +92,8 @@ exports.getRegisterAuth = (req, res, next) => {
         Password: hash,
       },
     });
-    localStorage.setItem('users', JSON.stringify(usersRecord));
-    res.status(200).json({
-      message: localStorage.getItem('users'),
-    });
   } else {
-    res.status(404).json({
+    res.status(401).json({
       status: 401,
       message: passed,
     });
