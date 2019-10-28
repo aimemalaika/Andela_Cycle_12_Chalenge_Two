@@ -4,6 +4,7 @@ import localStorage from 'localStorage';
 import storyModule from '../models/story.model';
 import Validate from '../helpers/validation.helper';
 
+const today = `${new Date().getDay()} / ${new Date().getMonth()} / ${new Date().getFullYear()}`;
 exports.addStory = (req, res, next) => {
   const validation = new Validate();
   const values = req.body;
@@ -29,10 +30,19 @@ exports.addStory = (req, res, next) => {
       Subject: values.Subject,
       Content: values.Content,
       Auther: values.Auther,
+      createdOn: today,
     });
     localStorage.setItem('stories', JSON.stringify(storyRecord));
     res.status(200).json({
-      message: storyRecord,
+      status: 200,
+      data: {
+        id: storyRecord.id,
+        message: 'entry successfully created',
+        Subject: values.Subject,
+        Content: values.Content,
+        Auther: values.Auther,
+        createdOn: today,
+      },
     });
   } else {
     res.status(404).json({
