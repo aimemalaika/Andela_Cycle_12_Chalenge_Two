@@ -6,6 +6,6 @@ import authController from '../controllers/user.controller';
 
 const route = express.Router();
 
-route.put('/Password-Update/:userId', authController.updatePassword);
+route.patch('/Password-Update/:userId', authController.updatePassword);
 
 module.exports = route;

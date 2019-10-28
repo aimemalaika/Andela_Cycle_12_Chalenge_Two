@@ -24,26 +24,32 @@ exports.getLoginAuth = (req, res, next) => {
       const found = usersRecord.find((userdata) => userdata.Email === values.Email);
       if (typeof (found) !== 'undefined') {
         if (bcrypt.compareSync(values.Password, found.Password)) {
-          res.status(200).json({
-            message: found,
+          res.status(201).json({
+            status: 201,
+            data: {
+              message: found,
+            },
           });
         } else {
-          res.status(200).json({
+          res.status(401).json({
+            status: 401,
             message: 'user password incorrect',
           });
         }
       } else {
-        res.status(200).json({
+        res.status(401).json({
+          status: 401,
           message: 'user not found in array',
         });
       }
     } else {
-      res.status(200).json({
+      res.status(401).json({
+        status: 401,
         message: 'user not found',
       });
     }
   } else {
-    res.status(404).json({
+    res.status(401).json({
       message: passed,
     });
   }
@@ -73,7 +79,6 @@ exports.getRegisterAuth = (req, res, next) => {
     const salt = bcrypt.genSaltSync(10);
     const hash = bcrypt.hashSync(values.Password, salt);
     usersRecord.push({
-      message: 'User created successfully',
       id: idUser,
       First_Name: values.First_Name,
       Last_Name: values.Last_Name,
@@ -116,21 +121,28 @@ exports.updateUser = (req, res, next) => {
         usersRecord[key].Last_Name = values.Last_Name;
         usersRecord[key].Email = values.Email;
         localStorage.setItem('users', JSON.stringify(usersRecord));
-        res.status(200).json({
-          message: usersRecord[key],
+        res.status(201).json({
+          status: 201,
+          message: 'User updated successfully',
+          data: {
+            message: usersRecord[key],
+          },
         });
       } else {
-        res.status(200).json({
+        res.status(401).json({
+          status: 401,
           message: 'userId not found',
         });
       }
     } else {
-      res.status(404).json({
+      res.status(401).json({
+        status: 401,
         message: passed,
       });
     }
   } else {
-    res.status(404).json({
+    res.status(401).json({
+      status: 401,
       message: 'user not found',
     });
   }
@@ -169,26 +181,30 @@ exports.recoverPassword = (req, res, next) => {
         localStorage.setItem('users', JSON.stringify(usersRecord));
         try {
           transporter.sendMail(mailOptions);
-          res.status(200).json({
-            message: 'mail sent',
+          res.status(201).json({
+            status: 201,
+            message: 'email sent successful',
           });
         } catch (error) {
-          res.status(200).json({
-            message: 'user found',
+          res.status(401).json({
+            status: 401,
+            message: 'fail to send email',
           });
         }
       } else {
-        res.status(200).json({
+        res.status(401).json({
+          status: 401,
           message: 'Email not found',
         });
       }
     } else {
-      res.status(200).json({
+      res.status(401).json({
+        status: 401,
         message: 'user not found',
       });
     }
   } else {
-    res.status(404).json({
+    res.status(401).json({
       message: passed,
     });
   }
@@ -210,27 +226,25 @@ exports.updatePassword = (req, res, next) => {
         const key = usersRecord.indexOf(found);
         usersRecord[key].Password = hash;
         localStorage.setItem('users', JSON.stringify(usersRecord));
-        try {
-          res.status(200).json({
-            message: 'Updated',
-          });
-        } catch (error) {
-          res.status(200).json({
-            message: 'user found',
-          });
-        }
+        res.status(201).json({
+          status: 201,
+          message: 'Password Updated',
+        });
       } else {
-        res.status(200).json({
-          message: 'user not found',
+        res.status(401).json({
+          status: 401,
+          message: 'userId not found',
         });
       }
     } else {
-      res.status(200).json({
+      res.status(401).json({
+        status: 401,
         message: 'user not found',
       });
     }
   } else {
-    res.status(404).json({
+    res.status(401).json({
+      status: 401,
       message: passed,
     });
   }
