@@ -33,8 +33,8 @@ exports.addStory = (req, res, next) => {
       createdOn: today,
     });
     localStorage.setItem('stories', JSON.stringify(storyRecord));
-    res.status(200).json({
-      status: 200,
+    res.status(201).json({
+      status: 201,
       data: {
         id: storyRecord.id,
         message: 'entry successfully created',
@@ -45,7 +45,8 @@ exports.addStory = (req, res, next) => {
       },
     });
   } else {
-    res.status(404).json({
+    res.status(401).json({
+      status: 401,
       message: passed,
     });
   }
@@ -60,15 +61,20 @@ exports.getOneStory = (req, res, next) => {
     const found = storyRecord.find((storydata) => storydata.id === parseInt(storyId));
     if (typeof (found) !== 'undefined') {
       res.status(200).json({
-        message: found,
+        status: 200,
+        data: {
+          found,
+        },
       });
     } else {
-      res.status(200).json({
+      res.status(401).json({
+        status: 401,
         message: 'storyId not found',
       });
     }
   } else {
-    res.status(200).json({
+    res.status(401).json({
+      status: 401,
       message: 'story not found',
     });
   }
@@ -79,10 +85,12 @@ exports.getAllStories = (req, res, next) => {
   const storyRecord = JSON.parse(localStorage.getItem('stories')) || [];
   if (storyRecord.length > 0) {
     res.status(200).json({
-      message: storyRecord,
+      status: 200,
+      data: { storyRecord },
     });
   } else {
-    res.status(200).json({
+    res.status(401).json({
+      status: 401,
       message: 'story not found',
     });
   }
@@ -99,16 +107,22 @@ exports.deleteStory = (req, res, next) => {
       delete storyRecord[key];
       const data = storyRecord.filter((x) => x !== null);
       localStorage.setItem('stories', JSON.stringify(data));
-      res.status(200).json({
-        message: data,
+      res.status(204).json({
+        status: 204,
+        data: {
+          message: 'entry successfully deleted',
+          data,
+        },
       });
     } else {
-      res.status(200).json({
+      res.status(401).json({
+        status: 401,
         message: 'storyId not found',
       });
     }
   } else {
-    res.status(200).json({
+    res.status(401).json({
+      status: 401,
       message: 'story not found',
     });
   }
@@ -130,20 +144,27 @@ exports.updateStory = (req, res, next) => {
         storyRecord[key].Content = values.Content;
         localStorage.setItem('stories', JSON.stringify(storyRecord));
         res.status(200).json({
-          message: storyRecord,
+          status: 201,
+          data: {
+            message: 'entry successfully edited”',
+            storyRecord,
+          },
         });
       } else {
-        res.status(200).json({
+        res.status(401).json({
+          status: 401,
           message: 'storyId not found',
         });
       }
     } else {
-      res.status(404).json({
+      res.status(401).json({
+        status: 401,
         message: 'story not found',
       });
     }
   } else {
-    res.status(404).json({
+    res.status(401).json({
+      status: 401,
       message: passed,
     });
   }
