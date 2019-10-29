@@ -36,4 +36,4 @@ app.use('/api/v1', allStoriesRoute);
 app.use('/api/v1', deleteStoryRoute);
 app.use('/api/v1', updateStoryRoute);
 
-app.listen(3000);
+app.listen(process.env.PORT || 3000);
