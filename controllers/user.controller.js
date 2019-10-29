@@ -2,6 +2,7 @@
 import localStorage from 'localStorage';
 import bcrypt from 'bcrypt';
 import nodemailer from 'nodemailer';
+import jwt from 'jsonwebtoken';
 
 
 import userModule from '../models/user. model';
@@ -24,9 +25,16 @@ exports.getLoginAuth = (req, res, next) => {
       const found = usersRecord.find((userdata) => userdata.Email === values.Email);
       if (typeof (found) !== 'undefined') {
         if (bcrypt.compareSync(values.Password, found.Password)) {
+          const tokenapi = jwt.sign({
+            First_Name: found.First_Name,
+            Last_Name: found.Last_Name,
+            Email: found.Email,
+            id: found.id,
+          }, 'jsonwetokengeneratedbyme', { expiresIn: '4h' });
           res.status(201).json({
             status: 201,
             data: {
+              token: tokenapi,
               message: found,
             },
           });
