@@ -25,7 +25,8 @@
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
     "localStorage": "^1.0.4",
-    "nodemailer": "^6.3.1"
+    "nodemailer": "^6.3.1",
+    "swagger": "^0.7.5"
   },
   "devDependencies": {
     "@babel/core": "^7.6.4",

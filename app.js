@@ -36,4 +36,11 @@ app.use('/api/v1', allStoriesRoute);
 app.use('/api/v1', deleteStoryRoute);
 app.use('/api/v1', updateStoryRoute);
 
-app.listen(process.env.PORT || 3000);
+app.use('*', (req, res) => {
+  res.status(404).json({ status: 404, message: 'Routes Not found' });
+});
+
+const port = process.env.PORT || 9000;
+app.listen(port, () => {
+  console.log(`Connected on ${port}`);
+});
