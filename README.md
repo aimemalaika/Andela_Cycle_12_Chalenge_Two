@@ -50,10 +50,36 @@ Make sure you have cloned this repo to your local machine, and after then run `c
 | /api/v1/Profile/:userId  | PATCH | User can update profile |
 
 
+## Samples of request format
+```
+    /api/v1/auth/Register | POST
 
+    {
+        "First_Name": "jules",
+        "Last_Name": "cesar",
+        "Email": "aimemalaika1995@gmail.com",
+        "Password": "Aime1995",
+        "cPassword": "Aime1995"
+    }
+    /api/v1/auth/Login | POST
+
+    {
+        "Email": "aimemalaika1995@gmail.com",
+        "Password": "Aime1995"
+    }
+    /api/v1/Add-Story | POST
+
+    {
+        "Subject": "the story of a ma starting to date rapidly post three",
+        "Content": "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.",
+        "Auther": 2
+    }
+
+
+
+```
 ### UI Link Example
 [My diary UI](https://aime19.github.io/Andela_Cycle_12_Chalenge_One/)
-
 
 ## Tools Used
 
@@ -78,7 +104,7 @@ Heroku
 [Project Stories](https://www.pivotaltracker.com/n/projects/2401031)
 ### Heroku link
 
-[My app on Heroku](https://diaryapp2019.herokuapp.com/)
+[My app on Heroku](https://diaryappam.herokuapp.com)
 
 ## Author
 - Aime Malaika <aimemalaika1995@@gmail.com>
