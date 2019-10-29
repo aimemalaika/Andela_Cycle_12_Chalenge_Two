@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "my diary api",
   "main": "app.js",
+  "engines": {
+    "node": "10.16.3"
+  },
   "scripts": {
     "start": "nodemon start.js"
   },
