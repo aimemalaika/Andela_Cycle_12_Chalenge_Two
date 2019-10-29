@@ -40,7 +40,7 @@ app.use('*', (req, res) => {
   res.status(404).json({ status: 404, message: 'Routes Not found' });
 });
 
-const port = process.env.PORT || 9000;
+const port = process.env.PORT || 3000;
 app.listen(port, () => {
   console.log(`Connected on ${port}`);
 });
