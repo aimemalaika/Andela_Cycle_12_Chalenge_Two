@@ -30,7 +30,7 @@ exports.getLoginAuth = (req, res, next) => {
             Last_Name: found.Last_Name,
             Email: found.Email,
             id: found.id,
-          }, 'jsonwetokengeneratedbyme', { expiresIn: '4h' });
+          }, '0123456789abcdfghjkmnpqrstvwxyzABCDEFGHIJKLMNOPQRE', { expiresIn: '4h' });
           res.status(201).json({
             status: 201,
             data: {
@@ -61,7 +61,7 @@ exports.getLoginAuth = (req, res, next) => {
       message: passed,
     });
   }
-  next();
+  // next();
 };
 
 exports.getRegisterAuth = (req, res, next) => {
@@ -111,18 +111,19 @@ exports.getRegisterAuth = (req, res, next) => {
       message: passed,
     });
   }
-  next();
+  // next();
 };
 
 exports.updateUser = (req, res, next) => {
   const { userId } = req.params;
   const validation = new Validate();
   const values = req.body;
+  const idUser = req.id;
   const usersRecord = JSON.parse(localStorage.getItem('users')) || [];
   const passed = validation.check(userModule.UserProfileUpdate, values, usersRecord);
   if (usersRecord.length > 0) {
     if (passed === true) {
-      const found = usersRecord.find((userdata) => userdata.id === parseInt(userId));
+      const found = usersRecord.find((userdata) => userdata.id === parseInt(idUser));
       if (typeof (found) !== 'undefined') {
         const key = usersRecord.indexOf(found);
         usersRecord[key].First_Name = values.First_Name;
@@ -216,17 +217,18 @@ exports.recoverPassword = (req, res, next) => {
       message: passed,
     });
   }
-  next();
+  // next();
 };
 
 exports.updatePassword = (req, res, next) => {
   const validation = new Validate();
   const values = req.body;
+  const userId = req.id;
   const usersRecord = JSON.parse(localStorage.getItem('users')) || [];
   const passed = validation.check(userModule.userPasswordUpdate, values, usersRecord);
   if (passed === true) {
     if (usersRecord.length > 0) {
-      const found = usersRecord.find((userdata) => userdata.id === values.id);
+      const found = usersRecord.find((userdata) => userdata.id === parseInt(userId));
       if (typeof (found) !== 'undefined') {
         const password = values.Password;
         const salt = bcrypt.genSaltSync(10);
@@ -256,5 +258,5 @@ exports.updatePassword = (req, res, next) => {
       message: passed,
     });
   }
-  next();
+  // next();
 };
