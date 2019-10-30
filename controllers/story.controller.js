@@ -29,7 +29,7 @@ exports.addStory = (req, res, next) => {
       id: storyId,
       Subject: values.Subject,
       Content: values.Content,
-      Auther: values.Auther,
+      Auther: req.id,
       createdOn: today,
     });
     localStorage.setItem('stories', JSON.stringify(storyRecord));
@@ -40,7 +40,7 @@ exports.addStory = (req, res, next) => {
         message: 'entry successfully created',
         Subject: values.Subject,
         Content: values.Content,
-        Auther: values.Auther,
+        Auther: req.id,
         createdOn: today,
       },
     });
@@ -50,7 +50,7 @@ exports.addStory = (req, res, next) => {
       message: passed,
     });
   }
-  next();
+  // next();
 };
 
 
@@ -78,23 +78,32 @@ exports.getOneStory = (req, res, next) => {
       message: 'story not found',
     });
   }
-  next();
+  // next();
 };
 
 exports.getAllStories = (req, res, next) => {
   const storyRecord = JSON.parse(localStorage.getItem('stories')) || [];
+  const auther = req.id;
   if (storyRecord.length > 0) {
-    res.status(200).json({
-      status: 200,
-      data: { storyRecord },
-    });
+    const found = storyRecord.find((storydata) => storydata.Auther === parseInt(auther));
+    if (typeof (found) !== 'undefined') {
+      res.status(200).json({
+        status: 200,
+        data: { found },
+      });
+    } else {
+      res.status(401).json({
+        status: 401,
+        message: 'story not posted yet',
+      });
+    }
   } else {
     res.status(401).json({
       status: 401,
       message: 'story not found',
     });
   }
-  next();
+  // next();
 };
 
 exports.deleteStory = (req, res, next) => {
@@ -126,7 +135,7 @@ exports.deleteStory = (req, res, next) => {
       message: 'story not found',
     });
   }
-  next();
+  // next();
 };
 
 exports.updateStory = (req, res, next) => {
@@ -168,5 +177,5 @@ exports.updateStory = (req, res, next) => {
       message: passed,
     });
   }
-  next();
+  // next();
 };

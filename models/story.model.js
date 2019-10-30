@@ -10,10 +10,6 @@ exports.StoryCreation = {
     minLenght: 20,
     maxLenght: 1000,
   },
-  Auther: {
-    type: 'number',
-    required: true,
-  },
 };
 
 exports.StoryUpdate = {

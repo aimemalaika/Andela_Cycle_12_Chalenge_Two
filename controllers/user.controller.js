@@ -61,7 +61,7 @@ exports.getLoginAuth = (req, res, next) => {
       message: passed,
     });
   }
-  next();
+  // next();
 };
 
 exports.getRegisterAuth = (req, res, next) => {
@@ -111,7 +111,7 @@ exports.getRegisterAuth = (req, res, next) => {
       message: passed,
     });
   }
-  next();
+  // next();
 };
 
 exports.updateUser = (req, res, next) => {
@@ -216,7 +216,7 @@ exports.recoverPassword = (req, res, next) => {
       message: passed,
     });
   }
-  next();
+  // next();
 };
 
 exports.updatePassword = (req, res, next) => {
@@ -256,5 +256,5 @@ exports.updatePassword = (req, res, next) => {
       message: passed,
     });
   }
-  next();
+  // next();
 };
