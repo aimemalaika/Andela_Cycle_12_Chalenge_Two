@@ -45,8 +45,8 @@ exports.addStory = (req, res, next) => {
       },
     });
   } else {
-    res.status(401).json({
-      status: 401,
+    res.status(400).json({
+      status: 400,
       message: passed,
     });
   }
@@ -75,14 +75,14 @@ exports.getOneStory = (req, res, next) => {
         });
       }
     } else {
-      res.status(401).json({
-        status: 401,
+      res.status(400).json({
+        status: 400,
         message: 'storyId not found',
       });
     }
   } else {
-    res.status(401).json({
-      status: 401,
+    res.status(400).json({
+      status: 400,
       message: 'story not found',
     });
   }
@@ -93,21 +93,21 @@ exports.getAllStories = (req, res, next) => {
   const storyRecord = JSON.parse(localStorage.getItem('stories')) || [];
   const auther = req.id;
   if (storyRecord.length > 0) {
-    const found = storyRecord.find((storydata) => storydata.Auther === parseInt(auther));
-    if (typeof (found) !== 'undefined') {
+    const found = storyRecord.filter((storydata) => storydata.Auther === parseInt(auther));
+    if (typeof (found) !== 'undefined' && found.length > 0) {
       res.status(200).json({
         status: 200,
         data: { found },
       });
     } else {
-      res.status(401).json({
-        status: 401,
+      res.status(400).json({
+        status: 400,
         message: 'story not posted yet',
       });
     }
   } else {
-    res.status(401).json({
-      status: 401,
+    res.status(400).json({
+      status: 400,
       message: 'story not found',
     });
   }
@@ -137,14 +137,14 @@ exports.deleteStory = (req, res, next) => {
         });
       }
     } else {
-      res.status(401).json({
-        status: 401,
+      res.status(400).json({
+        status: 400,
         message: 'storyId not found',
       });
     }
   } else {
-    res.status(401).json({
-      status: 401,
+    res.status(400).json({
+      status: 400,
       message: 'story not found',
     });
   }
@@ -155,6 +155,7 @@ exports.updateStory = (req, res, next) => {
   const { storyId } = req.params;
   const validation = new Validate();
   const values = req.body;
+  req.body.id = storyId;
   const auther = req.id;
   const storyRecord = JSON.parse(localStorage.getItem('stories')) || [];
   const passed = validation.check(storyModule.StoryUpdate, values, storyRecord);
@@ -181,20 +182,20 @@ exports.updateStory = (req, res, next) => {
           });
         }
       } else {
-        res.status(401).json({
-          status: 401,
+        res.status(400).json({
+          status: 400,
           message: 'storyId not found',
         });
       }
     } else {
-      res.status(401).json({
-        status: 401,
+      res.status(400).json({
+        status: 400,
         message: 'story not found',
       });
     }
   } else {
-    res.status(401).json({
-      status: 401,
+    res.status(400).json({
+      status: 400,
       message: passed,
     });
   }
