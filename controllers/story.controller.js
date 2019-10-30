@@ -27,8 +27,8 @@ exports.addStory = (req, res, next) => {
     }
     storyRecord.push({
       id: storyId,
-      Subject: values.Subject,
-      Content: values.Content,
+      subject: values.subject,
+      content: values.content,
       Auther: req.id,
       createdOn: today,
     });
@@ -38,8 +38,8 @@ exports.addStory = (req, res, next) => {
       message: 'entry successfully created',
       data: {
         id: storyId,
-        Subject: values.Subject,
-        Content: values.Content,
+        subject: values.subject,
+        content: values.content,
         Auther: req.id,
         createdOn: today,
       },
@@ -165,14 +165,15 @@ exports.updateStory = (req, res, next) => {
       if (typeof (found) !== 'undefined') {
         if (found.Auther === parseInt(auther)) {
           const key = storyRecord.indexOf(found);
-          storyRecord[key].Subject = values.Subject;
-          storyRecord[key].Content = values.Content;
+          storyRecord[key].subject = values.subject;
+          storyRecord[key].content = values.content;
           localStorage.setItem('stories', JSON.stringify(storyRecord));
           res.status(200).json({
             status: 201,
             data: {
               message: 'entry successfully edited”',
-              storyRecord,
+              subject: storyRecord[key].subject,
+              content: storyRecord[key].content,
             },
           });
         } else {
