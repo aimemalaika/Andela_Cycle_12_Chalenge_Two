@@ -6,7 +6,7 @@ import isAuth from '../middleware/is-auth';
 
 const route = express.Router();
 
-
+route.patch('/resetpassword/:userId', isAuth, authController.recoverPassword);
 route.patch('/profile/:userId', isAuth, authController.updateUser);
 route.patch('/updatepassword/:userId', isAuth, authController.updatePassword);
 route.post('/signin', authController.getLoginAuth);

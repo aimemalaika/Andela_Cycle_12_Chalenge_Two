@@ -39,15 +39,15 @@ Make sure you have cloned this repo to your local machine, and after then run `c
 
 | Request Url | Methods  | Description  |
 | ------- | --- | --- |
-| /api/v1/auth/Register | POST | Create user account |
-| /api/v1/auth/Login | POST | User Login  |
-| /api/v1/Add-Story | POST | User can add diary |
-| /api/v1/Delete-Story/:storyId | DELETE | delete a specific diary |
-| /api/v1/Update-Story/:storyId | PATCH | User can update a specific story |
-| /api/v1/Reset-Password | PATCH | User can reset password |
-| /api/v1/Read-Story/:storyId | GET | user can get a single story |
-| /api/v1/Password-Update/:userId | PATCH | User can update password |
-| /api/v1/Profile/:userId  | PATCH | User can update profile |
+| /api/v1/auth/signup | POST | Create user account |
+| /api/v1/auth/signin | POST | User Login  |
+| /api/v1/entry | POST | User can add diary |
+| /api/v1/entries/<storyId> | DELETE | delete a specific diary |
+| /api/v1/entries/<storyId> | PATCH | User can update a specific story |
+| /api/v1/resetpassword | PATCH | User can reset password |
+| /api/v1/entries/<storyId> | GET | user can get a single story |
+| /api/v1/updatepassword/:userId | PATCH | User can update password |
+| /api/v1/profile/<userId>  | PATCH | User can update profile |
 
 
 ## Samples of request format
