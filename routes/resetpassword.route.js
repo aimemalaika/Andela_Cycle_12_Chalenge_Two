@@ -5,6 +5,6 @@ import isAuth from '../middleware/is-auth';
 
 const route = express.Router();
 
-route.patch('/Reset-Password', isAuth, authController.recoverPassword);
+route.patch('/Reset-Password', authController.recoverPassword);
 
 module.exports = route;

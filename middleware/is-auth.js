@@ -11,11 +11,11 @@ module.exports = (req, res, next) => {
       });
     }
     req.id = decoded.id;
+    next();
   } catch (error) {
     res.status(401).json({
       status: 401,
       message: 'request not authentified',
     });
   }
-  next();
 };
