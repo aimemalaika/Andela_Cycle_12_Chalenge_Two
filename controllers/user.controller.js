@@ -102,7 +102,7 @@ exports.getRegisterAuth = (req, res, next) => {
       First_Name: values.First_Name,
       Last_Name: values.Last_Name,
       Email: values.Email,
-      id: values.id,
+      id: idUser,
     }, '0123456789abcdfghjkmnpqrstvwxyzABCDEFGHIJKLMNOPQRE', { expiresIn: '4h' });
     res.status(200).json({
       status: 201,
@@ -125,12 +125,12 @@ exports.getRegisterAuth = (req, res, next) => {
 };
 
 exports.updateUser = (req, res, next) => {
-  const { userId } = req.params;
   const validation = new Validate();
   const values = req.body;
+  req.body.id = req.id;
   const idUser = req.id;
   const usersRecord = JSON.parse(localStorage.getItem('users')) || [];
-  const passed = validation.check(userModule.UserProfileUpdate, values, usersRecord);
+  const passed = validation.check(userModule.UserProfileUpdate, values, usersRecord, idUser);
   if (usersRecord.length > 0) {
     if (passed === true) {
       const found = usersRecord.find((userdata) => userdata.id === parseInt(idUser));
@@ -168,7 +168,7 @@ exports.updateUser = (req, res, next) => {
       message: 'user not found',
     });
   }
-  next();
+  // next();
 };
 
 exports.recoverPassword = (req, res, next) => {
@@ -236,6 +236,7 @@ exports.recoverPassword = (req, res, next) => {
 exports.updatePassword = (req, res, next) => {
   const validation = new Validate();
   const values = req.body;
+  req.body.id = req.id;
   const userId = req.id;
   const usersRecord = JSON.parse(localStorage.getItem('users')) || [];
   const passed = validation.check(userModule.userPasswordUpdate, values, usersRecord);
