@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 
 module.exports = (req, res, next) => {
-  const tokenvalue = req.get('Authorisation');
+  const tokenvalue = req.get('Authorization');
   try {
     const decoded = jwt.verify(tokenvalue, '0123456789abcdfghjkmnpqrstvwxyzABCDEFGHIJKLMNOPQRE');
     if (!decoded) {

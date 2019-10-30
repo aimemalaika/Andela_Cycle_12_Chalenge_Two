@@ -126,7 +126,7 @@ exports.deleteStory = (req, res, next) => {
         delete storyRecord[key];
         const data = storyRecord.filter((x) => x !== null);
         localStorage.setItem('stories', JSON.stringify(data));
-        res.status(201).json({
+        res.status(204).json({
           status: 204,
           message: 'entry successfully deleted',
         });

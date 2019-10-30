@@ -13,10 +13,6 @@ exports.StoryCreation = {
 };
 
 exports.StoryUpdate = {
-  id: {
-    type: 'number',
-    required: true,
-  },
   Subject: {
     required: true,
     minLenght: 10,
