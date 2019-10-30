@@ -155,23 +155,31 @@ exports.updateStory = (req, res, next) => {
   const { storyId } = req.params;
   const validation = new Validate();
   const values = req.body;
+  const auther = req.id;
   const storyRecord = JSON.parse(localStorage.getItem('stories')) || [];
   const passed = validation.check(storyModule.StoryUpdate, values, storyRecord);
   if (passed === true) {
     if (storyRecord.length > 0) {
       const found = storyRecord.find((storydata) => storydata.id === parseInt(storyId));
       if (typeof (found) !== 'undefined') {
-        const key = storyRecord.indexOf(found);
-        storyRecord[key].Subject = values.Subject;
-        storyRecord[key].Content = values.Content;
-        localStorage.setItem('stories', JSON.stringify(storyRecord));
-        res.status(200).json({
-          status: 201,
-          data: {
-            message: 'entry successfully edited”',
-            storyRecord,
-          },
-        });
+        if (found.Auther === parseInt(auther)) {
+          const key = storyRecord.indexOf(found);
+          storyRecord[key].Subject = values.Subject;
+          storyRecord[key].Content = values.Content;
+          localStorage.setItem('stories', JSON.stringify(storyRecord));
+          res.status(200).json({
+            status: 201,
+            data: {
+              message: 'entry successfully edited”',
+              storyRecord,
+            },
+          });
+        } else {
+          res.status(403).json({
+            status: 403,
+            message: 'trying to get post that are not yours',
+          });
+        }
       } else {
         res.status(401).json({
           status: 401,
