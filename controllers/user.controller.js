@@ -33,31 +33,35 @@ exports.getLoginAuth = (req, res, next) => {
           }, '0123456789abcdfghjkmnpqrstvwxyzABCDEFGHIJKLMNOPQRE', { expiresIn: '4h' });
           res.status(201).json({
             status: 201,
+            message: '',
             data: {
               token: tokenapi,
-              message: found,
+              id: found.id,
+              First_Name: found.First_Name,
+              Last_Name: found.Last_Name,
+              Email: found.Email,
             },
           });
         } else {
-          res.status(401).json({
-            status: 401,
+          res.status(400).json({
+            status: 400,
             message: 'user password incorrect',
           });
         }
       } else {
-        res.status(401).json({
-          status: 401,
+        res.status(400).json({
+          status: 400,
           message: 'user not found in array',
         });
       }
     } else {
-      res.status(401).json({
-        status: 401,
+      res.status(400).json({
+        status: 400,
         message: 'user not found',
       });
     }
   } else {
-    res.status(401).json({
+    res.status(400).json({
       message: passed,
     });
   }
@@ -94,20 +98,26 @@ exports.getRegisterAuth = (req, res, next) => {
       Password: hash,
     });
     localStorage.setItem('users', JSON.stringify(usersRecord));
+    const tokenapi = jwt.sign({
+      First_Name: values.First_Name,
+      Last_Name: values.Last_Name,
+      Email: values.Email,
+      id: values.id,
+    }, '0123456789abcdfghjkmnpqrstvwxyzABCDEFGHIJKLMNOPQRE', { expiresIn: '4h' });
     res.status(200).json({
       status: 201,
       message: 'User created successfully',
       data: {
+        token: tokenapi,
         id: idUser,
         First_Name: values.First_Name,
         Last_Name: values.Last_Name,
         Email: values.Email,
-        Password: hash,
       },
     });
   } else {
-    res.status(401).json({
-      status: 401,
+    res.status(400).json({
+      status: 400,
       message: passed,
     });
   }
@@ -134,24 +144,27 @@ exports.updateUser = (req, res, next) => {
           status: 201,
           message: 'User updated successfully',
           data: {
-            message: usersRecord[key],
+            id: usersRecord[key].id,
+            First_Name: usersRecord[key].First_Name,
+            Last_Name: usersRecord[key].Last_Name,
+            Email: usersRecord[key].Email,
           },
         });
       } else {
-        res.status(401).json({
-          status: 401,
+        res.status(400).json({
+          status: 400,
           message: 'userId not found',
         });
       }
     } else {
-      res.status(401).json({
-        status: 401,
+      res.status(400).json({
+        status: 400,
         message: passed,
       });
     }
   } else {
-    res.status(401).json({
-      status: 401,
+    res.status(400).json({
+      status: 400,
       message: 'user not found',
     });
   }
@@ -195,25 +208,25 @@ exports.recoverPassword = (req, res, next) => {
             message: 'email sent successful',
           });
         } catch (error) {
-          res.status(401).json({
-            status: 401,
+          res.status(400).json({
+            status: 400,
             message: 'fail to send email',
           });
         }
       } else {
-        res.status(401).json({
-          status: 401,
+        res.status(400).json({
+          status: 400,
           message: 'Email not found',
         });
       }
     } else {
-      res.status(401).json({
-        status: 401,
+      res.status(400).json({
+        status: 400,
         message: 'user not found',
       });
     }
   } else {
-    res.status(401).json({
+    res.status(400).json({
       message: passed,
     });
   }
@@ -241,20 +254,20 @@ exports.updatePassword = (req, res, next) => {
           message: 'Password Updated',
         });
       } else {
-        res.status(401).json({
-          status: 401,
+        res.status(400).json({
+          status: 400,
           message: 'userId not found',
         });
       }
     } else {
-      res.status(401).json({
-        status: 401,
+      res.status(400).json({
+        status: 400,
         message: 'user not found',
       });
     }
   } else {
-    res.status(401).json({
-      status: 401,
+    res.status(400).json({
+      status: 400,
       message: passed,
     });
   }
