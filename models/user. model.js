@@ -1,24 +1,24 @@
 exports.UserRegitration = {
-  First_Name: {
+  first_name: {
     type: 'text',
     required: true,
     minLenght: 3,
     maxLenght: 10,
   },
-  Last_Name: {
+  last_name: {
     type: 'text',
     required: true,
     minLenght: 3,
     maxLenght: 10,
   },
-  Email: {
+  email: {
     type: 'email',
     required: true,
     minLenght: 10,
     maxLenght: 255,
     unique: true,
   },
-  Password: {
+  password: {
     type: 'password',
     required: true,
     minLenght: 6,
@@ -28,11 +28,11 @@ exports.UserRegitration = {
 };
 
 exports.UserLogin = {
-  Email: {
+  email: {
     type: 'email',
     required: true,
   },
-  Password: {
+  password: {
     required: true,
     type: 'password',
   },
@@ -42,19 +42,19 @@ exports.UserProfileUpdate = {
     type: 'number',
     required: true,
   },
-  First_Name: {
+  first_name: {
     type: 'text',
     required: true,
     minLenght: 3,
     maxLenght: 10,
   },
-  Last_Name: {
+  last_name: {
     type: 'text',
     required: true,
     minLenght: 3,
     maxLenght: 10,
   },
-  Email: {
+  email: {
     type: 'email',
     required: true,
     minLenght: 10,
@@ -64,7 +64,7 @@ exports.UserProfileUpdate = {
 };
 
 exports.resetPassword = {
-  Email: {
+  email: {
     type: 'email',
     required: true,
     minLenght: 10,
@@ -77,7 +77,7 @@ exports.userPasswordUpdate = {
     type: 'number',
     required: true,
   },
-  Password: {
+  password: {
     type: 'password',
     required: true,
     minLenght: 6,
