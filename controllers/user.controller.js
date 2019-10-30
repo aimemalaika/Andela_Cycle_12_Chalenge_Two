@@ -30,7 +30,7 @@ exports.getLoginAuth = (req, res, next) => {
             Last_Name: found.Last_Name,
             Email: found.Email,
             id: found.id,
-          }, 'jsonwetokengeneratedbyme', { expiresIn: '4h' });
+          }, '0123456789abcdfghjkmnpqrstvwxyzABCDEFGHIJKLMNOPQRE', { expiresIn: '4h' });
           res.status(201).json({
             status: 201,
             data: {
