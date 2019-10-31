@@ -9,3 +9,7 @@ install:
 cache:
   directories:
     - node_modules
+script:
+  - npm test
+after_success:
+  - npm run coverage
