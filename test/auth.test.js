@@ -19,7 +19,7 @@ describe('Test users auth', () => {
       };
 
       chai.request(app)
-        .post('/signup')
+        .post('api/v1/auth/signup')
         .send(user)
         .end((err, res) => {
           console.log(err);
