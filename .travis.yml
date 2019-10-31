@@ -1,9 +1,13 @@
 language: node_js
 node_js:
  - "10"
+branches:
+  only:
+    - develop
 install:
   - npm install
-script:
-  - npm test
-after_success:
-  - npm run coverage
+cache:
+  directories:
+    - node_modules
+after_sucess:
+  - npm run coverall
