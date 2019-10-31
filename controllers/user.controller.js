@@ -33,7 +33,7 @@ exports.getLoginAuth = (req, res, next) => {
           }, '0123456789abcdfghjkmnpqrstvwxyzABCDEFGHIJKLMNOPQRE', { expiresIn: '4h' });
           res.status(201).json({
             status: 201,
-            message: '',
+            message: 'user logged in',
             data: {
               token: tokenapi,
               id: found.id,
