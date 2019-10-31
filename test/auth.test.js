@@ -22,7 +22,9 @@ describe('Test users auth', () => {
         .post('v1/auth/signup')
         .send(user)
         .end((err, res) => {
-          expect(res.status);
+          console.log(err);
+          console.log(res);
+          expect(res.status).to.equal(201);
         });
       done();
     });
