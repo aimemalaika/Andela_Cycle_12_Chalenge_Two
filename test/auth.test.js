@@ -1,11 +1,10 @@
-import chai from 'chai';
+import chai, { expect } from 'chai';
 import chaiHttp from 'chai-http';
 
 import app from '../app';
 
 chai.use(chaiHttp);
 // const should = chai.should();
-const { expect } = chai;
 
 describe('Test users auth', () => {
   describe('Test signup', () => {
@@ -22,7 +21,7 @@ describe('Test users auth', () => {
         .post('v1/auth/signup')
         .send(user)
         .end((err, res) => {
-          expect(res).status.to.have.status(201);
+          expect(res).to.have.status(201);
         //   expect(res).status.to.have.status(201);
         });
       done();
@@ -39,7 +38,7 @@ describe('Test users auth', () => {
         .post('v1/auth/signup')
         .send(user)
         .end((err, res) => {
-          expect(res).status.to.have.status(404);
+          expect(res).to.have.status(404);
         });
       done();
     });
@@ -56,7 +55,7 @@ describe('Test users auth', () => {
         .post('v1/auth/signup')
         .send(user)
         .end((err, res) => {
-          expect(res).status.to.have.status(404);
+          expect(res).to.have.status(404);
         });
       done();
     });
@@ -74,7 +73,7 @@ describe('Test users auth', () => {
         .post('v1/auth/signup')
         .send(user)
         .end((err, res) => {
-          expect(res).status.to.have.status(404);
+          expect(res).to.have.status(404);
         });
       done();
     });
