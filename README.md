@@ -1,5 +1,6 @@
 # Andela_Cycle_12_Chalenge_Two
 [![Build Status](https://travis-ci.org/aime19/Andela_Cycle_12_Chalenge_Two.svg?branch=develop)](https://travis-ci.org/aime19/Andela_Cycle_12_Chalenge_Two)
+[![Coverage Status](https://coveralls.io/repos/github/aime19/Andela_Cycle_12_Chalenge_Two/badge.svg?branch=develop)](https://coveralls.io/github/aime19/Andela_Cycle_12_Chalenge_Two?branch=ft_tdd_169340625)
 
 
 
