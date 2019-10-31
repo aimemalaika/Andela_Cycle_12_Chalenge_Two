@@ -1,11 +1,11 @@
 exports.StoryCreation = {
-  subject: {
+  Subject: {
     required: true,
     minLenght: 10,
     maxLenght: 100,
     unique: true,
   },
-  content: {
+  Content: {
     required: true,
     minLenght: 20,
     maxLenght: 1000,
@@ -13,13 +13,13 @@ exports.StoryCreation = {
 };
 
 exports.StoryUpdate = {
-  subject: {
+  Subject: {
     required: true,
     minLenght: 10,
     maxLenght: 100,
     uniqueupdate: true,
   },
-  content: {
+  Content: {
     required: true,
     minLenght: 20,
     maxLenght: 1000,
