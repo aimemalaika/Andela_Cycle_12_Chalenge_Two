@@ -42,13 +42,13 @@ class Validator {
               break;
             case 'unique':
               localStorage.map((values) => {
-                if (values.Email === String(inpt[fieldname])) validationError.push(`${fieldname.replace(/_/g, ' ')} is already used`);
+                if (values.email === String(inpt[fieldname])) validationError.push(`${fieldname.replace(/_/g, ' ')} is already used`);
                 if (values.Subject === String(inpt[fieldname])) validationError.push(`this ${fieldname.replace(/_/g, ' ')} is already created`);
               });
               break;
             case 'uniqueupdate':
               localStorage.map((values) => {
-                if (values.Email === String(inpt[fieldname]) && values.id !== parseInt(inpt.id)) validationError.push(`${fieldname.replace(/_/g, ' ')} is already used`);
+                if (values.email === String(inpt[fieldname]) && values.id !== parseInt(inpt.id)) validationError.push(`${fieldname.replace(/_/g, ' ')} is already used`);
                 if (values.Subject === String(inpt[fieldname]) && values.id !== parseInt(inpt.id)) validationError.push(`this ${fieldname.replace(/_/g, ' ')} is already created`);
               });
               break;

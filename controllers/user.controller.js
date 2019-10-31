@@ -22,13 +22,13 @@ exports.getLoginAuth = (req, res, next) => {
   const passed = validation.check(userModule.UserLogin, values, usersRecord);
   if (passed === true) {
     if (usersRecord.length > 0) {
-      const found = usersRecord.find((userdata) => userdata.Email === values.Email);
+      const found = usersRecord.find((userdata) => userdata.email === values.email);
       if (typeof (found) !== 'undefined') {
-        if (bcrypt.compareSync(values.Password, found.Password)) {
+        if (bcrypt.compareSync(values.password, found.password)) {
           const tokenapi = jwt.sign({
-            First_Name: found.First_Name,
-            Last_Name: found.Last_Name,
-            Email: found.Email,
+            first_name: found.first_name,
+            last_name: found.last_name,
+            email: found.email,
             id: found.id,
           }, '0123456789abcdfghjkmnpqrstvwxyzABCDEFGHIJKLMNOPQRE', { expiresIn: '4h' });
           res.status(201).json({
@@ -37,9 +37,9 @@ exports.getLoginAuth = (req, res, next) => {
             data: {
               token: tokenapi,
               id: found.id,
-              First_Name: found.First_Name,
-              Last_Name: found.Last_Name,
-              Email: found.Email,
+              first_name: found.first_name,
+              last_name: found.last_name,
+              email: found.email,
             },
           });
         } else {
@@ -65,7 +65,6 @@ exports.getLoginAuth = (req, res, next) => {
       message: passed,
     });
   }
-  // next();
 };
 
 exports.getRegisterAuth = (req, res, next) => {
@@ -89,19 +88,19 @@ exports.getRegisterAuth = (req, res, next) => {
       idUser = maxId(usersRecord, 'id');
     }
     const salt = bcrypt.genSaltSync(10);
-    const hash = bcrypt.hashSync(values.Password, salt);
+    const hash = bcrypt.hashSync(values.password, salt);
     usersRecord.push({
       id: idUser,
-      First_Name: values.First_Name,
-      Last_Name: values.Last_Name,
-      Email: values.Email,
-      Password: hash,
+      first_name: values.first_name,
+      last_name: values.last_name,
+      email: values.email,
+      password: hash,
     });
     localStorage.setItem('users', JSON.stringify(usersRecord));
     const tokenapi = jwt.sign({
-      First_Name: values.First_Name,
-      Last_Name: values.Last_Name,
-      Email: values.Email,
+      first_name: values.first_name,
+      last_name: values.last_name,
+      email: values.email,
       id: idUser,
     }, '0123456789abcdfghjkmnpqrstvwxyzABCDEFGHIJKLMNOPQRE', { expiresIn: '4h' });
     res.status(200).json({
@@ -110,9 +109,9 @@ exports.getRegisterAuth = (req, res, next) => {
       data: {
         token: tokenapi,
         id: idUser,
-        First_Name: values.First_Name,
-        Last_Name: values.Last_Name,
-        Email: values.Email,
+        first_name: values.first_name,
+        last_name: values.last_name,
+        email: values.email,
       },
     });
   } else {
@@ -121,7 +120,6 @@ exports.getRegisterAuth = (req, res, next) => {
       message: passed,
     });
   }
-  // next();
 };
 
 exports.updateUser = (req, res, next) => {
@@ -136,8 +134,8 @@ exports.updateUser = (req, res, next) => {
       const found = usersRecord.find((userdata) => userdata.id === parseInt(idUser));
       if (typeof (found) !== 'undefined') {
         const key = usersRecord.indexOf(found);
-        usersRecord[key].First_Name = values.First_Name;
-        usersRecord[key].Last_Name = values.Last_Name;
+        usersRecord[key].first_name = values.first_name;
+        usersRecord[key].last_name = values.last_name;
         usersRecord[key].Email = values.Email;
         localStorage.setItem('users', JSON.stringify(usersRecord));
         res.status(201).json({
@@ -145,9 +143,9 @@ exports.updateUser = (req, res, next) => {
           message: 'User updated successfully',
           data: {
             id: usersRecord[key].id,
-            First_Name: usersRecord[key].First_Name,
-            Last_Name: usersRecord[key].Last_Name,
-            Email: usersRecord[key].Email,
+            first_name: usersRecord[key].first_name,
+            last_name: usersRecord[key].last_name,
+            email: usersRecord[key].email,
           },
         });
       } else {
@@ -168,7 +166,6 @@ exports.updateUser = (req, res, next) => {
       message: 'user not found',
     });
   }
-  // next();
 };
 
 exports.recoverPassword = (req, res, next) => {
@@ -187,7 +184,7 @@ exports.recoverPassword = (req, res, next) => {
   };
   if (passed === true) {
     if (usersRecord.length > 0) {
-      const found = usersRecord.find((userdata) => userdata.Email === values.Email);
+      const found = usersRecord.find((userdata) => userdata.email === values.email);
       if (typeof (found) !== 'undefined') {
         const password = makepassword(20);
         const salt = bcrypt.genSaltSync(10);
@@ -199,7 +196,7 @@ exports.recoverPassword = (req, res, next) => {
           html: `<div style="background-color: lightblue;color: black;padding: 40px;color: white;"><h1>MyDiary</h1><p> bellow is our new password use it to login and change your password in your account profile</p><p>Passowrd: <input style="border: none;background: #fff;padding: 5px 20px;font-size: 14px;width: 200px;font-weight: 500;color: burlywood;" type="text" value="${password}"/></p></div>`,
         };
         const key = usersRecord.indexOf(found);
-        usersRecord[key].Password = hash;
+        usersRecord[key].password = hash;
         localStorage.setItem('users', JSON.stringify(usersRecord));
         try {
           transporter.sendMail(mailOptions);
@@ -230,7 +227,6 @@ exports.recoverPassword = (req, res, next) => {
       message: passed,
     });
   }
-  // next();
 };
 
 exports.updatePassword = (req, res, next) => {
@@ -244,11 +240,11 @@ exports.updatePassword = (req, res, next) => {
     if (usersRecord.length > 0) {
       const found = usersRecord.find((userdata) => userdata.id === parseInt(userId));
       if (typeof (found) !== 'undefined') {
-        const password = values.Password;
+        const passwords = values.password;
         const salt = bcrypt.genSaltSync(10);
-        const hash = bcrypt.hashSync(String(password), salt);
+        const hash = bcrypt.hashSync(String(passwords), salt);
         const key = usersRecord.indexOf(found);
-        usersRecord[key].Password = hash;
+        usersRecord[key].password = hash;
         localStorage.setItem('users', JSON.stringify(usersRecord));
         res.status(201).json({
           status: 201,
@@ -272,5 +268,4 @@ exports.updatePassword = (req, res, next) => {
       message: passed,
     });
   }
-  // next();
 };
