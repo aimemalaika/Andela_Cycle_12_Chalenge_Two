@@ -32,9 +32,9 @@ class Validator {
                 case 'password':
                   if (!/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])/.test(String(inpt[fieldname]))) validationError.push(`${fieldname.replace(/_/g, ' ')} must contain at The string must contain at least 1 lowercase alphabetical character, The string must contain at least 1 uppercase alphabetical character, The string must contain at least 1 numeric character`);
                   break;
-                case 'number':
-                  if (!/^[0-9]*$/.test(String(inpt[fieldname]))) validationError.push(`${fieldname.replace(/_/g, ' ')} must contain only number`);
-                  break;
+                // case 'number':
+                //   if (!/^[0-9]*$/.test(String(inpt[fieldname]))) validationError.push(`${fieldname.replace(/_/g, ' ')} must contain only number`);
+                //   break;
               }
               break;
             case 'matches':
@@ -43,13 +43,13 @@ class Validator {
             case 'unique':
               localStorage.map((values) => {
                 if (values.email === String(inpt[fieldname])) validationError.push(`${fieldname.replace(/_/g, ' ')} is already used`);
-                if (values.Subject === String(inpt[fieldname])) validationError.push(`this ${fieldname.replace(/_/g, ' ')} is already created`);
+                if (values.subject === String(inpt[fieldname])) validationError.push(`this ${fieldname.replace(/_/g, ' ')} is already created`);
               });
               break;
             case 'uniqueupdate':
               localStorage.map((values) => {
                 if (values.email === String(inpt[fieldname]) && values.id !== parseInt(inpt.id)) validationError.push(`${fieldname.replace(/_/g, ' ')} is already used`);
-                if (values.Subject === String(inpt[fieldname]) && values.id !== parseInt(inpt.id)) validationError.push(`this ${fieldname.replace(/_/g, ' ')} is already created`);
+                if (values.subject === String(inpt[fieldname]) && values.id !== parseInt(inpt.id)) validationError.push(`this ${fieldname.replace(/_/g, ' ')} is already created`);
               });
               break;
           }

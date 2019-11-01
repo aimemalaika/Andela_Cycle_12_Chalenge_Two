@@ -30,10 +30,10 @@ exports.getLoginAuth = (req, res, next) => {
             last_name: found.last_name,
             email: found.email,
             id: found.id,
-          }, process.env.TOKEN_KEY, { expiresIn: '4h' });
+          }, '0123456789abcdfghjkmnpqrstvwxyzABCDEFGHIJKLMNOPQRE', { expiresIn: '24h' });
           res.status(201).json({
             status: 201,
-            message: 'user logged in',
+            message: 'User logged in successfully!',
             data: {
               token: tokenapi,
               id: found.id,
@@ -102,8 +102,8 @@ exports.getRegisterAuth = (req, res, next) => {
       last_name: values.last_name,
       email: values.email,
       id: idUser,
-    }, '0123456789abcdfghjkmnpqrstvwxyzABCDEFGHIJKLMNOPQRE', { expiresIn: '4h' });
-    res.status(200).json({
+    }, '0123456789abcdfghjkmnpqrstvwxyzABCDEFGHIJKLMNOPQRE', { expiresIn: '24h' });
+    res.status(201).json({
       status: 201,
       message: 'User created successfully',
       data: {
