@@ -7,7 +7,7 @@
     "node": "10.16.3"
   },
   "scripts": {
-    "start": "node --exec babel-node app.js",
+    "start": "node start.js",
     "dev": "nodemon --exec babel-node app.js",
     "test": "nyc --reporter=html --reporter=text mocha --timeout 10000 --require @babel/register test/*.test.js --exit",
     "coverage": "nyc report --reporter=text-lcov | coveralls"

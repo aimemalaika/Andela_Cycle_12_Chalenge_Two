@@ -156,7 +156,7 @@ describe('Test users auth', () => {
       chai.request(app)
         .patch('/api/v1/auth/profile')
         .send(user)
-        .set('Authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdF9uYW1lIjoiamhoZ2dqaCIsImxhc3RfbmFtZSI6ImNlc2FyIiwiZW1haWwiOiJhaW1lbWFsYWlrYTE5OTVAZ21haWwuY29tIiwiaWQiOjEsImlhdCI6MTU3MjU3OTMyOSwiZXhwIjoxNTcyNTkzNzI5fQ.Br_DkbnUHRPY6oOsmHHUp2T0NXyG8PLrZbTfqGraS_I')
+        .set('Authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdF9uYW1lIjoiamhoZ2dqaCIsImxhc3RfbmFtZSI6ImNlc2FyIiwiZW1haWwiOiJhaW1lbWFsYWlrYTEwcGo5azk1QGdtYWlsLmNvbSIsImlkIjoxLCJpYXQiOjE1NzI1OTc0NDIsImV4cCI6MTU3MjY4Mzg0Mn0.UbJx3hUKynd1xWH49rznCUq8XE4qU8VfmGSRItDxY44')
         .end((error, res) => {
           res.body.status.should.be.equal(400);
           done();
@@ -284,7 +284,7 @@ describe('Test users auth', () => {
       };
       chai.request(app)
         .patch('/api/v1/auth/updatepassword')
-        .set('Authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdF9uYW1lIjoiamhoZ2dqaCIsImxhc3RfbmFtZSI6ImNlc2FyIiwiZW1haWwiOiJhaW1lbWFsYWlrYTE5OTVAZ21haWwuY29tIiwiaWQiOjEsImlhdCI6MTU3MjU3OTMyOSwiZXhwIjoxNTcyNTkzNzI5fQ.Br_DkbnUHRPY6oOsmHHUp2T0NXyG8PLrZbTfqGraS_I')
+        .set('Authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdF9uYW1lIjoiamhoZ2dqaCIsImxhc3RfbmFtZSI6ImNlc2FyIiwiZW1haWwiOiJhaW1lbWFsYWlrYTEwcGo5azk1QGdtYWlsLmNvbSIsImlkIjoxLCJpYXQiOjE1NzI1OTc0NDIsImV4cCI6MTU3MjY4Mzg0Mn0.UbJx3hUKynd1xWH49rznCUq8XE4qU8VfmGSRItDxY44')
         .send(user)
         .end((error, res) => {
           res.body.status.should.be.equal(201);
