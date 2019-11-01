@@ -170,8 +170,8 @@ exports.updateStory = (req, res, next) => {
           localStorage.setItem('stories', JSON.stringify(storyRecord));
           res.status(200).json({
             status: 201,
+            message: 'entry successfully edited',
             data: {
-              message: 'entry successfully edited”',
               subject: storyRecord[key].subject,
               content: storyRecord[key].content,
             },
