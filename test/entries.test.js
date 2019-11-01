@@ -16,7 +16,7 @@ describe('Test users auth', () => {
       };
       chai.request(app)
         .post('/api/v1/entry')
-        .set('Authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdF9uYW1lIjoiamhoZ2dqaCIsImxhc3RfbmFtZSI6ImNlc2FyIiwiZW1haWwiOiJhaW1lbWFsYWlrYTE5OTVAZ21haWwuY29tIiwiaWQiOjEsImlhdCI6MTU3MjU3OTMyOSwiZXhwIjoxNTcyNTkzNzI5fQ.Br_DkbnUHRPY6oOsmHHUp2T0NXyG8PLrZbTfqGraS_I')
+        .set('Authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdF9uYW1lIjoiamhoZ2dqaCIsImxhc3RfbmFtZSI6ImNlc2FyIiwiZW1haWwiOiJhaW1lbWFsYWlrYTEwcGo5azk1QGdtYWlsLmNvbSIsImlkIjoxLCJpYXQiOjE1NzI1OTc0NDIsImV4cCI6MTU3MjY4Mzg0Mn0.UbJx3hUKynd1xWH49rznCUq8XE4qU8VfmGSRItDxY44')
         .send(entry)
         .end((err, res) => {
           res.should.have.status(201);
@@ -31,7 +31,7 @@ describe('Test users auth', () => {
       };
       chai.request(app)
         .post('/api/v1/entry')
-        .set('Authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdF9uYW1lIjoiamhoZ2dqaCIsImxhc3RfbmFtZSI6ImNlc2FyIiwiZW1haWwiOiJhaW1lbWFsYWlrYTE5OTVAZ21haWwuY29tIiwiaWQiOjEsImlhdCI6MTU3MjU3OTMyOSwiZXhwIjoxNTcyNTkzNzI5fQ.Br_DkbnUHRPY6oOsmHHUp2T0NXyG8PLrZbTfqGraS_I')
+        .set('Authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdF9uYW1lIjoiamhoZ2dqaCIsImxhc3RfbmFtZSI6ImNlc2FyIiwiZW1haWwiOiJhaW1lbWFsYWlrYTEwcGo5azk1QGdtYWlsLmNvbSIsImlkIjoxLCJpYXQiOjE1NzI1OTc0NDIsImV4cCI6MTU3MjY4Mzg0Mn0.UbJx3hUKynd1xWH49rznCUq8XE4qU8VfmGSRItDxY44')
         .send(entry)
         .end((err, res) => {
           res.should.have.status(201);
@@ -46,7 +46,7 @@ describe('Test users auth', () => {
       };
       chai.request(app)
         .post('/api/v1/entry')
-        .set('Authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdF9uYW1lIjoiamhoZ2dqaCIsImxhc3RfbmFtZSI6ImNlc2FyIiwiZW1haWwiOiJhaW1lbWFsYWlrYTE5OTVAZ21haWwuY29tIiwiaWQiOjEsImlhdCI6MTU3MjU3OTMyOSwiZXhwIjoxNTcyNTkzNzI5fQ.Br_DkbnUHRPY6oOsmHHUp2T0NXyG8PLrZbTfqGraS_I')
+        .set('Authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdF9uYW1lIjoiamhoZ2dqaCIsImxhc3RfbmFtZSI6ImNlc2FyIiwiZW1haWwiOiJhaW1lbWFsYWlrYTEwcGo5azk1QGdtYWlsLmNvbSIsImlkIjoxLCJpYXQiOjE1NzI1OTc0NDIsImV4cCI6MTU3MjY4Mzg0Mn0.UbJx3hUKynd1xWH49rznCUq8XE4qU8VfmGSRItDxY44')
         .send(entry)
         .end((err, res) => {
           res.should.have.status(400);
@@ -71,7 +71,7 @@ describe('Test users auth', () => {
     it('user should allow a user to see his posts with a token header', (done) => {
       chai.request(app)
         .get('/api/v1/entries')
-        .set('Authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdF9uYW1lIjoiamhoZ2dqaCIsImxhc3RfbmFtZSI6ImNlc2FyIiwiZW1haWwiOiJhaW1lbWFsYWlrYTE5OTVAZ21haWwuY29tIiwiaWQiOjEsImlhdCI6MTU3MjU3OTMyOSwiZXhwIjoxNTcyNTkzNzI5fQ.Br_DkbnUHRPY6oOsmHHUp2T0NXyG8PLrZbTfqGraS_I')
+        .set('Authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdF9uYW1lIjoiamhoZ2dqaCIsImxhc3RfbmFtZSI6ImNlc2FyIiwiZW1haWwiOiJhaW1lbWFsYWlrYTEwcGo5azk1QGdtYWlsLmNvbSIsImlkIjoxLCJpYXQiOjE1NzI1OTc0NDIsImV4cCI6MTU3MjY4Mzg0Mn0.UbJx3hUKynd1xWH49rznCUq8XE4qU8VfmGSRItDxY44')
         .end((err, res) => {
           res.should.have.status(200);
         });
@@ -80,7 +80,7 @@ describe('Test users auth', () => {
     it('user should allow a user to read one story', (done) => {
       chai.request(app)
         .get('/api/v1/entries/1')
-        .set('Authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdF9uYW1lIjoiamhoZ2dqaCIsImxhc3RfbmFtZSI6ImNlc2FyIiwiZW1haWwiOiJhaW1lbWFsYWlrYTE5OTVAZ21haWwuY29tIiwiaWQiOjEsImlhdCI6MTU3MjU3OTMyOSwiZXhwIjoxNTcyNTkzNzI5fQ.Br_DkbnUHRPY6oOsmHHUp2T0NXyG8PLrZbTfqGraS_I')
+        .set('Authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdF9uYW1lIjoiamhoZ2dqaCIsImxhc3RfbmFtZSI6ImNlc2FyIiwiZW1haWwiOiJhaW1lbWFsYWlrYTEwcGo5azk1QGdtYWlsLmNvbSIsImlkIjoxLCJpYXQiOjE1NzI1OTc0NDIsImV4cCI6MTU3MjY4Mzg0Mn0.UbJx3hUKynd1xWH49rznCUq8XE4qU8VfmGSRItDxY44')
         .end((err, res) => {
           res.should.have.status(200);
         });
@@ -89,7 +89,7 @@ describe('Test users auth', () => {
     it('user should allow a user to read one story if exist only', (done) => {
       chai.request(app)
         .get('/api/v1/entries/4')
-        .set('Authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdF9uYW1lIjoiamhoZ2dqaCIsImxhc3RfbmFtZSI6ImNlc2FyIiwiZW1haWwiOiJhaW1lbWFsYWlrYTE5OTVAZ21haWwuY29tIiwiaWQiOjEsImlhdCI6MTU3MjU3OTMyOSwiZXhwIjoxNTcyNTkzNzI5fQ.Br_DkbnUHRPY6oOsmHHUp2T0NXyG8PLrZbTfqGraS_I')
+        .set('Authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdF9uYW1lIjoiamhoZ2dqaCIsImxhc3RfbmFtZSI6ImNlc2FyIiwiZW1haWwiOiJhaW1lbWFsYWlrYTEwcGo5azk1QGdtYWlsLmNvbSIsImlkIjoxLCJpYXQiOjE1NzI1OTc0NDIsImV4cCI6MTU3MjY4Mzg0Mn0.UbJx3hUKynd1xWH49rznCUq8XE4qU8VfmGSRItDxY44')
         .end((err, res) => {
           res.should.have.status(400);
           expect(res.body.message).to.equal('storyId not found');
@@ -103,7 +103,7 @@ describe('Test users auth', () => {
       };
       chai.request(app)
         .patch('/api/v1/entries/1')
-        .set('Authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdF9uYW1lIjoiamhoZ2dqaCIsImxhc3RfbmFtZSI6ImNlc2FyIiwiZW1haWwiOiJhaW1lbWFsYWlrYTE5OTVAZ21haWwuY29tIiwiaWQiOjEsImlhdCI6MTU3MjU3OTMyOSwiZXhwIjoxNTcyNTkzNzI5fQ.Br_DkbnUHRPY6oOsmHHUp2T0NXyG8PLrZbTfqGraS_I')
+        .set('Authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdF9uYW1lIjoiamhoZ2dqaCIsImxhc3RfbmFtZSI6ImNlc2FyIiwiZW1haWwiOiJhaW1lbWFsYWlrYTEwcGo5azk1QGdtYWlsLmNvbSIsImlkIjoxLCJpYXQiOjE1NzI1OTc0NDIsImV4cCI6MTU3MjY4Mzg0Mn0.UbJx3hUKynd1xWH49rznCUq8XE4qU8VfmGSRItDxY44')
         .send(entry)
         .end((err, res) => {
           res.should.have.status(200);
@@ -118,7 +118,7 @@ describe('Test users auth', () => {
       };
       chai.request(app)
         .patch('/api/v1/entries/1')
-        .set('Authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdF9uYW1lIjoiamhoZ2dqaCIsImxhc3RfbmFtZSI6ImNlc2FyIiwiZW1haWwiOiJhaW1lbWFsYWlrYTE5OTVAZ21haWwuY29tIiwiaWQiOjEsImlhdCI6MTU3MjU3OTMyOSwiZXhwIjoxNTcyNTkzNzI5fQ.Br_DkbnUHRPY6oOsmHHUp2T0NXyG8PLrZbTfqGraS_I')
+        .set('Authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdF9uYW1lIjoiamhoZ2dqaCIsImxhc3RfbmFtZSI6ImNlc2FyIiwiZW1haWwiOiJhaW1lbWFsYWlrYTEwcGo5azk1QGdtYWlsLmNvbSIsImlkIjoxLCJpYXQiOjE1NzI1OTc0NDIsImV4cCI6MTU3MjY4Mzg0Mn0.UbJx3hUKynd1xWH49rznCUq8XE4qU8VfmGSRItDxY44')
         .send(entry)
         .end((err, res) => {
           res.should.have.status(400);
@@ -132,7 +132,7 @@ describe('Test users auth', () => {
       };
       chai.request(app)
         .patch('/api/v1/entries/1')
-        .set('Authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdF9uYW1lIjoiamhoZ2dqaCIsImxhc3RfbmFtZSI6ImNlc2FyIiwiZW1haWwiOiJhaW1lbWFsYWlrYTE5OTVAZ21haWwuY29tIiwiaWQiOjEsImlhdCI6MTU3MjU3OTMyOSwiZXhwIjoxNTcyNTkzNzI5fQ.Br_DkbnUHRPY6oOsmHHUp2T0NXyG8PLrZbTfqGraS_I')
+        .set('Authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdF9uYW1lIjoiamhoZ2dqaCIsImxhc3RfbmFtZSI6ImNlc2FyIiwiZW1haWwiOiJhaW1lbWFsYWlrYTEwcGo5azk1QGdtYWlsLmNvbSIsImlkIjoxLCJpYXQiOjE1NzI1OTc0NDIsImV4cCI6MTU3MjY4Mzg0Mn0.UbJx3hUKynd1xWH49rznCUq8XE4qU8VfmGSRItDxY44')
         .send(entry)
         .end((err, res) => {
           res.should.have.status(400);
@@ -156,7 +156,7 @@ describe('Test users auth', () => {
     it('user should not delete unexistent story', (done) => {
       chai.request(app)
         .delete('/api/v1/entries/5')
-        .set('Authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdF9uYW1lIjoiamhoZ2dqaCIsImxhc3RfbmFtZSI6ImNlc2FyIiwiZW1haWwiOiJhaW1lbWFsYWlrYTE5OTVAZ21haWwuY29tIiwiaWQiOjEsImlhdCI6MTU3MjU3OTMyOSwiZXhwIjoxNTcyNTkzNzI5fQ.Br_DkbnUHRPY6oOsmHHUp2T0NXyG8PLrZbTfqGraS_I')
+        .set('Authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdF9uYW1lIjoiamhoZ2dqaCIsImxhc3RfbmFtZSI6ImNlc2FyIiwiZW1haWwiOiJhaW1lbWFsYWlrYTEwcGo5azk1QGdtYWlsLmNvbSIsImlkIjoxLCJpYXQiOjE1NzI1OTc0NDIsImV4cCI6MTU3MjY4Mzg0Mn0.UbJx3hUKynd1xWH49rznCUq8XE4qU8VfmGSRItDxY44')
         .end((err, res) => {
           res.should.have.status(400);
           expect(res.body.message).to.equal('storyId not found');
@@ -166,7 +166,7 @@ describe('Test users auth', () => {
     it('user should allow a user to delete one story', (done) => {
       chai.request(app)
         .delete('/api/v1/entries/1')
-        .set('Authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdF9uYW1lIjoiamhoZ2dqaCIsImxhc3RfbmFtZSI6ImNlc2FyIiwiZW1haWwiOiJhaW1lbWFsYWlrYTE5OTVAZ21haWwuY29tIiwiaWQiOjEsImlhdCI6MTU3MjU3OTMyOSwiZXhwIjoxNTcyNTkzNzI5fQ.Br_DkbnUHRPY6oOsmHHUp2T0NXyG8PLrZbTfqGraS_I')
+        .set('Authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdF9uYW1lIjoiamhoZ2dqaCIsImxhc3RfbmFtZSI6ImNlc2FyIiwiZW1haWwiOiJhaW1lbWFsYWlrYTEwcGo5azk1QGdtYWlsLmNvbSIsImlkIjoxLCJpYXQiOjE1NzI1OTc0NDIsImV4cCI6MTU3MjY4Mzg0Mn0.UbJx3hUKynd1xWH49rznCUq8XE4qU8VfmGSRItDxY44')
         .end((err, res) => {
           res.should.have.status(204);
         });
@@ -175,7 +175,7 @@ describe('Test users auth', () => {
     it('user should allow a user to delete one story', (done) => {
       chai.request(app)
         .delete('/api/v1/entries/2')
-        .set('Authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdF9uYW1lIjoiamhoZ2dqaCIsImxhc3RfbmFtZSI6ImNlc2FyIiwiZW1haWwiOiJhaW1lbWFsYWlrYTE5OTVAZ21haWwuY29tIiwiaWQiOjEsImlhdCI6MTU3MjU3OTMyOSwiZXhwIjoxNTcyNTkzNzI5fQ.Br_DkbnUHRPY6oOsmHHUp2T0NXyG8PLrZbTfqGraS_I')
+        .set('Authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdF9uYW1lIjoiamhoZ2dqaCIsImxhc3RfbmFtZSI6ImNlc2FyIiwiZW1haWwiOiJhaW1lbWFsYWlrYTEwcGo5azk1QGdtYWlsLmNvbSIsImlkIjoxLCJpYXQiOjE1NzI1OTc0NDIsImV4cCI6MTU3MjY4Mzg0Mn0.UbJx3hUKynd1xWH49rznCUq8XE4qU8VfmGSRItDxY44')
         .end((err, res) => {
           res.should.have.status(204);
         });
@@ -188,7 +188,7 @@ describe('Test users auth', () => {
       };
       chai.request(app)
         .patch('/api/v1/entries/1')
-        .set('Authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdF9uYW1lIjoiamhoZ2dqaCIsImxhc3RfbmFtZSI6ImNlc2FyIiwiZW1haWwiOiJhaW1lbWFsYWlrYTE5OTVAZ21haWwuY29tIiwiaWQiOjEsImlhdCI6MTU3MjU3OTMyOSwiZXhwIjoxNTcyNTkzNzI5fQ.Br_DkbnUHRPY6oOsmHHUp2T0NXyG8PLrZbTfqGraS_I')
+        .set('Authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdF9uYW1lIjoiamhoZ2dqaCIsImxhc3RfbmFtZSI6ImNlc2FyIiwiZW1haWwiOiJhaW1lbWFsYWlrYTEwcGo5azk1QGdtYWlsLmNvbSIsImlkIjoxLCJpYXQiOjE1NzI1OTc0NDIsImV4cCI6MTU3MjY4Mzg0Mn0.UbJx3hUKynd1xWH49rznCUq8XE4qU8VfmGSRItDxY44')
         .send(entry)
         .end((err, res) => {
           res.should.have.status(400);
