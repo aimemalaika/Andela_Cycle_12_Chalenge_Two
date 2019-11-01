@@ -4,6 +4,7 @@ node_js:
 branches:
   only:
     - develop
+    -  ft_tdd_169340625 
 install:
   - npm install
 cache:

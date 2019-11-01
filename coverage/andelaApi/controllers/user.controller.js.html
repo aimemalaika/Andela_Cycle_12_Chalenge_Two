@@ -20,14 +20,14 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">84.3% </span>
+        <span class="strong">85.12% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>102/121</span>
+        <span class='fraction'>103/121</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">61.36% </span>
+        <span class="strong">63.64% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>27/44</span>
+        <span class='fraction'>28/44</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">90.91% </span>
@@ -35,9 +35,9 @@
         <span class='fraction'>10/11</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">84.21% </span>
+        <span class="strong">85.09% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>96/114</span>
+        <span class='fraction'>97/114</span>
       </div>
     </div>
     <p class="quiet">
@@ -488,11 +488,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -501,21 +501,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -524,13 +513,24 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -775,7 +775,7 @@ exports.recoverPassword = (req, res, next) =&gt; {
   <span class="missing-if-branch" title="else path not taken" >E</span>if (passed === true) {
     <span class="missing-if-branch" title="else path not taken" >E</span>if (usersRecord.length &gt; 0) {
       const found = usersRecord.find((userdata) =&gt; userdata.email === values.email);
-      <span class="missing-if-branch" title="else path not taken" >E</span>if (typeof (found) !== 'undefined') {
+      if (typeof (found) !== 'undefined') {
         const password = makepassword(20);
         const salt = bcrypt.genSaltSync(10);
         const hash = bcrypt.hashSync(String(password), salt);
@@ -801,7 +801,7 @@ exports.recoverPassword = (req, res, next) =&gt; {
           });
         }
       } else {
-<span class="cstat-no" title="statement not covered" >        res.</span>status(400).json({
+        res.status(400).json({
           status: 400,
           message: 'Email not found',
         });
@@ -865,7 +865,7 @@ exports.updatePassword = (req, res, next) =&gt; {
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Fri Nov 01 2019 07:42:48 GMT+0200 (Central Africa Time)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Fri Nov 01 2019 08:00:57 GMT+0200 (Central Africa Time)
 </div>
 </div>
 <script src="../../prettify.js"></script>

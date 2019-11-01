@@ -251,6 +251,18 @@ describe('Test users auth', () => {
           done();
         });
     });
+    it('Should allow a user to reset password validated only', (done) => {
+      const user = {
+        email: 'aime@gmail.com',
+      };
+      chai.request(app)
+        .patch('/api/v1/auth/resetpassword')
+        .send(user)
+        .end((error, res) => {
+          res.body.status.should.be.equal(400);
+          done();
+        });
+    });
     it('Should not allow user to update password without login token', (done) => {
       const user = {
         password: 'Aime1995',
