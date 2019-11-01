@@ -149,7 +149,7 @@ describe('Test users auth', () => {
         .set('Authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdF9uYW1lIjoiamhoZ2dqaCIsImxhc3RfbmFtZSI6ImNlc2FyIiwiZW1haWwiOiJhaW1lbWFsYWlrYTEwOWs5NUBnbWFpbC5jb20iLCJpZCI6MiwiaWF0IjoxNTcyNTgzNjU1LCJleHAiOjE1NzI1OTgwNTV9.CBjATZMCCLLNAWMbjW11-KPYoA4sLnkGr3MJSbGQUTc')
         .send(entry)
         .end((err, res) => {
-          res.should.have.status(403);
+          res.should.have.status(401);
         });
       done();
     });
