@@ -5,7 +5,7 @@ import storyModule from '../models/storyModel';
 import Validate from '../helpers/validationHelper';
 
 const today = `${new Date().getDay()} / ${new Date().getMonth()} / ${new Date().getFullYear()}`;
-exports.addStory = (req, res, next) => {
+exports.addStory = (req, res) => {
   const validation = new Validate();
   const values = req.body;
   let storyId;
@@ -50,11 +50,10 @@ exports.addStory = (req, res, next) => {
       message: passed,
     });
   }
-  // next();
 };
 
 
-exports.getOneStory = (req, res, next) => {
+exports.getOneStory = (req, res) => {
   const { storyId } = req.params;
   const auther = req.id;
   const storyRecord = JSON.parse(localStorage.getItem('stories')) || [];
@@ -86,10 +85,9 @@ exports.getOneStory = (req, res, next) => {
       message: 'story not found',
     });
   }
-  // next();
 };
 
-exports.getAllStories = (req, res, next) => {
+exports.getAllStories = (req, res) => {
   const storyRecord = JSON.parse(localStorage.getItem('stories')) || [];
   const auther = req.id;
   if (storyRecord.length > 0) {
@@ -111,10 +109,9 @@ exports.getAllStories = (req, res, next) => {
       message: 'story not found',
     });
   }
-  // next();
 };
 
-exports.deleteStory = (req, res, next) => {
+exports.deleteStory = (req, res) => {
   const { storyId } = req.params;
   const auther = req.id;
   const storyRecord = JSON.parse(localStorage.getItem('stories')) || [];
@@ -148,10 +145,9 @@ exports.deleteStory = (req, res, next) => {
       message: 'story not found',
     });
   }
-  // next();
 };
 
-exports.updateStory = (req, res, next) => {
+exports.updateStory = (req, res) => {
   const { storyId } = req.params;
   const validation = new Validate();
   const values = req.body;
@@ -200,5 +196,4 @@ exports.updateStory = (req, res, next) => {
       message: passed,
     });
   }
-  // next();
 };
