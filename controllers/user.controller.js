@@ -30,7 +30,7 @@ exports.getLoginAuth = (req, res, next) => {
             last_name: found.last_name,
             email: found.email,
             id: found.id,
-          }, '0123456789abcdfghjkmnpqrstvwxyzABCDEFGHIJKLMNOPQRE', { expiresIn: '24h' });
+          }, '0123456789abcdfghjkmnpqrstvwxyzABCDEFGHIJKLMNOPQRE', { expiresIn: '24d' });
           res.status(201).json({
             status: 201,
             message: 'User logged in successfully!',
@@ -43,20 +43,20 @@ exports.getLoginAuth = (req, res, next) => {
             },
           });
         } else {
-          res.status(400).json({
-            status: 400,
+          res.status(401).json({
+            status: 401,
             message: 'user password incorrect',
           });
         }
       } else {
-        res.status(400).json({
-          status: 400,
-          message: 'user not found in array',
+        res.status(404).json({
+          status: 404,
+          message: 'user not found',
         });
       }
     } else {
-      res.status(400).json({
-        status: 400,
+      res.status(404).json({
+        status: 404,
         message: 'user not found',
       });
     }
@@ -102,7 +102,7 @@ exports.getRegisterAuth = (req, res, next) => {
       last_name: values.last_name,
       email: values.email,
       id: idUser,
-    }, '0123456789abcdfghjkmnpqrstvwxyzABCDEFGHIJKLMNOPQRE', { expiresIn: '24h' });
+    }, '0123456789abcdfghjkmnpqrstvwxyzABCDEFGHIJKLMNOPQRE', { expiresIn: '24d' });
     res.status(201).json({
       status: 201,
       message: 'User created successfully',
@@ -149,9 +149,9 @@ exports.updateUser = (req, res, next) => {
           },
         });
       } else {
-        res.status(400).json({
-          status: 400,
-          message: 'userId not found',
+        res.status(404).json({
+          status: 404,
+          message: 'user not found',
         });
       }
     } else {
@@ -161,8 +161,8 @@ exports.updateUser = (req, res, next) => {
       });
     }
   } else {
-    res.status(400).json({
-      status: 400,
+    res.status(404).json({
+      status: 404,
       message: 'user not found',
     });
   }
@@ -217,13 +217,14 @@ exports.recoverPassword = (req, res, next) => {
         });
       }
     } else {
-      res.status(400).json({
-        status: 400,
+      res.status(404).json({
+        status: 404,
         message: 'user not found',
       });
     }
   } else {
     res.status(400).json({
+      status: 400,
       message: passed,
     });
   }
@@ -251,14 +252,14 @@ exports.updatePassword = (req, res, next) => {
           message: 'Password Updated',
         });
       } else {
-        res.status(400).json({
-          status: 400,
-          message: 'userId not found',
+        res.status(404).json({
+          status: 404,
+          message: 'user not found',
         });
       }
     } else {
-      res.status(400).json({
-        status: 400,
+      res.status(404).json({
+        status: 404,
         message: 'user not found',
       });
     }

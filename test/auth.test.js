@@ -156,7 +156,7 @@ describe('Test users auth', () => {
       chai.request(app)
         .patch('/api/v1/auth/profile')
         .send(user)
-        .set('Authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdF9uYW1lIjoiamhoZ2dqaCIsImxhc3RfbmFtZSI6ImNlc2FyIiwiZW1haWwiOiJhaW1lbWFsYWlrYTEwcGo5azk1QGdtYWlsLmNvbSIsImlkIjoxLCJpYXQiOjE1NzI1OTc0NDIsImV4cCI6MTU3MjY4Mzg0Mn0.UbJx3hUKynd1xWH49rznCUq8XE4qU8VfmGSRItDxY44')
+        .set('Authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdF9uYW1lIjoiamhoZ2dqaCIsImxhc3RfbmFtZSI6ImNlc2FyIiwiZW1haWwiOiJhaW1lbWFsYWlrYTEwcGo5azk1QGdtYWlsLmNvbSIsImlkIjoxLCJpYXQiOjE1NzI4NTEzMDAsImV4cCI6MTU3NDkyNDkwMH0.0pXPYVprjEQ3DncyjGtCW4HQSLzQJYwmnpHqNv3hZWo')
         .end((error, res) => {
           res.body.status.should.be.equal(400);
           done();
@@ -219,8 +219,8 @@ describe('Test users auth', () => {
         .post('/api/v1/auth/signin')
         .send(user)
         .end((error, res) => {
-          res.body.status.should.be.equal(400);
-          expect(res.body.message).to.equal('user not found in array');
+          res.body.status.should.be.equal(404);
+          expect(res.body.message).to.equal('user not found');
           done();
         });
     });
@@ -233,7 +233,7 @@ describe('Test users auth', () => {
         .post('/api/v1/auth/signin')
         .send(user)
         .end((error, res) => {
-          res.body.status.should.be.equal(400);
+          res.body.status.should.be.equal(401);
           expect(res.body.message).to.equal('user password incorrect');
           done();
         });
@@ -284,7 +284,7 @@ describe('Test users auth', () => {
       };
       chai.request(app)
         .patch('/api/v1/auth/updatepassword')
-        .set('Authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdF9uYW1lIjoiamhoZ2dqaCIsImxhc3RfbmFtZSI6ImNlc2FyIiwiZW1haWwiOiJhaW1lbWFsYWlrYTEwcGo5azk1QGdtYWlsLmNvbSIsImlkIjoxLCJpYXQiOjE1NzI1OTc0NDIsImV4cCI6MTU3MjY4Mzg0Mn0.UbJx3hUKynd1xWH49rznCUq8XE4qU8VfmGSRItDxY44')
+        .set('Authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdF9uYW1lIjoiamhoZ2dqaCIsImxhc3RfbmFtZSI6ImNlc2FyIiwiZW1haWwiOiJhaW1lbWFsYWlrYTEwcGo5azk1QGdtYWlsLmNvbSIsImlkIjoxLCJpYXQiOjE1NzI4NTEzMDAsImV4cCI6MTU3NDkyNDkwMH0.0pXPYVprjEQ3DncyjGtCW4HQSLzQJYwmnpHqNv3hZWo')
         .send(user)
         .end((error, res) => {
           res.body.status.should.be.equal(201);
@@ -300,11 +300,11 @@ describe('Test users auth', () => {
       chai.request(app)
         .patch('/api/v1/auth/updatepassword')
         // put unregistred token 3
-        .set('Authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdF9uYW1lIjoiamhoZ2dqaCIsImxhc3RfbmFtZSI6ImNlc2FyIiwiZW1haWwiOiJhaW1lbWFsYWlrYTEwcGo5azk1QGdtYWlsLmNvbSIsImlkIjozLCJpYXQiOjE1NzI1ODY4NTAsImV4cCI6MTU3MjY3MzI1MH0.eU7OZhSwD_ZcQcQ_vpXcXYZRri8AxcWiArXG6pi5nSc')
+        .set('Authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdF9uYW1lIjoiamhoZ2dqaCIsImxhc3RfbmFtZSI6ImNlc2FyIiwiZW1haWwiOiJhaW1lbWFsYWlrYTEwNXRwNWo5azk1QGdtYWlsLmNvbSIsImlkIjozLCJpYXQiOjE1NzI4NTIwMzAsImV4cCI6MTU3NDkyNTYzMH0.fWtw98C94qU8wAzNJUfITLXK37dnRC0gold6F8BwIhg')
         .send(user)
         .end((error, res) => {
-          res.body.status.should.be.equal(400);
-          expect(res.body.message).to.equal('userId not found');
+          res.body.status.should.be.equal(404);
+          expect(res.body.message).to.equal('user not found');
           done();
         });
     });
