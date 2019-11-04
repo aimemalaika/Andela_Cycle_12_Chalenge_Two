@@ -6,7 +6,7 @@ import jwt from 'jsonwebtoken';
 
 
 import userModule from '../models/userModel';
-import Validate from '../helpers/validation.helper';
+import Validate from '../helpers/validationHelper';
 
 const transporter = nodemailer.createTransport({
   service: 'gmail',

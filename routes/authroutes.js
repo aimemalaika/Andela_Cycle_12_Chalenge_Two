@@ -2,7 +2,7 @@ import express from 'express';
 
 
 import authController from '../controllers/userController';
-import isAuth from '../middleware/is-auth';
+import isAuth from '../middleware/isAuth';
 
 const route = express.Router();
 
