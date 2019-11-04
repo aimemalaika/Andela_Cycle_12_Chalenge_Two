@@ -16,7 +16,7 @@ describe('Test users auth', () => {
       };
       chai.request(app)
         .post('/api/v1/entry')
-        .set('Authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdF9uYW1lIjoiamhoZ2dqaCIsImxhc3RfbmFtZSI6ImNlc2FyIiwiZW1haWwiOiJhaW1lbWFsYWlrYTEwcGo5azk1QGdtYWlsLmNvbSIsImlkIjoxLCJpYXQiOjE1NzI1OTc0NDIsImV4cCI6MTU3MjY4Mzg0Mn0.UbJx3hUKynd1xWH49rznCUq8XE4qU8VfmGSRItDxY44')
+        .set('Authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdF9uYW1lIjoiamhoZ2dqaCIsImxhc3RfbmFtZSI6ImNlc2FyIiwiZW1haWwiOiJhaW1lbWFsYWlrYTEwcGo5azk1QGdtYWlsLmNvbSIsImlkIjoxLCJpYXQiOjE1NzI4NTEzMDAsImV4cCI6MTU3NDkyNDkwMH0.0pXPYVprjEQ3DncyjGtCW4HQSLzQJYwmnpHqNv3hZWo')
         .send(entry)
         .end((err, res) => {
           res.should.have.status(201);
@@ -31,7 +31,7 @@ describe('Test users auth', () => {
       };
       chai.request(app)
         .post('/api/v1/entry')
-        .set('Authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdF9uYW1lIjoiamhoZ2dqaCIsImxhc3RfbmFtZSI6ImNlc2FyIiwiZW1haWwiOiJhaW1lbWFsYWlrYTEwcGo5azk1QGdtYWlsLmNvbSIsImlkIjoxLCJpYXQiOjE1NzI1OTc0NDIsImV4cCI6MTU3MjY4Mzg0Mn0.UbJx3hUKynd1xWH49rznCUq8XE4qU8VfmGSRItDxY44')
+        .set('Authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdF9uYW1lIjoiamhoZ2dqaCIsImxhc3RfbmFtZSI6ImNlc2FyIiwiZW1haWwiOiJhaW1lbWFsYWlrYTEwcGo5azk1QGdtYWlsLmNvbSIsImlkIjoxLCJpYXQiOjE1NzI4NTEzMDAsImV4cCI6MTU3NDkyNDkwMH0.0pXPYVprjEQ3DncyjGtCW4HQSLzQJYwmnpHqNv3hZWo')
         .send(entry)
         .end((err, res) => {
           res.should.have.status(201);
@@ -46,7 +46,7 @@ describe('Test users auth', () => {
       };
       chai.request(app)
         .post('/api/v1/entry')
-        .set('Authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdF9uYW1lIjoiamhoZ2dqaCIsImxhc3RfbmFtZSI6ImNlc2FyIiwiZW1haWwiOiJhaW1lbWFsYWlrYTEwcGo5azk1QGdtYWlsLmNvbSIsImlkIjoxLCJpYXQiOjE1NzI1OTc0NDIsImV4cCI6MTU3MjY4Mzg0Mn0.UbJx3hUKynd1xWH49rznCUq8XE4qU8VfmGSRItDxY44')
+        .set('Authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdF9uYW1lIjoiamhoZ2dqaCIsImxhc3RfbmFtZSI6ImNlc2FyIiwiZW1haWwiOiJhaW1lbWFsYWlrYTEwcGo5azk1QGdtYWlsLmNvbSIsImlkIjoxLCJpYXQiOjE1NzI4NTEzMDAsImV4cCI6MTU3NDkyNDkwMH0.0pXPYVprjEQ3DncyjGtCW4HQSLzQJYwmnpHqNv3hZWo')
         .send(entry)
         .end((err, res) => {
           res.should.have.status(400);
@@ -71,7 +71,7 @@ describe('Test users auth', () => {
     it('user should allow a user to see his posts with a token header', (done) => {
       chai.request(app)
         .get('/api/v1/entries')
-        .set('Authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdF9uYW1lIjoiamhoZ2dqaCIsImxhc3RfbmFtZSI6ImNlc2FyIiwiZW1haWwiOiJhaW1lbWFsYWlrYTEwcGo5azk1QGdtYWlsLmNvbSIsImlkIjoxLCJpYXQiOjE1NzI1OTc0NDIsImV4cCI6MTU3MjY4Mzg0Mn0.UbJx3hUKynd1xWH49rznCUq8XE4qU8VfmGSRItDxY44')
+        .set('Authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdF9uYW1lIjoiamhoZ2dqaCIsImxhc3RfbmFtZSI6ImNlc2FyIiwiZW1haWwiOiJhaW1lbWFsYWlrYTEwcGo5azk1QGdtYWlsLmNvbSIsImlkIjoxLCJpYXQiOjE1NzI4NTEzMDAsImV4cCI6MTU3NDkyNDkwMH0.0pXPYVprjEQ3DncyjGtCW4HQSLzQJYwmnpHqNv3hZWo')
         .end((err, res) => {
           res.should.have.status(200);
         });
@@ -80,7 +80,7 @@ describe('Test users auth', () => {
     it('user should allow a user to read one story', (done) => {
       chai.request(app)
         .get('/api/v1/entries/1')
-        .set('Authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdF9uYW1lIjoiamhoZ2dqaCIsImxhc3RfbmFtZSI6ImNlc2FyIiwiZW1haWwiOiJhaW1lbWFsYWlrYTEwcGo5azk1QGdtYWlsLmNvbSIsImlkIjoxLCJpYXQiOjE1NzI1OTc0NDIsImV4cCI6MTU3MjY4Mzg0Mn0.UbJx3hUKynd1xWH49rznCUq8XE4qU8VfmGSRItDxY44')
+        .set('Authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdF9uYW1lIjoiamhoZ2dqaCIsImxhc3RfbmFtZSI6ImNlc2FyIiwiZW1haWwiOiJhaW1lbWFsYWlrYTEwcGo5azk1QGdtYWlsLmNvbSIsImlkIjoxLCJpYXQiOjE1NzI4NTEzMDAsImV4cCI6MTU3NDkyNDkwMH0.0pXPYVprjEQ3DncyjGtCW4HQSLzQJYwmnpHqNv3hZWo')
         .end((err, res) => {
           res.should.have.status(200);
         });
@@ -89,10 +89,10 @@ describe('Test users auth', () => {
     it('user should allow a user to read one story if exist only', (done) => {
       chai.request(app)
         .get('/api/v1/entries/4')
-        .set('Authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdF9uYW1lIjoiamhoZ2dqaCIsImxhc3RfbmFtZSI6ImNlc2FyIiwiZW1haWwiOiJhaW1lbWFsYWlrYTEwcGo5azk1QGdtYWlsLmNvbSIsImlkIjoxLCJpYXQiOjE1NzI1OTc0NDIsImV4cCI6MTU3MjY4Mzg0Mn0.UbJx3hUKynd1xWH49rznCUq8XE4qU8VfmGSRItDxY44')
+        .set('Authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdF9uYW1lIjoiamhoZ2dqaCIsImxhc3RfbmFtZSI6ImNlc2FyIiwiZW1haWwiOiJhaW1lbWFsYWlrYTEwcGo5azk1QGdtYWlsLmNvbSIsImlkIjoxLCJpYXQiOjE1NzI4NTEzMDAsImV4cCI6MTU3NDkyNDkwMH0.0pXPYVprjEQ3DncyjGtCW4HQSLzQJYwmnpHqNv3hZWo')
         .end((err, res) => {
-          res.should.have.status(400);
-          expect(res.body.message).to.equal('storyId not found');
+          res.should.have.status(404);
+          expect(res.body.message).to.equal('story not found');
         });
       done();
     });
@@ -103,7 +103,7 @@ describe('Test users auth', () => {
       };
       chai.request(app)
         .patch('/api/v1/entries/1')
-        .set('Authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdF9uYW1lIjoiamhoZ2dqaCIsImxhc3RfbmFtZSI6ImNlc2FyIiwiZW1haWwiOiJhaW1lbWFsYWlrYTEwcGo5azk1QGdtYWlsLmNvbSIsImlkIjoxLCJpYXQiOjE1NzI1OTc0NDIsImV4cCI6MTU3MjY4Mzg0Mn0.UbJx3hUKynd1xWH49rznCUq8XE4qU8VfmGSRItDxY44')
+        .set('Authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdF9uYW1lIjoiamhoZ2dqaCIsImxhc3RfbmFtZSI6ImNlc2FyIiwiZW1haWwiOiJhaW1lbWFsYWlrYTEwcGo5azk1QGdtYWlsLmNvbSIsImlkIjoxLCJpYXQiOjE1NzI4NTEzMDAsImV4cCI6MTU3NDkyNDkwMH0.0pXPYVprjEQ3DncyjGtCW4HQSLzQJYwmnpHqNv3hZWo')
         .send(entry)
         .end((err, res) => {
           res.should.have.status(200);
@@ -118,7 +118,7 @@ describe('Test users auth', () => {
       };
       chai.request(app)
         .patch('/api/v1/entries/1')
-        .set('Authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdF9uYW1lIjoiamhoZ2dqaCIsImxhc3RfbmFtZSI6ImNlc2FyIiwiZW1haWwiOiJhaW1lbWFsYWlrYTEwcGo5azk1QGdtYWlsLmNvbSIsImlkIjoxLCJpYXQiOjE1NzI1OTc0NDIsImV4cCI6MTU3MjY4Mzg0Mn0.UbJx3hUKynd1xWH49rznCUq8XE4qU8VfmGSRItDxY44')
+        .set('Authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdF9uYW1lIjoiamhoZ2dqaCIsImxhc3RfbmFtZSI6ImNlc2FyIiwiZW1haWwiOiJhaW1lbWFsYWlrYTEwcGo5azk1QGdtYWlsLmNvbSIsImlkIjoxLCJpYXQiOjE1NzI4NTEzMDAsImV4cCI6MTU3NDkyNDkwMH0.0pXPYVprjEQ3DncyjGtCW4HQSLzQJYwmnpHqNv3hZWo')
         .send(entry)
         .end((err, res) => {
           res.should.have.status(400);
@@ -132,7 +132,7 @@ describe('Test users auth', () => {
       };
       chai.request(app)
         .patch('/api/v1/entries/1')
-        .set('Authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdF9uYW1lIjoiamhoZ2dqaCIsImxhc3RfbmFtZSI6ImNlc2FyIiwiZW1haWwiOiJhaW1lbWFsYWlrYTEwcGo5azk1QGdtYWlsLmNvbSIsImlkIjoxLCJpYXQiOjE1NzI1OTc0NDIsImV4cCI6MTU3MjY4Mzg0Mn0.UbJx3hUKynd1xWH49rznCUq8XE4qU8VfmGSRItDxY44')
+        .set('Authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdF9uYW1lIjoiamhoZ2dqaCIsImxhc3RfbmFtZSI6ImNlc2FyIiwiZW1haWwiOiJhaW1lbWFsYWlrYTEwcGo5azk1QGdtYWlsLmNvbSIsImlkIjoxLCJpYXQiOjE1NzI4NTEzMDAsImV4cCI6MTU3NDkyNDkwMH0.0pXPYVprjEQ3DncyjGtCW4HQSLzQJYwmnpHqNv3hZWo')
         .send(entry)
         .end((err, res) => {
           res.should.have.status(400);
@@ -146,27 +146,27 @@ describe('Test users auth', () => {
       };
       chai.request(app)
         .patch('/api/v1/entries/1')
-        .set('Authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdF9uYW1lIjoiamhoZ2dqaCIsImxhc3RfbmFtZSI6ImNlc2FyIiwiZW1haWwiOiJhaW1lbWFsYWlrYTEwOWs5NUBnbWFpbC5jb20iLCJpZCI6MiwiaWF0IjoxNTcyNTgzNjU1LCJleHAiOjE1NzI1OTgwNTV9.CBjATZMCCLLNAWMbjW11-KPYoA4sLnkGr3MJSbGQUTc')
+        .set('Authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdF9uYW1lIjoiamhoZ2dqaCIsImxhc3RfbmFtZSI6ImNlc2FyIiwiZW1haWwiOiJhaW1lbWFsYWlrYTEwdHBqOWs5NUBnbWFpbC5jb20iLCJpZCI6MiwiaWF0IjoxNTcyODUxMzcxLCJleHAiOjE1NzQ5MjQ5NzF9.U0NXKJE2dcWj-QbRNxgcgql4xiA77b_kGZ0ft7RZFRA')
         .send(entry)
         .end((err, res) => {
-          res.should.have.status(401);
+          res.should.have.status(403);
         });
       done();
     });
     it('user should not delete unexistent story', (done) => {
       chai.request(app)
         .delete('/api/v1/entries/5')
-        .set('Authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdF9uYW1lIjoiamhoZ2dqaCIsImxhc3RfbmFtZSI6ImNlc2FyIiwiZW1haWwiOiJhaW1lbWFsYWlrYTEwcGo5azk1QGdtYWlsLmNvbSIsImlkIjoxLCJpYXQiOjE1NzI1OTc0NDIsImV4cCI6MTU3MjY4Mzg0Mn0.UbJx3hUKynd1xWH49rznCUq8XE4qU8VfmGSRItDxY44')
+        .set('Authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdF9uYW1lIjoiamhoZ2dqaCIsImxhc3RfbmFtZSI6ImNlc2FyIiwiZW1haWwiOiJhaW1lbWFsYWlrYTEwcGo5azk1QGdtYWlsLmNvbSIsImlkIjoxLCJpYXQiOjE1NzI4NTEzMDAsImV4cCI6MTU3NDkyNDkwMH0.0pXPYVprjEQ3DncyjGtCW4HQSLzQJYwmnpHqNv3hZWo')
         .end((err, res) => {
-          res.should.have.status(400);
-          expect(res.body.message).to.equal('storyId not found');
+          res.should.have.status(404);
+          expect(res.body.message).to.equal('story not found');
         });
       done();
     });
     it('user should allow a user to delete one story', (done) => {
       chai.request(app)
         .delete('/api/v1/entries/1')
-        .set('Authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdF9uYW1lIjoiamhoZ2dqaCIsImxhc3RfbmFtZSI6ImNlc2FyIiwiZW1haWwiOiJhaW1lbWFsYWlrYTEwcGo5azk1QGdtYWlsLmNvbSIsImlkIjoxLCJpYXQiOjE1NzI1OTc0NDIsImV4cCI6MTU3MjY4Mzg0Mn0.UbJx3hUKynd1xWH49rznCUq8XE4qU8VfmGSRItDxY44')
+        .set('Authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdF9uYW1lIjoiamhoZ2dqaCIsImxhc3RfbmFtZSI6ImNlc2FyIiwiZW1haWwiOiJhaW1lbWFsYWlrYTEwcGo5azk1QGdtYWlsLmNvbSIsImlkIjoxLCJpYXQiOjE1NzI4NTEzMDAsImV4cCI6MTU3NDkyNDkwMH0.0pXPYVprjEQ3DncyjGtCW4HQSLzQJYwmnpHqNv3hZWo')
         .end((err, res) => {
           res.should.have.status(204);
         });
@@ -175,7 +175,7 @@ describe('Test users auth', () => {
     it('user should allow a user to delete one story', (done) => {
       chai.request(app)
         .delete('/api/v1/entries/2')
-        .set('Authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdF9uYW1lIjoiamhoZ2dqaCIsImxhc3RfbmFtZSI6ImNlc2FyIiwiZW1haWwiOiJhaW1lbWFsYWlrYTEwcGo5azk1QGdtYWlsLmNvbSIsImlkIjoxLCJpYXQiOjE1NzI1OTc0NDIsImV4cCI6MTU3MjY4Mzg0Mn0.UbJx3hUKynd1xWH49rznCUq8XE4qU8VfmGSRItDxY44')
+        .set('Authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdF9uYW1lIjoiamhoZ2dqaCIsImxhc3RfbmFtZSI6ImNlc2FyIiwiZW1haWwiOiJhaW1lbWFsYWlrYTEwcGo5azk1QGdtYWlsLmNvbSIsImlkIjoxLCJpYXQiOjE1NzI4NTEzMDAsImV4cCI6MTU3NDkyNDkwMH0.0pXPYVprjEQ3DncyjGtCW4HQSLzQJYwmnpHqNv3hZWo')
         .end((err, res) => {
           res.should.have.status(204);
         });
@@ -188,10 +188,10 @@ describe('Test users auth', () => {
       };
       chai.request(app)
         .patch('/api/v1/entries/1')
-        .set('Authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdF9uYW1lIjoiamhoZ2dqaCIsImxhc3RfbmFtZSI6ImNlc2FyIiwiZW1haWwiOiJhaW1lbWFsYWlrYTEwcGo5azk1QGdtYWlsLmNvbSIsImlkIjoxLCJpYXQiOjE1NzI1OTc0NDIsImV4cCI6MTU3MjY4Mzg0Mn0.UbJx3hUKynd1xWH49rznCUq8XE4qU8VfmGSRItDxY44')
+        .set('Authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdF9uYW1lIjoiamhoZ2dqaCIsImxhc3RfbmFtZSI6ImNlc2FyIiwiZW1haWwiOiJhaW1lbWFsYWlrYTEwcGo5azk1QGdtYWlsLmNvbSIsImlkIjoxLCJpYXQiOjE1NzI4NTEzMDAsImV4cCI6MTU3NDkyNDkwMH0.0pXPYVprjEQ3DncyjGtCW4HQSLzQJYwmnpHqNv3hZWo')
         .send(entry)
         .end((err, res) => {
-          res.should.have.status(400);
+          res.should.have.status(404);
           expect(res.body.message).to.equal('story not found');
         });
       done();
