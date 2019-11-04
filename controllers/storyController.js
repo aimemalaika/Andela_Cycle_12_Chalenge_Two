@@ -2,7 +2,7 @@
 import localStorage from 'localStorage';
 
 import storyModule from '../models/storyModel';
-import Validate from '../helpers/validation.helper';
+import Validate from '../helpers/validationHelper';
 
 const today = `${new Date().getDay()} / ${new Date().getMonth()} / ${new Date().getFullYear()}`;
 exports.addStory = (req, res, next) => {
