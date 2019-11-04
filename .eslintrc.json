@@ -21,6 +21,13 @@
         "no-undef":"off",
         "max-len": 0,
         "import/newline-after-import":"off",
-        "no-unused-vars":0
+        "no-unused-vars":"off",
+        "no-await-in-loop":"off",
+        "no-restricted-syntax":"off",
+        "radix":"off",
+        "array-callback-return":"off",
+        "class-methods-use-this":"off",
+        "default-case":"off",
+        "guard-for-in":"off",
     }
 }

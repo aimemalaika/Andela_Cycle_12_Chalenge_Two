@@ -1,9 +1,3 @@
-/* eslint-disable default-case */
-/* eslint-disable guard-for-in */
-/* eslint-disable no-restricted-syntax */
-/* eslint-disable class-methods-use-this */
-/* eslint-disable array-callback-return */
-/* eslint-disable radix */
 class Validator {
   check(source, inpt, localStorage = []) {
     const validationError = [];
@@ -32,9 +26,6 @@ class Validator {
                 case 'password':
                   if (!/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])/.test(String(inpt[fieldname]))) validationError.push(`${fieldname.replace(/_/g, ' ')} must contain at The string must contain at least 1 lowercase alphabetical character, The string must contain at least 1 uppercase alphabetical character, The string must contain at least 1 numeric character`);
                   break;
-                // case 'number':
-                //   if (!/^[0-9]*$/.test(String(inpt[fieldname]))) validationError.push(`${fieldname.replace(/_/g, ' ')} must contain only number`);
-                //   break;
               }
               break;
             case 'matches':

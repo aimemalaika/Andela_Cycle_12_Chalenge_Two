@@ -1,7 +1,7 @@
 import express from 'express';
 
-import storyController from '../controllers/story.controller';
-import isAuth from '../middleware/is-auth';
+import storyController from '../controllers/storyController';
+import isAuth from '../middleware/isAuth';
 
 const route = express.Router();
 

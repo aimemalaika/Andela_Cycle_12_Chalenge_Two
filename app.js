@@ -2,8 +2,8 @@ import express from 'express';
 import bodyParser from 'body-parser';
 
 
-import authroute from './routes/authroutes';
-import entryroute from './routes/entriesroutes';
+import authroute from './routes/authRoutes';
+import entryroute from './routes/entriesRoutes';
 
 const app = express();
 
