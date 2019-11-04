@@ -1,4 +1,4 @@
-import pool from './config';
+import { pool } from './config';
 
 const makeTables = async () => {
   const createUsers = `CREATE TABLE IF NOT EXISTS users(
@@ -13,15 +13,12 @@ const makeTables = async () => {
         id SERIAL PRIMARY KEY UNIQUE,
         subject TEXT NOT NULL,
         content TEXT NOT NULL,
+        createdOn TEXT NOT NULL,
         auther INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE
     );`;
 
-  try {
-    await pool.query(createUsers);
-    await pool.query(createStory);
-  } catch (error) {
-    console.log(error.message);
-  }
+  await pool.query(createUsers);
+  await pool.query(createStory);
 };
 
 makeTables();

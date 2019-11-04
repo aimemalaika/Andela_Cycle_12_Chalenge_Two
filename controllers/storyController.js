@@ -50,7 +50,6 @@ exports.addStory = (req, res, next) => {
       message: passed,
     });
   }
-  // next();
 };
 
 
@@ -86,7 +85,6 @@ exports.getOneStory = (req, res, next) => {
       message: 'story not found',
     });
   }
-  // next();
 };
 
 exports.getAllStories = (req, res, next) => {
@@ -111,7 +109,6 @@ exports.getAllStories = (req, res, next) => {
       message: 'story not found',
     });
   }
-  // next();
 };
 
 exports.deleteStory = (req, res, next) => {
@@ -148,7 +145,6 @@ exports.deleteStory = (req, res, next) => {
       message: 'story not found',
     });
   }
-  // next();
 };
 
 exports.updateStory = (req, res, next) => {
@@ -200,5 +196,4 @@ exports.updateStory = (req, res, next) => {
       message: passed,
     });
   }
-  // next();
 };

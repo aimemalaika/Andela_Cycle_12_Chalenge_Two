@@ -1,4 +1,4 @@
-import pool from './config';
+import { pool } from './config';
 
 const dropTable = [
   `DROP TABLE IF EXISTS stories CASCADE`,

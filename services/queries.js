@@ -10,7 +10,7 @@ const users = {
   isUserExist: `SELECT * FROM users WHERE email = $1`,
 };
 const entries = {
-  isMentorshipExist: `SELECT * FROM stories WHERE auther=$1`,
+  isMentorshipExist: `SELECT * FROM stories WHERE auther= $1`,
 };
 
 export default { users, entries };

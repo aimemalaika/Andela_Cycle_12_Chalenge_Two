@@ -29,5 +29,6 @@
         "class-methods-use-this":"off",
         "default-case":"off",
         "guard-for-in":"off",
+        "import/named":"off"
     }
 }

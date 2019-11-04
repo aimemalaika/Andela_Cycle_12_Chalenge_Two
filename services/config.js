@@ -12,4 +12,12 @@ const pool = new Pool({
   database: 'mydiarydb',
 });
 
-export default pool;
+const executeQuery = async (myQuery, params = []) => {
+  const result = await pool.query(myQuery, params);
+  return result.rows || result;
+};
+
+module.exports = {
+  pool,
+  executeQuery,
+};
