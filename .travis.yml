@@ -1,6 +1,10 @@
 language: node_js
 node_js:
  - "10"
+env:
+  global:
+    - URL=http://localhost:8080
+    - PORT=8080
 branches:
   only:
     - develop
@@ -9,5 +13,7 @@ install:
 cache:
   directories:
     - node_modules
+script:
+  - npm test
 after_sucess:
   - npm run coverall
