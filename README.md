@@ -1,7 +1,7 @@
 # Andela_Cycle_12_Chalenge_Two
 [![Build Status](https://travis-ci.org/aime19/Andela_Cycle_12_Chalenge_Two.svg?branch=develop)](https://travis-ci.org/aime19/Andela_Cycle_12_Chalenge_Two)
 [![Coverage Status](https://coveralls.io/repos/github/aime19/Andela_Cycle_12_Chalenge_Two/badge.svg?branch=develop)](https://coveralls.io/github/aime19/Andela_Cycle_12_Chalenge_Two?branch=develop)
-
+[![Maintainability](https://api.codeclimate.com/v1/badges/00889bd9b8a07142617c/maintainability)](https://codeclimate.com/github/aime19/Andela_Cycle_12_Chalenge_Two/maintainability)
 
 
 # My diary

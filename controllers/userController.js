@@ -5,7 +5,7 @@ import nodemailer from 'nodemailer';
 import jwt from 'jsonwebtoken';
 
 
-import userModule from '../models/user. model';
+import userModule from '../models/userModel';
 import Validate from '../helpers/validation.helper';
 
 const transporter = nodemailer.createTransport({
