@@ -75,14 +75,14 @@ exports.getOneStory = (req, res, next) => {
         });
       }
     } else {
-      res.status(400).json({
-        status: 400,
-        message: 'storyId not found',
+      res.status(404).json({
+        status: 404,
+        message: 'story not found',
       });
     }
   } else {
-    res.status(400).json({
-      status: 400,
+    res.status(404).json({
+      status: 404,
       message: 'story not found',
     });
   }
@@ -100,14 +100,14 @@ exports.getAllStories = (req, res, next) => {
         data: { found },
       });
     } else {
-      res.status(400).json({
-        status: 400,
+      res.status(404).json({
+        status: 404,
         message: 'story not posted yet',
       });
     }
   } else {
-    res.status(400).json({
-      status: 400,
+    res.status(404).json({
+      status: 404,
       message: 'story not found',
     });
   }
@@ -137,14 +137,14 @@ exports.deleteStory = (req, res, next) => {
         });
       }
     } else {
-      res.status(400).json({
-        status: 400,
-        message: 'storyId not found',
+      res.status(404).json({
+        status: 404,
+        message: 'story not found',
       });
     }
   } else {
-    res.status(400).json({
-      status: 400,
+    res.status(404).json({
+      status: 404,
       message: 'story not found',
     });
   }
@@ -168,7 +168,7 @@ exports.updateStory = (req, res, next) => {
           storyRecord[key].subject = values.subject;
           storyRecord[key].content = values.content;
           localStorage.setItem('stories', JSON.stringify(storyRecord));
-          res.status(200).json({
+          res.status(201).json({
             status: 201,
             message: 'entry successfully edited',
             data: {
@@ -183,14 +183,14 @@ exports.updateStory = (req, res, next) => {
           });
         }
       } else {
-        res.status(400).json({
-          status: 400,
-          message: 'storyId not found',
+        res.status(404).json({
+          status: 404,
+          message: 'story not found',
         });
       }
     } else {
-      res.status(400).json({
-        status: 400,
+      res.status(404).json({
+        status: 404,
         message: 'story not found',
       });
     }

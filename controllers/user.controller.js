@@ -43,20 +43,20 @@ exports.getLoginAuth = (req, res, next) => {
             },
           });
         } else {
-          res.status(400).json({
-            status: 400,
+          res.status(401).json({
+            status: 401,
             message: 'user password incorrect',
           });
         }
       } else {
-        res.status(400).json({
-          status: 400,
-          message: 'user not found in array',
+        res.status(404).json({
+          status: 404,
+          message: 'user not found',
         });
       }
     } else {
-      res.status(400).json({
-        status: 400,
+      res.status(404).json({
+        status: 404,
         message: 'user not found',
       });
     }
@@ -149,9 +149,9 @@ exports.updateUser = (req, res, next) => {
           },
         });
       } else {
-        res.status(400).json({
-          status: 400,
-          message: 'userId not found',
+        res.status(404).json({
+          status: 404,
+          message: 'user not found',
         });
       }
     } else {
@@ -161,8 +161,8 @@ exports.updateUser = (req, res, next) => {
       });
     }
   } else {
-    res.status(400).json({
-      status: 400,
+    res.status(404).json({
+      status: 404,
       message: 'user not found',
     });
   }
@@ -217,13 +217,14 @@ exports.recoverPassword = (req, res, next) => {
         });
       }
     } else {
-      res.status(400).json({
-        status: 400,
+      res.status(404).json({
+        status: 404,
         message: 'user not found',
       });
     }
   } else {
     res.status(400).json({
+      status: 400,
       message: passed,
     });
   }
@@ -251,14 +252,14 @@ exports.updatePassword = (req, res, next) => {
           message: 'Password Updated',
         });
       } else {
-        res.status(400).json({
-          status: 400,
-          message: 'userId not found',
+        res.status(404).json({
+          status: 404,
+          message: 'user not found',
         });
       }
     } else {
-      res.status(400).json({
-        status: 400,
+      res.status(404).json({
+        status: 404,
         message: 'user not found',
       });
     }
