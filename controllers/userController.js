@@ -15,7 +15,7 @@ const transporter = nodemailer.createTransport({
     pass: 'Aime1995',
   },
 });
-exports.getLoginAuth = (req, res, next) => {
+exports.getLoginAuth = (req, res) => {
   const validation = new Validate();
   const values = req.body;
   const usersRecord = JSON.parse(localStorage.getItem('users')) || [];
@@ -67,7 +67,7 @@ exports.getLoginAuth = (req, res, next) => {
   }
 };
 
-exports.getRegisterAuth = (req, res, next) => {
+exports.getRegisterAuth = (req, res) => {
   const validation = new Validate();
   const values = req.body;
   let idUser;
@@ -122,7 +122,7 @@ exports.getRegisterAuth = (req, res, next) => {
   }
 };
 
-exports.updateUser = (req, res, next) => {
+exports.updateUser = (req, res) => {
   const validation = new Validate();
   const values = req.body;
   req.body.id = req.id;
@@ -168,7 +168,7 @@ exports.updateUser = (req, res, next) => {
   }
 };
 
-exports.recoverPassword = (req, res, next) => {
+exports.recoverPassword = (req, res) => {
   const validation = new Validate();
   const values = req.body;
   const usersRecord = JSON.parse(localStorage.getItem('users')) || [];
@@ -230,7 +230,7 @@ exports.recoverPassword = (req, res, next) => {
   }
 };
 
-exports.updatePassword = (req, res, next) => {
+exports.updatePassword = (req, res) => {
   const validation = new Validate();
   const values = req.body;
   req.body.id = req.id;
