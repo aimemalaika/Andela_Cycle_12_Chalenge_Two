@@ -1,7 +1,7 @@
 /* eslint-disable radix */
 import localStorage from 'localStorage';
 
-import storyModule from '../models/story.model';
+import storyModule from '../models/storyModel';
 import Validate from '../helpers/validation.helper';
 
 const today = `${new Date().getDay()} / ${new Date().getMonth()} / ${new Date().getFullYear()}`;
