@@ -6,7 +6,7 @@ dotenv.config();
 
 const pool = new Pool({
   user: 'postgres',
-  password: '',
+  password: 'aime1995',
   host: 'localhost',
   port: '5432',
   database: 'mydiarydb',
@@ -17,7 +17,4 @@ const executeQuery = async (myQuery, params = []) => {
   return result;
 };
 
-module.exports = {
-  pool,
-  executeQuery,
-};
+export default executeQuery;

@@ -29,6 +29,7 @@
         "class-methods-use-this":"off",
         "guard-for-in":"off",
         "default-case":"off",
-        "camelcase":"off"
+        "camelcase":"off",
+        "import/named":"off"
     }
 }

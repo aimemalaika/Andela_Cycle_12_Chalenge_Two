@@ -1,5 +1,3 @@
-import { pool } from './config';
-
 const users = {
   insertUser: `INSERT INTO users( first_name, last_name, email , password) VALUES($1 ,$2, $3, $4) RETURNING *`,
   isUserExist: `SELECT * FROM users WHERE email = $1`,

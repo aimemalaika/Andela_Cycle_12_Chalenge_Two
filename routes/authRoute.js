@@ -7,7 +7,7 @@ import isValid from '../middleware/validateMiddleware';
 
 const route = express.Router();
 
-route.patch('/resetpassword', authController.recoverPassword);
+route.patch('/resetpassword', isValid.validateReset, authController.recoverPassword);
 route.patch('/profile', isAuth, isValid.validateProfile, authController.updateUser);
 route.patch('/updatepassword', isAuth, isValid.validateEmail, authController.updatePassword);
 route.post('/signin', isValid.validateLogin, authController.getLoginAuth);
