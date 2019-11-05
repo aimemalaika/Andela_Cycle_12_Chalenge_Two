@@ -17,6 +17,8 @@ install:
 cache:
   directories:
     - node_modules
+before_script:
+  - psql -c 'create database mydiarydb;' -U aime -P aime1995
 script:
   - npm test
 after_sucess:
