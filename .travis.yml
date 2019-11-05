@@ -2,10 +2,10 @@ services:
   - postgresql
 addons:
   postgresql: "12.0"
-# env:
-#   global:
-#     - URL=http://localhost:8080
-#     - PORT=8080
+env:
+  global:
+    - URL=http://localhost:8080
+    - PORT=8080
 language: node_js
 node_js:
  - "10"
