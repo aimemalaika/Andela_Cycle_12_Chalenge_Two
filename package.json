@@ -7,9 +7,9 @@
     "node": "10.16.3"
   },
   "scripts": {
-    "start": "node start.js",
+    "start": "babel-node app.js",
     "dev": "nodemon --exec babel-node app.js",
-    "test": "npm run drop && npm run create && nyc --reporter=html --reporter=text mocha --timeout 10000 --require @babel/register --require @babel/polyfill test/*.js --exit",
+    "test": "npm run drop && npm run create && npm run insertDummies && nyc --reporter=html --reporter=text mocha --timeout 10000 --require @babel/register --require @babel/polyfill test/*.js --exit",
     "coverall": "nyc report --reporter=text-lcov | coveralls",
     "create": "babel-node services/createTable.js",
     "drop": "babel-node services/dropTable.js",

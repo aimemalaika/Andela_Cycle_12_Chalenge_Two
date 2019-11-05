@@ -5,8 +5,8 @@ module.exports = (req, res, next) => {
   try {
     const decoded = jwt.verify(tokenvalue, '0123456789abcdfghjkmnpqrstvwxyzABCDEFGHIJKLMNOPQRE');
     if (!decoded) {
-      res.status(401).json({
-        status: 401,
+      res.status(400).json({
+        status: 400,
         message: 'request not authentified',
       });
     }

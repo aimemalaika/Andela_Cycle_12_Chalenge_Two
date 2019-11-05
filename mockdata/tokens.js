@@ -4,12 +4,11 @@ import jwt from 'jsonwebtoken';
 dotenv.config();
 
 const user1token = jwt.sign({
-  id: 1,
+  id: 7,
   first_name: 'aime',
   last_name: 'malaika',
-  email: 'aimemalaika@gmail.com',
+  email: 'aimemalaika1995@gmail.com',
 }, '0123456789abcdfghjkmnpqrstvwxyzABCDEFGHIJKLMNOPQRE');
-const tokenstr1 = jwt.verify(user1token, '0123456789abcdfghjkmnpqrstvwxyzABCDEFGHIJKLMNOPQRE');
 
 const user1 = {
   first_name: 'aime',
@@ -50,12 +49,57 @@ const lengthrequired = {
   cpassword: 'Aime1995',
 };
 
+const passworddontmatch = {
+  first_name: 'jhhggjh',
+  last_name: 'cesar',
+  email: 'aimemalaika1995@gmail.com',
+  password: 'Aime1995',
+  cpassword: 'yewryewiru',
+};
+
+
 const noemailsignup = {
   first_name: 'jhhggjh',
   last_name: 'cesar',
   password: 'Aime1995',
   cpassword: 'Aime1995',
 };
+
+const loginuser = {
+  email: 'aimemalaika1995@gmail.com',
+  password: 'Aime1995',
+};
+
+const unregistreduser = {
+  email: 'aimemalaika1995congo@gmail.com',
+  password: 'Aime1995',
+};
+
+const badpassword = {
+  first_name: 'jhhggjh',
+  last_name: 'cesar',
+  email: 'aimemalaika1995@gmail.com',
+  password: 'aime1995',
+  cpassword: 'aime1995',
+};
+
+const updatePassword = {
+  password: 'Aime1995',
+  cpassword: 'Aime1995',
+};
+const incorrectpassword = {
+  email: 'aimemalaika1995@gmail.com',
+  password: 'Aime1995q',
+};
+
+const userUpdateprofile = {
+  first_name: "malalaika",
+  last_name: "malaika",
+  email: "aimemalaika1995@gmail.com",
+};
+
+const invalidToken = 'iJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZmlyc3ROYW1lIjoid2lsbH';
+
 export default {
-  user1token, user1, tokenstr1, signupUser, requiredinfo, validatetex, lengthrequired, noemailsignup,
+  user1token, user1, userUpdateprofile, invalidToken, signupUser, requiredinfo, validatetex, lengthrequired, noemailsignup, loginuser, badpassword, passworddontmatch, unregistreduser, incorrectpassword, updatePassword,
 };

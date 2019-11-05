@@ -14,54 +14,31 @@ const transporter = nodemailer.createTransport({
     pass: 'Aime1995',
   },
 });
-exports.getLoginAuth = (req, res) => {
-  const usersRecord = JSON.parse(localStorage.getItem('users')) || [];
-  const passed = validation.check(userModule.UserLogin, values, usersRecord);
-  if (passed === true) {
-    if (usersRecord.length > 0) {
-      const found = usersRecord.find((userdata) => userdata.email === values.email);
-      if (typeof (found) !== 'undefined') {
-        if (bcrypt.compareSync(values.password, found.password)) {
-          const tokenapi = jwt.sign({
-            first_name: found.first_name,
-            last_name: found.last_name,
-            email: found.email,
-            id: found.id,
-          }, '0123456789abcdfghjkmnpqrstvwxyzABCDEFGHIJKLMNOPQRE', { expiresIn: '24d' });
-          res.status(201).json({
-            status: 201,
-            message: 'User logged in successfully!',
-            data: {
-              token: tokenapi,
-              id: found.id,
-              first_name: found.first_name,
-              last_name: found.last_name,
-              email: found.email,
-            },
-          });
-        } else {
-          res.status(401).json({
-            status: 401,
-            message: 'user password incorrect',
-          });
-        }
-      } else {
-        res.status(404).json({
-          status: 404,
-          message: 'user not found',
-        });
-      }
+exports.getLoginAuth = async (req, res) => {
+  const isUserExists = await executeQuery(queries.users.isUserExist, [req.body.email]);
+  try {
+    if (isUserExists.rowCount === 0) {
+      return res.status(409).json({ status: 409, error: "invalid email address" });
+    }
+    const data = isUserExists.rows[0];
+    if (bcrypt.compareSync(req.body.password, data.password)) {
+      const token = jwt.sign({
+        first_name: data.first_name,
+        last_name: data.last_name,
+        email: data.email,
+        id: data.id,
+      }, '0123456789abcdfghjkmnpqrstvwxyzABCDEFGHIJKLMNOPQRE', { expiresIn: '24d' });
+      res.status(200).json({ status: 200, message: "User is succefully logged in", data: token });
     } else {
-      res.status(404).json({
-        status: 404,
-        message: 'user not found',
+      res.status(401).json({
+        status: 401,
+        message: 'user password incorrect',
       });
     }
-  } else {
-    res.status(400).json({
-      message: passed,
-    });
+  } catch (err) {
+    return res.status(400).json({ status: 400, error: err.message });
   }
+  return true;
 };
 
 exports.getRegisterAuth = async (req, res) => {
@@ -77,7 +54,6 @@ exports.getRegisterAuth = async (req, res) => {
     const hash = bcrypt.hashSync(req.body.password, 10);
     const resultdb = await executeQuery(queries.users.insertUser, [first_name, last_name, email, hash]);
     const { password, ...data } = resultdb.rows[0];
-    console.log(resultdb.rows[0]);
     const token = jwt.sign({
       first_name,
       last_name,
@@ -96,50 +72,29 @@ exports.getRegisterAuth = async (req, res) => {
   return true;
 };
 
-exports.updateUser = (req, res) => {
-  const validation = new Validate();
-  const values = req.body;
-  req.body.id = req.id;
-  const idUser = req.id;
-  const usersRecord = JSON.parse(localStorage.getItem('users')) || [];
-  const passed = validation.check(userModule.UserProfileUpdate, values, usersRecord, idUser);
-  if (usersRecord.length > 0) {
-    if (passed === true) {
-      const found = usersRecord.find((userdata) => userdata.id === parseInt(idUser));
-      if (typeof (found) !== 'undefined') {
-        const key = usersRecord.indexOf(found);
-        usersRecord[key].first_name = values.first_name;
-        usersRecord[key].last_name = values.last_name;
-        usersRecord[key].Email = values.Email;
-        localStorage.setItem('users', JSON.stringify(usersRecord));
-        res.status(201).json({
-          status: 201,
-          message: 'User updated successfully',
-          data: {
-            id: usersRecord[key].id,
-            first_name: usersRecord[key].first_name,
-            last_name: usersRecord[key].last_name,
-            email: usersRecord[key].email,
-          },
-        });
-      } else {
-        res.status(404).json({
-          status: 404,
-          message: 'user not found',
-        });
-      }
-    } else {
-      res.status(400).json({
-        status: 400,
-        message: passed,
-      });
+exports.updateUser = async (req, res) => {
+  const isUserExists = await executeQuery(queries.users.userById, [req.id]);
+  try {
+    if (isUserExists.rowCount === 0) {
+      return res.status(409).json({ status: 409, error: "this account does not exist" });
     }
-  } else {
-    res.status(404).json({
-      status: 404,
-      message: 'user not found',
+    const {
+      first_name, last_name, email,
+    } = req.body;
+    const nodiplicate = await executeQuery(queries.users.isUserExist, [req.body.email]);
+    const data = nodiplicate.rows[0];
+    if (data.id !== req.id) {
+      return res.status(409).json({ status: 409, error: "this email already exist" });
+    }
+    const updateprofile = await executeQuery(queries.users.updateUser, [first_name, last_name, email, req.id]);
+    res.status(201).json({
+      status: 201,
+      message: 'Profile updated',
     });
+  } catch (err) {
+    return res.status(400).json({ status: 400, error: err.message });
   }
+  return true;
 };
 
 exports.recoverPassword = (req, res) => {
@@ -204,43 +159,20 @@ exports.recoverPassword = (req, res) => {
   }
 };
 
-exports.updatePassword = (req, res) => {
-  const validation = new Validate();
-  const values = req.body;
-  req.body.id = req.id;
-  const userId = req.id;
-  const usersRecord = JSON.parse(localStorage.getItem('users')) || [];
-  const passed = validation.check(userModule.userPasswordUpdate, values, usersRecord);
-  if (passed === true) {
-    if (usersRecord.length > 0) {
-      const found = usersRecord.find((userdata) => userdata.id === parseInt(userId));
-      if (typeof (found) !== 'undefined') {
-        const passwords = values.password;
-        const salt = bcrypt.genSaltSync(10);
-        const hash = bcrypt.hashSync(String(passwords), salt);
-        const key = usersRecord.indexOf(found);
-        usersRecord[key].password = hash;
-        localStorage.setItem('users', JSON.stringify(usersRecord));
-        res.status(201).json({
-          status: 201,
-          message: 'Password Updated',
-        });
-      } else {
-        res.status(404).json({
-          status: 404,
-          message: 'user not found',
-        });
-      }
-    } else {
-      res.status(404).json({
-        status: 404,
-        message: 'user not found',
-      });
+exports.updatePassword = async (req, res) => {
+  const isUserExists = await executeQuery(queries.users.userById, [req.id]);
+  try {
+    if (isUserExists.rowCount === 0) {
+      return res.status(409).json({ status: 409, error: "this account does not exist" });
     }
-  } else {
-    res.status(400).json({
-      status: 400,
-      message: passed,
+    const hash = bcrypt.hashSync(req.body.password, 10);
+    const updatepwd = await executeQuery(queries.users.updatePassword, [hash, req.id]);
+    res.status(201).json({
+      status: 201,
+      message: 'Password Updated',
     });
+  } catch (err) {
+    return res.status(400).json({ status: 400, error: err.message });
   }
+  return true;
 };
