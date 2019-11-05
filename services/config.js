@@ -17,7 +17,6 @@ const executeQuery = async (myQuery, params = []) => {
   return result;
 };
 
-module.exports = {
-  pool,
-  executeQuery,
+export default {
+  executeQuery, pool,
 };

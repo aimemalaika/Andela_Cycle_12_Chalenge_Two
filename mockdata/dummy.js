@@ -1,4 +1,4 @@
-import { pool } from '../services/config';
+import config from '../services/config';
 
 const insertDummies = async () => {
   const dummyData = [
@@ -11,7 +11,7 @@ const insertDummies = async () => {
   ];
 
   for (const datas of dummyData) {
-    await pool.query(datas);
+    await config.pool.query(datas);
   }
 };
 

@@ -1,10 +1,9 @@
-/* eslint-disable radix */
 import localStorage from 'localStorage';
 import bcrypt from 'bcrypt';
 import nodemailer from 'nodemailer';
 import jwt from 'jsonwebtoken';
 
-import { executeQuery } from '../services/config';
+import config from '../services/config';
 import queries from '../services/queries';
 
 const transporter = nodemailer.createTransport({
@@ -15,7 +14,7 @@ const transporter = nodemailer.createTransport({
   },
 });
 exports.getLoginAuth = async (req, res) => {
-  const isUserExists = await executeQuery(queries.users.isUserExist, [req.body.email]);
+  const isUserExists = await config.executeQuery(queries.users.isUserExist, [req.body.email]);
   try {
     if (isUserExists.rowCount === 0) {
       return res.status(409).json({ status: 409, error: "invalid email address" });
@@ -42,7 +41,7 @@ exports.getLoginAuth = async (req, res) => {
 };
 
 exports.getRegisterAuth = async (req, res) => {
-  const isUserExists = await executeQuery(queries.users.isUserExist, [req.body.email]);
+  const isUserExists = await config.executeQuery(queries.users.isUserExist, [req.body.email]);
   try {
     if (isUserExists.rowCount > 0) {
       return res.status(409).json({ status: 409, error: "user already exist in the system" });
@@ -52,7 +51,7 @@ exports.getRegisterAuth = async (req, res) => {
     } = req.body;
 
     const hash = bcrypt.hashSync(req.body.password, 10);
-    const resultdb = await executeQuery(queries.users.insertUser, [first_name, last_name, email, hash]);
+    const resultdb = await config.executeQuery(queries.users.insertUser, [first_name, last_name, email, hash]);
     const { password, ...data } = resultdb.rows[0];
     const token = jwt.sign({
       first_name,
@@ -73,7 +72,7 @@ exports.getRegisterAuth = async (req, res) => {
 };
 
 exports.updateUser = async (req, res) => {
-  const isUserExists = await executeQuery(queries.users.userById, [req.id]);
+  const isUserExists = await config.executeQuery(queries.users.userById, [req.id]);
   try {
     if (isUserExists.rowCount === 0) {
       return res.status(409).json({ status: 409, error: "this account does not exist" });
@@ -81,12 +80,12 @@ exports.updateUser = async (req, res) => {
     const {
       first_name, last_name, email,
     } = req.body;
-    const nodiplicate = await executeQuery(queries.users.isUserExist, [req.body.email]);
+    const nodiplicate = await config.executeQuery(queries.users.isUserExist, [req.body.email]);
     const data = nodiplicate.rows[0];
     if (data.id !== req.id) {
       return res.status(409).json({ status: 409, error: "this email already exist" });
     }
-    const updateprofile = await executeQuery(queries.users.updateUser, [first_name, last_name, email, req.id]);
+    const updateprofile = await config.executeQuery(queries.users.updateUser, [first_name, last_name, email, req.id]);
     res.status(201).json({
       status: 201,
       message: 'Profile updated',
@@ -97,76 +96,56 @@ exports.updateUser = async (req, res) => {
   return true;
 };
 
-exports.recoverPassword = (req, res) => {
-  const validation = new Validate();
-  const values = req.body;
-  const usersRecord = JSON.parse(localStorage.getItem('users')) || [];
-  const passed = validation.check(userModule.resetPassword, values, usersRecord);
-  const makepassword = (length) => {
-    let result = '';
-    const characters = 'ABCDabcd1234';
-    const charactersLength = characters.length;
-    for (let i = 0; i < length; i += 1) {
-      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+exports.recoverPassword = async (req, res) => {
+  const isUserExists = await config.executeQuery(queries.users.isUserExist, [req.body.email]);
+  try {
+    if (isUserExists.rowCount === 0) {
+      return res.status(409).json({ status: 409, error: "invalid email address" });
     }
-    return result;
-  };
-  if (passed === true) {
-    if (usersRecord.length > 0) {
-      const found = usersRecord.find((userdata) => userdata.email === values.email);
-      if (typeof (found) !== 'undefined') {
-        const password = makepassword(20);
-        const salt = bcrypt.genSaltSync(10);
-        const hash = bcrypt.hashSync(String(password), salt);
-        const mailOptions = {
-          from: 'mydiay.reply@gmail.com',
-          to: values.Email,
-          subject: 'MyDiary Password reset',
-          html: `<div style="background-color: lightblue;color: black;padding: 40px;color: white;"><h1>MyDiary</h1><p> bellow is our new password use it to login and change your password in your account profile</p><p>Passowrd: <input style="border: none;background: #fff;padding: 5px 20px;font-size: 14px;width: 200px;font-weight: 500;color: burlywood;" type="text" value="${password}"/></p></div>`,
-        };
-        const key = usersRecord.indexOf(found);
-        usersRecord[key].password = hash;
-        localStorage.setItem('users', JSON.stringify(usersRecord));
-        try {
-          transporter.sendMail(mailOptions);
-          res.status(201).json({
-            status: 201,
-            message: 'email sent successful',
-          });
-        } catch (error) {
-          res.status(400).json({
-            status: 400,
-            message: 'fail to send email',
-          });
-        }
-      } else {
-        res.status(400).json({
-          status: 400,
-          message: 'Email not found',
-        });
+    const makepassword = (length) => {
+      let result = '';
+      const characters = 'ABCDabcd1234';
+      const charactersLength = characters.length;
+      for (let i = 0; i < length; i += 1) {
+        result += characters.charAt(Math.floor(Math.random() * charactersLength));
       }
-    } else {
-      res.status(404).json({
-        status: 404,
-        message: 'user not found',
+      return result;
+    };
+    const password = makepassword(20);
+    const salt = bcrypt.genSaltSync(10);
+    const hash = bcrypt.hashSync(String(password), salt);
+    const mailOptions = {
+      from: 'mydiay.reply@gmail.com',
+      to: req.body.email,
+      subject: 'MyDiary Password reset',
+      html: `<div style="background-color: lightblue;color: black;padding: 40px;color: white;"><h1>MyDiary</h1><p> bellow is our new password use it to login and change your password in your account profile</p><p>Passowrd: <input style="border: none;background: #fff;padding: 5px 20px;font-size: 14px;width: 200px;font-weight: 500;color: burlywood;" type="text" value="${password}"/></p></div>`,
+    };
+    try {
+      const updatepwd = await config.executeQuery(queries.users.updatePassword, [hash, isUserExists.rows[0].id]);
+      transporter.sendMail(mailOptions);
+      res.status(200).json({
+        status: 201,
+        message: 'Password Updated check email',
+      });
+    } catch (error) {
+      res.status(200).json({
+        message: 'user found',
       });
     }
-  } else {
-    res.status(400).json({
-      status: 400,
-      message: passed,
-    });
+  } catch (err) {
+    return res.status(400).json({ status: 400, error: err.message });
   }
+  return true;
 };
 
 exports.updatePassword = async (req, res) => {
-  const isUserExists = await executeQuery(queries.users.userById, [req.id]);
+  const isUserExists = await config.executeQuery(queries.users.userById, [req.id]);
   try {
     if (isUserExists.rowCount === 0) {
       return res.status(409).json({ status: 409, error: "this account does not exist" });
     }
     const hash = bcrypt.hashSync(req.body.password, 10);
-    const updatepwd = await executeQuery(queries.users.updatePassword, [hash, req.id]);
+    const updatepwd = await config.executeQuery(queries.users.updatePassword, [hash, req.id]);
     res.status(201).json({
       status: 201,
       message: 'Password Updated',

@@ -1,4 +1,4 @@
-import { pool } from './config';
+import config from './config';
 
 const dropTable = [
   `DROP TABLE IF EXISTS stories CASCADE`,
@@ -7,7 +7,7 @@ const dropTable = [
 
 const dropTables = async () => {
   for (const i of dropTable) {
-    await pool.query(i);
+    await config.pool.query(i);
   }
 };
 
