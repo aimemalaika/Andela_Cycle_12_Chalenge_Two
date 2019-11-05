@@ -97,7 +97,7 @@ describe('Test users auth', () => {
         .post('/api/v1/auth/signin')
         .send(mochadata.unregistreduser)
         .end((error, res) => {
-        //   res.body.status.should.be.equal(409);
+          res.body.status.should.be.equal(409);
           expect(res.body.error).to.equal('invalid email address');
           done();
         });
