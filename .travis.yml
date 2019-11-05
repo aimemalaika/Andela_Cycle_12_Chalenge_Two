@@ -1,13 +1,19 @@
-language: node_js
-node_js:
- - "10"
+services:
+  - postgresql
+addons:
+  postgresql: "9.6"
 env:
   global:
     - URL=http://localhost:8080
     - PORT=8080
+language: node_js
+node_js:
+ - "10"
 branches:
   only:
     - develop
+before_script:
+  - psql -c 'create database mydiarydb;' -U postgres 
 install:
   - npm install
 cache:
