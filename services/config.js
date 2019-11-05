@@ -6,7 +6,7 @@ dotenv.config();
 
 const pool = new Pool({
   user: 'postgres',
-  password: 'aime1995',
+  password: '',
   host: 'localhost',
   port: '5432',
   database: 'mydiarydb',
