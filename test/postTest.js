@@ -30,4 +30,13 @@ describe('Test post management', () => {
       });
     done();
   });
+  it('user should allow a user to see his posts with a token header', (done) => {
+    chai.request(app)
+      .get('/api/v1/entries')
+      .set('Authorization', mochadata.user1token)
+      .end((err, res) => {
+        res.should.have.status(200);
+      });
+    done();
+  });
 });

@@ -11,7 +11,7 @@ exports.addStory = async (req, res) => {
       return res.status(409).json({ status: 409, error: "topic already used" });
     }
     const resultdb = await config.executeQuery(queries.entries.insertEntry, [subject, content, req.id]);
-    res.status(201).json({
+    return res.status(201).json({
       status: 201,
       message: "entry successfully created",
       data: resultdb.rows[0],
@@ -19,7 +19,6 @@ exports.addStory = async (req, res) => {
   } catch (err) {
     return res.status(400).json({ status: 400, error: err.message });
   }
-  return true;
 };
 
 
@@ -57,27 +56,18 @@ exports.getOneStory = (req, res) => {
   }
 };
 
-exports.getAllStories = (req, res) => {
-  const storyRecord = JSON.parse(localStorage.getItem('stories')) || [];
-  const auther = req.id;
-  if (storyRecord.length > 0) {
-    const found = storyRecord.filter((storydata) => storydata.Auther === parseInt(auther));
-    if (typeof (found) !== 'undefined' && found.length > 0) {
-      res.status(200).json({
-        status: 200,
-        data: { found },
-      });
-    } else {
-      res.status(404).json({
-        status: 404,
-        message: 'story not posted yet',
-      });
+exports.getAllStories = async (req, res) => {
+  const isPostExist = await config.executeQuery(queries.entries.getAllStories, [req.id]);
+  try {
+    if (isPostExist.rowCount === 0) {
+      return res.status(409).json({ status: 409, error: "no topic found" });
     }
-  } else {
-    res.status(404).json({
-      status: 404,
-      message: 'story not found',
+    return res.status(200).json({
+      status: 200,
+      data: isPostExist.rows,
     });
+  } catch (err) {
+    return res.status(400).json({ status: 400, error: err.message });
   }
 };
 
