@@ -22,37 +22,18 @@ exports.addStory = async (req, res) => {
 };
 
 
-exports.getOneStory = (req, res) => {
-  const { storyId } = req.params;
-  const auther = req.id;
-  const storyRecord = JSON.parse(localStorage.getItem('stories')) || [];
-  if (storyRecord.length > 0) {
-    const found = storyRecord.find((storydata) => storydata.id === parseInt(storyId));
-    if (typeof (found) !== 'undefined') {
-      if (found.Auther === parseInt(auther)) {
-        res.status(200).json({
-          status: 200,
-          data: {
-            found,
-          },
-        });
-      } else {
-        res.status(403).json({
-          status: 403,
-          message: 'trying to get post that are not yours',
-        });
-      }
-    } else {
-      res.status(404).json({
-        status: 404,
-        message: 'story not found',
-      });
+exports.getOneStory = async (req, res) => {
+  const isPostExist = await config.executeQuery(queries.entries.getOneStory, [req.id, req.params.storyId]);
+  try {
+    if (isPostExist.rowCount === 0) {
+      return res.status(409).json({ status: 409, error: "no topic found" });
     }
-  } else {
-    res.status(404).json({
-      status: 404,
-      message: 'story not found',
+    return res.status(200).json({
+      status: 200,
+      data: isPostExist.rows,
     });
+  } catch (err) {
+    return res.status(400).json({ status: 400, error: err.message });
   }
 };
 
