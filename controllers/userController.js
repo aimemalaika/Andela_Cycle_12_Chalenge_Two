@@ -14,54 +14,31 @@ const transporter = nodemailer.createTransport({
     pass: 'Aime1995',
   },
 });
-exports.getLoginAuth = (req, res) => {
-  const usersRecord = JSON.parse(localStorage.getItem('users')) || [];
-  const passed = validation.check(userModule.UserLogin, values, usersRecord);
-  if (passed === true) {
-    if (usersRecord.length > 0) {
-      const found = usersRecord.find((userdata) => userdata.email === values.email);
-      if (typeof (found) !== 'undefined') {
-        if (bcrypt.compareSync(values.password, found.password)) {
-          const tokenapi = jwt.sign({
-            first_name: found.first_name,
-            last_name: found.last_name,
-            email: found.email,
-            id: found.id,
-          }, '0123456789abcdfghjkmnpqrstvwxyzABCDEFGHIJKLMNOPQRE', { expiresIn: '24d' });
-          res.status(201).json({
-            status: 201,
-            message: 'User logged in successfully!',
-            data: {
-              token: tokenapi,
-              id: found.id,
-              first_name: found.first_name,
-              last_name: found.last_name,
-              email: found.email,
-            },
-          });
-        } else {
-          res.status(401).json({
-            status: 401,
-            message: 'user password incorrect',
-          });
-        }
-      } else {
-        res.status(404).json({
-          status: 404,
-          message: 'user not found',
-        });
-      }
+exports.getLoginAuth = async (req, res) => {
+  const isUserExists = await executeQuery(queries.users.isUserExist, [req.body.email]);
+  try {
+    if (!isUserExists.rowCount === 1) {
+      return res.status(409).json({ status: 409, error: "invalid email address" });
+    }
+    const data = isUserExists.rows[0];
+    if (bcrypt.compareSync(req.body.password, data.password)) {
+      const token = jwt.sign({
+        first_name: data.first_name,
+        last_name: data.last_name,
+        email: data.email,
+        id: data.id,
+      }, '0123456789abcdfghjkmnpqrstvwxyzABCDEFGHIJKLMNOPQRE', { expiresIn: '24d' });
+      res.status(200).json({ status: 200, message: "User is succefully logged in", data: token });
     } else {
-      res.status(404).json({
-        status: 404,
-        message: 'user not found',
+      res.status(401).json({
+        status: 401,
+        message: 'user password incorrect',
       });
     }
-  } else {
-    res.status(400).json({
-      message: passed,
-    });
+  } catch (err) {
+    return res.status(400).json({ status: 400, error: err.message });
   }
+  return true;
 };
 
 exports.getRegisterAuth = async (req, res) => {
@@ -77,7 +54,6 @@ exports.getRegisterAuth = async (req, res) => {
     const hash = bcrypt.hashSync(req.body.password, 10);
     const resultdb = await executeQuery(queries.users.insertUser, [first_name, last_name, email, hash]);
     const { password, ...data } = resultdb.rows[0];
-    console.log(resultdb.rows[0]);
     const token = jwt.sign({
       first_name,
       last_name,

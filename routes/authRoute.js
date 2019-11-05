@@ -10,7 +10,7 @@ const route = express.Router();
 route.patch('/resetpassword', authController.recoverPassword);
 route.patch('/profile', isAuth, authController.updateUser);
 route.patch('/updatepassword', isAuth, authController.updatePassword);
-route.post('/signin', isValid.validateinput, authController.getLoginAuth);
-route.post('/signup', isValid.validateinput, authController.getRegisterAuth);
+route.post('/signin', isValid.validateLogin, authController.getLoginAuth);
+route.post('/signup', isValid.validateRegistration, authController.getRegisterAuth);
 
 module.exports = route;
