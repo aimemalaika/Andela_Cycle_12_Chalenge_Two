@@ -1,5 +1,5 @@
 class Validator {
-  check(source, inpt, localStorage = []) {
+  check(source, inpt) {
     const validationError = [];
     for (const fieldname in source) {
       for (const rulename in source[fieldname]) {
@@ -30,18 +30,6 @@ class Validator {
               break;
             case 'matches':
               if (String(inpt[fieldname]) !== String(inpt[`c${fieldname}`])) validationError.push(`${fieldname.replace(/_/g, ' ')} don't match`);
-              break;
-            case 'unique':
-              localStorage.map((values) => {
-                if (values.email === String(inpt[fieldname])) validationError.push(`${fieldname.replace(/_/g, ' ')} is already used`);
-                if (values.subject === String(inpt[fieldname])) validationError.push(`this ${fieldname.replace(/_/g, ' ')} is already created`);
-              });
-              break;
-            case 'uniqueupdate':
-              localStorage.map((values) => {
-                if (values.email === String(inpt[fieldname]) && values.id !== parseInt(inpt.id)) validationError.push(`${fieldname.replace(/_/g, ' ')} is already used`);
-                if (values.subject === String(inpt[fieldname]) && values.id !== parseInt(inpt.id)) validationError.push(`this ${fieldname.replace(/_/g, ' ')} is already created`);
-              });
               break;
           }
         }

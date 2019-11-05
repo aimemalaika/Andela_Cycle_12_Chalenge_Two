@@ -1,0 +1,15 @@
+import userModule from '../models/userModel';
+import Validate from '../helpers/validationHelper';
+exports.validateRegistration = (req, res, next) => {
+  const validation = new Validate();
+  const values = req.body;
+  const passed = validation.check(userModule.UserRegitration, values);
+  if (passed === true) {
+    next();
+  } else {
+    res.status(400).json({
+      status: 400,
+      message: passed,
+    });
+  }
+};

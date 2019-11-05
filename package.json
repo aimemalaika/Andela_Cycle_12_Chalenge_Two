@@ -10,7 +10,9 @@
     "start": "node start.js",
     "dev": "nodemon --exec babel-node app.js",
     "test": "nyc --reporter=html --reporter=text mocha --timeout 10000 --require @babel/register test/*.test.js --exit",
-    "coverall": "nyc report --reporter=text-lcov | coveralls"
+    "coverall": "nyc report --reporter=text-lcov | coveralls",
+    "create": "nodemon --exec babel-node services/createTables.js",
+    "drop": "nodemon --exec babel-node services/dropTables.js"
   },
   "repository": {
     "type": "git",
