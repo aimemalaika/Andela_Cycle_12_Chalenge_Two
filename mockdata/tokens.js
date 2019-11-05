@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken';
 dotenv.config();
 
 const user1token = jwt.sign({
-  id: 1,
+  id: 7,
   first_name: 'aime',
   last_name: 'malaika',
   email: 'aimemalaika1995@gmail.com',
@@ -92,8 +92,14 @@ const incorrectpassword = {
   password: 'Aime1995q',
 };
 
+const userUpdateprofile = {
+  first_name: "malalaika",
+  last_name: "malaika",
+  email: "aimemalaika1995@gmail.com",
+};
+
 const invalidToken = 'iJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZmlyc3ROYW1lIjoid2lsbH';
 
 export default {
-  user1token, user1, invalidToken, signupUser, requiredinfo, validatetex, lengthrequired, noemailsignup, loginuser, badpassword, passworddontmatch, unregistreduser, incorrectpassword, updatePassword,
+  user1token, user1, userUpdateprofile, invalidToken, signupUser, requiredinfo, validatetex, lengthrequired, noemailsignup, loginuser, badpassword, passworddontmatch, unregistreduser, incorrectpassword, updatePassword,
 };

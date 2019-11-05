@@ -41,3 +41,17 @@ exports.validateEmail = (req, res, next) => {
     });
   }
 };
+
+exports.validateProfile = (req, res, next) => {
+  const validation = new Validate();
+  const values = req.body;
+  const passed = validation.check(userModule.UserProfileUpdate, values);
+  if (passed === true) {
+    next();
+  } else {
+    res.status(400).json({
+      status: 400,
+      message: passed,
+    });
+  }
+};
