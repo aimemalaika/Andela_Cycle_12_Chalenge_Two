@@ -1,54 +1,25 @@
 import localStorage from 'localStorage';
 
-import storyModule from '../models/storyModel';
-import Validate from '../helpers/validationHelper';
+import config from '../services/config';
+import queries from '../services/queries';
 
-const today = `${new Date().getDay()} / ${new Date().getMonth()} / ${new Date().getFullYear()}`;
-exports.addStory = (req, res) => {
-  const validation = new Validate();
-  const values = req.body;
-  let storyId;
-  const storyRecord = JSON.parse(localStorage.getItem('stories')) || [];
-  const passed = validation.check(storyModule.StoryCreation, values, storyRecord);
-  if (passed === true) {
-    if (storyRecord.length === 0) {
-      storyId = 1;
-    } else {
-      const maxId = (array, prop) => {
-        let max;
-        for (let i = 0; i < array.length; i += 1) {
-          if (!max || parseInt(array[i][prop]) > parseInt(max[prop])) { max = array[i]; }
-        }
-        return max.id + 1;
-      };
-
-      storyId = maxId(storyRecord, 'id');
+exports.addStory = async (req, res) => {
+  const { subject, content } = req.body;
+  const isTitleExist = await config.executeQuery(queries.entries.getDiplicateTitle, [subject]);
+  try {
+    if (isTitleExist.rowCount > 0) {
+      return res.status(409).json({ status: 409, error: "topic already used" });
     }
-    storyRecord.push({
-      id: storyId,
-      subject: values.subject,
-      content: values.content,
-      Auther: req.id,
-      createdOn: today,
-    });
-    localStorage.setItem('stories', JSON.stringify(storyRecord));
+    const resultdb = await config.executeQuery(queries.entries.insertEntry, [subject, content, req.id]);
     res.status(201).json({
       status: 201,
-      message: 'entry successfully created',
-      data: {
-        id: storyId,
-        subject: values.subject,
-        content: values.content,
-        Auther: req.id,
-        createdOn: today,
-      },
+      message: "entry successfully created",
+      data: resultdb.rows[0],
     });
-  } else {
-    res.status(400).json({
-      status: 400,
-      message: passed,
-    });
+  } catch (err) {
+    return res.status(400).json({ status: 400, error: err.message });
   }
+  return true;
 };
 
 

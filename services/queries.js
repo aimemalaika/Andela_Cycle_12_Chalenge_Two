@@ -6,10 +6,12 @@ const users = {
   updatePassword: `UPDATE users SET password=$1 WHERE id=$2`,
 };
 const entries = {
+  insertEntry: `INSERT INTO stories( subject, content, auther) VALUES($1 ,$2, $3) RETURNING *`,
   getAllStories: `SELECT * FROM stories WHERE auther=$1`,
   getOneStory: `SELECT * FROM stories WHERE auther=$1 AND id=$2`,
   deleteStory: `DELETE FROM stories WHERE auther=$1 AND id=$2`,
   updateStory: `UPDATE stories SET subject=$1,content=$2 WHERE auther=$1 AND id=$2`,
+  getDiplicateTitle: `SELECT * FROM stories WHERE subject=$1`,
 };
 
 export default { users, entries };
