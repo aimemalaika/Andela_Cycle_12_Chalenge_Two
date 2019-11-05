@@ -60,7 +60,55 @@ describe('Test users auth', () => {
         .post('/api/v1/auth/signup')
         .send(mochadata.signupUser)
         .end((error, res) => {
+          expect(res.body.error).to.equal('user already exist in the system');
           res.body.status.should.be.equal(409);
+          done();
+        });
+    });
+    it('user should require user to confirm pasword and compare', (done) => {
+      chai.request(app)
+        .post('/api/v1/auth/signup')
+        .send(mochadata.passworddontmatch)
+        .end((err, res) => {
+          res.should.have.status(400);
+        });
+      done();
+    });
+    it('user password should at least conatain one catpal letter, one small letter, one number and hahe a size of at least 6 character', (done) => {
+      chai.request(app)
+        .post('/api/v1/auth/signup')
+        .send(mochadata.badpassword)
+        .end((err, res) => {
+          res.should.have.status(400);
+        });
+      done();
+    });
+    it('Should login a user', (done) => {
+      chai.request(app)
+        .post('/api/v1/auth/signin')
+        .send(mochadata.loginuser)
+        .end((error, res) => {
+          res.body.status.should.be.equal(200);
+          done();
+        });
+    });
+    it('Should not login non existing user', (done) => {
+      chai.request(app)
+        .post('/api/v1/auth/signin')
+        .send(mochadata.unregistreduser)
+        .end((error, res) => {
+        //   res.body.status.should.be.equal(409);
+          expect(res.body.error).to.equal('invalid email address');
+          done();
+        });
+    });
+    it('Should reject incorect password', (done) => {
+      chai.request(app)
+        .post('/api/v1/auth/signin')
+        .send(mochadata.incorrectpassword)
+        .end((error, res) => {
+          res.body.status.should.be.equal(401);
+          expect(res.body.message).to.equal('user password incorrect');
           done();
         });
     });

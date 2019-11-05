@@ -17,7 +17,7 @@ const transporter = nodemailer.createTransport({
 exports.getLoginAuth = async (req, res) => {
   const isUserExists = await executeQuery(queries.users.isUserExist, [req.body.email]);
   try {
-    if (!isUserExists.rowCount === 1) {
+    if (isUserExists.rowCount === 0) {
       return res.status(409).json({ status: 409, error: "invalid email address" });
     }
     const data = isUserExists.rows[0];
