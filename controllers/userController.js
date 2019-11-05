@@ -3,13 +3,9 @@ import localStorage from 'localStorage';
 import bcrypt from 'bcrypt';
 import nodemailer from 'nodemailer';
 import jwt from 'jsonwebtoken';
-import dotenv from 'dotenv';
-
 
 import { executeQuery } from '../services/config';
 import queries from '../services/queries';
-
-dotenv.config();
 
 const transporter = nodemailer.createTransport({
   service: 'gmail',
@@ -19,8 +15,6 @@ const transporter = nodemailer.createTransport({
   },
 });
 exports.getLoginAuth = (req, res) => {
-  const validation = new Validate();
-  const values = req.body;
   const usersRecord = JSON.parse(localStorage.getItem('users')) || [];
   const passed = validation.check(userModule.UserLogin, values, usersRecord);
   if (passed === true) {
@@ -92,7 +86,7 @@ exports.getRegisterAuth = async (req, res) => {
     }, '0123456789abcdfghjkmnpqrstvwxyzABCDEFGHIJKLMNOPQRE', { expiresIn: '24d' });
     res.status(201).json({
       status: 201,
-      message: "User created succefully",
+      message: "User created successfully",
       token,
       data,
     });

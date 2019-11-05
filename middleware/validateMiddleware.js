@@ -1,6 +1,6 @@
 import userModule from '../models/userModel';
 import Validate from '../helpers/validationHelper';
-exports.validateRegistration = (req, res, next) => {
+exports.validateinput = (req, res, next) => {
   const validation = new Validate();
   const values = req.body;
   const passed = validation.check(userModule.UserRegitration, values);
