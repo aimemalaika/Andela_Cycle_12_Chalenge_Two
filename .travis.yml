@@ -18,7 +18,7 @@ cache:
   directories:
     - node_modules
 before_script:
-  - cp config/database.yml.travis config/database.yml
+  - cp config/database.yml.travis database.yml
 script:
   - npm test
 after_sucess:
