@@ -59,7 +59,7 @@ exports.getRegisterAuth = async (req, res) => {
       email,
       id: data.id,
     }, '0123456789abcdfghjkmnpqrstvwxyzABCDEFGHIJKLMNOPQRE', { expiresIn: '24d' });
-    res.status(201).json({
+    return res.status(201).json({
       status: 201,
       message: "User created successfully",
       token,
@@ -68,7 +68,6 @@ exports.getRegisterAuth = async (req, res) => {
   } catch (err) {
     return res.status(400).json({ status: 400, error: err.message });
   }
-  return true;
 };
 
 exports.updateUser = async (req, res) => {
@@ -85,15 +84,14 @@ exports.updateUser = async (req, res) => {
     if (data.id !== req.id) {
       return res.status(409).json({ status: 409, error: "this email already exist" });
     }
-    const updateprofile = await config.executeQuery(queries.users.updateUser, [first_name, last_name, email, req.id]);
-    res.status(201).json({
+    await config.executeQuery(queries.users.updateUser, [first_name, last_name, email, req.id]);
+    return res.status(201).json({
       status: 201,
       message: 'Profile updated',
     });
   } catch (err) {
     return res.status(400).json({ status: 400, error: err.message });
   }
-  return true;
 };
 
 exports.recoverPassword = async (req, res) => {
@@ -121,21 +119,20 @@ exports.recoverPassword = async (req, res) => {
       html: `<div style="background-color: lightblue;color: black;padding: 40px;color: white;"><h1>MyDiary</h1><p> bellow is our new password use it to login and change your password in your account profile</p><p>Passowrd: <input style="border: none;background: #fff;padding: 5px 20px;font-size: 14px;width: 200px;font-weight: 500;color: burlywood;" type="text" value="${password}"/></p></div>`,
     };
     try {
-      const updatepwd = await config.executeQuery(queries.users.updatePassword, [hash, isUserExists.rows[0].id]);
+      await config.executeQuery(queries.users.updatePassword, [hash, isUserExists.rows[0].id]);
       transporter.sendMail(mailOptions);
-      res.status(200).json({
+      return res.status(200).json({
         status: 201,
         message: 'Password Updated check email',
       });
     } catch (error) {
-      res.status(200).json({
+      return res.status(200).json({
         message: 'user found',
       });
     }
   } catch (err) {
     return res.status(400).json({ status: 400, error: err.message });
   }
-  return true;
 };
 
 exports.updatePassword = async (req, res) => {
@@ -145,13 +142,12 @@ exports.updatePassword = async (req, res) => {
       return res.status(409).json({ status: 409, error: "this account does not exist" });
     }
     const hash = bcrypt.hashSync(req.body.password, 10);
-    const updatepwd = await config.executeQuery(queries.users.updatePassword, [hash, req.id]);
-    res.status(201).json({
+    await config.executeQuery(queries.users.updatePassword, [hash, req.id]);
+    return res.status(201).json({
       status: 201,
       message: 'Password Updated',
     });
   } catch (err) {
     return res.status(400).json({ status: 400, error: err.message });
   }
-  return true;
 };

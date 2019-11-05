@@ -3,7 +3,7 @@ import express from 'express';
 
 import authController from '../controllers/userController';
 import isAuth from '../middleware/isAuth';
-import isValid from '../middleware/validateMiddleware';
+import isValid from '../middleware/validateAuthMiddleware';
 
 const route = express.Router();
 

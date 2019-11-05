@@ -13,7 +13,7 @@ const makeTables = async () => {
         id SERIAL PRIMARY KEY UNIQUE,
         subject TEXT NOT NULL,
         content TEXT NOT NULL,
-        createdOn TEXT NOT NULL,
+        createdOn DATE NOT NULL DEFAULT CURRENT_DATE,
         auther INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE
     );`;
 

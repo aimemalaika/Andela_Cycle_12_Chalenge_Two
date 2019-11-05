@@ -13,7 +13,7 @@
     "coverall": "nyc report --reporter=text-lcov | coveralls",
     "create": "babel-node services/createTable.js",
     "drop": "babel-node services/dropTable.js",
-    "insertDummies": "babel-node mockdata/dummy.js"
+    "insertDummies": "babel-node mockdata/dummyUser.js && babel-node mockdata/dummyPost.js"
   },
   "repository": {
     "type": "git",
