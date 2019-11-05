@@ -13,7 +13,7 @@ branches:
   only:
     - develop
 before_script:
-  - psql -c 'create database pg_promise_test;' -U aime -P aime1995 
+  - psql -c 'create database pg_promise_test;' -U postgres 
 install:
   - npm install
 cache:
