@@ -1,7 +1,7 @@
 services:
   - postgresql
 addons:
-  postgresql: "9.6"
+  postgresql: "12.0"
 env:
   global:
     - URL=http://localhost:8080
