@@ -2,10 +2,10 @@ services:
   - postgresql
 addons:
   postgresql: "12.0"
-env:
-  global:
-    - URL=http://localhost:8080
-    - PORT=8080
+# env:
+#   global:
+#     - URL=http://localhost:8080
+#     - PORT=8080
 language: node_js
 node_js:
  - "10"
@@ -18,7 +18,7 @@ cache:
   directories:
     - node_modules
 before_script:
-  - psql -c 'create database mydiarydb;' -U aime -P aime1995
+  - psql -c 'create database travis_ci_test;' -U postgres
 script:
   - npm test
 after_sucess:
