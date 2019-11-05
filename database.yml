@@ -1,0 +1,5 @@
+test:
+  adapter: postgresql
+  database: mydiarydb
+  user: aime
+  password: aime1995
