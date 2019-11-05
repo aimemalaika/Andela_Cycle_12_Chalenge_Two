@@ -1,4 +1,3 @@
-/* eslint-disable radix */
 import localStorage from 'localStorage';
 
 import storyModule from '../models/storyModel';

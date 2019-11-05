@@ -4,9 +4,8 @@ import bcrypt from 'bcrypt';
 import nodemailer from 'nodemailer';
 import jwt from 'jsonwebtoken';
 
-
-import userModule from '../models/userModel';
-import Validate from '../helpers/validationHelper';
+import { executeQuery } from '../services/config';
+import queries from '../services/queries';
 
 const transporter = nodemailer.createTransport({
   service: 'gmail',
@@ -16,8 +15,6 @@ const transporter = nodemailer.createTransport({
   },
 });
 exports.getLoginAuth = (req, res) => {
-  const validation = new Validate();
-  const values = req.body;
   const usersRecord = JSON.parse(localStorage.getItem('users')) || [];
   const passed = validation.check(userModule.UserLogin, values, usersRecord);
   if (passed === true) {
@@ -67,59 +64,36 @@ exports.getLoginAuth = (req, res) => {
   }
 };
 
-exports.getRegisterAuth = (req, res) => {
-  const validation = new Validate();
-  const values = req.body;
-  let idUser;
-  const usersRecord = JSON.parse(localStorage.getItem('users')) || [];
-  const passed = validation.check(userModule.UserRegitration, values, usersRecord);
-  if (passed === true) {
-    if (usersRecord.length === 0) {
-      idUser = 1;
-    } else {
-      const maxId = (array, prop) => {
-        let max;
-        for (let i = 0; i < array.length; i += 1) {
-          if (!max || parseInt(array[i][prop]) > parseInt(max[prop])) { max = array[i]; }
-        }
-        return max.id + 1;
-      };
-
-      idUser = maxId(usersRecord, 'id');
+exports.getRegisterAuth = async (req, res) => {
+  const isUserExists = await executeQuery(queries.users.isUserExist, [req.body.email]);
+  try {
+    if (isUserExists.rowCount > 0) {
+      return res.status(409).json({ status: 409, error: "user already exist in the system" });
     }
-    const salt = bcrypt.genSaltSync(10);
-    const hash = bcrypt.hashSync(values.password, salt);
-    usersRecord.push({
-      id: idUser,
-      first_name: values.first_name,
-      last_name: values.last_name,
-      email: values.email,
-      password: hash,
-    });
-    localStorage.setItem('users', JSON.stringify(usersRecord));
-    const tokenapi = jwt.sign({
-      first_name: values.first_name,
-      last_name: values.last_name,
-      email: values.email,
-      id: idUser,
+    const {
+      first_name, last_name, email,
+    } = req.body;
+
+    const hash = bcrypt.hashSync(req.body.password, 10);
+    const resultdb = await executeQuery(queries.users.insertUser, [first_name, last_name, email, hash]);
+    const { password, ...data } = resultdb.rows[0];
+    console.log(resultdb.rows[0]);
+    const token = jwt.sign({
+      first_name,
+      last_name,
+      email,
+      id: data.id,
     }, '0123456789abcdfghjkmnpqrstvwxyzABCDEFGHIJKLMNOPQRE', { expiresIn: '24d' });
     res.status(201).json({
       status: 201,
-      message: 'User created successfully',
-      data: {
-        token: tokenapi,
-        id: idUser,
-        first_name: values.first_name,
-        last_name: values.last_name,
-        email: values.email,
-      },
+      message: "User created successfully",
+      token,
+      data,
     });
-  } else {
-    res.status(400).json({
-      status: 400,
-      message: passed,
-    });
+  } catch (err) {
+    return res.status(400).json({ status: 400, error: err.message });
   }
+  return true;
 };
 
 exports.updateUser = (req, res) => {

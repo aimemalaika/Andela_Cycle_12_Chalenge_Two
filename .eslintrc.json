@@ -28,6 +28,7 @@
         "array-callback-return":"off",
         "class-methods-use-this":"off",
         "guard-for-in":"off",
-        "default-case":"off"
+        "default-case":"off",
+        "camelcase":"off"
     }
 }
