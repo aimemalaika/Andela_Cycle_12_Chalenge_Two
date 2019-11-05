@@ -7,9 +7,8 @@ const user1token = jwt.sign({
   id: 1,
   first_name: 'aime',
   last_name: 'malaika',
-  email: 'aimemalaika@gmail.com',
+  email: 'aimemalaika1995@gmail.com',
 }, '0123456789abcdfghjkmnpqrstvwxyzABCDEFGHIJKLMNOPQRE');
-const tokenstr1 = jwt.verify(user1token, '0123456789abcdfghjkmnpqrstvwxyzABCDEFGHIJKLMNOPQRE');
 
 const user1 = {
   first_name: 'aime',
@@ -84,10 +83,17 @@ const badpassword = {
   cpassword: 'aime1995',
 };
 
+const updatePassword = {
+  password: 'Aime1995',
+  cpassword: 'Aime1995',
+};
 const incorrectpassword = {
   email: 'aimemalaika1995@gmail.com',
   password: 'Aime1995q',
 };
+
+const invalidToken = 'iJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZmlyc3ROYW1lIjoid2lsbH';
+
 export default {
-  user1token, user1, tokenstr1, signupUser, requiredinfo, validatetex, lengthrequired, noemailsignup, loginuser, badpassword, passworddontmatch, unregistreduser, incorrectpassword,
+  user1token, user1, invalidToken, signupUser, requiredinfo, validatetex, lengthrequired, noemailsignup, loginuser, badpassword, passworddontmatch, unregistreduser, incorrectpassword, updatePassword,
 };

@@ -180,43 +180,20 @@ exports.recoverPassword = (req, res) => {
   }
 };
 
-exports.updatePassword = (req, res) => {
-  const validation = new Validate();
-  const values = req.body;
-  req.body.id = req.id;
-  const userId = req.id;
-  const usersRecord = JSON.parse(localStorage.getItem('users')) || [];
-  const passed = validation.check(userModule.userPasswordUpdate, values, usersRecord);
-  if (passed === true) {
-    if (usersRecord.length > 0) {
-      const found = usersRecord.find((userdata) => userdata.id === parseInt(userId));
-      if (typeof (found) !== 'undefined') {
-        const passwords = values.password;
-        const salt = bcrypt.genSaltSync(10);
-        const hash = bcrypt.hashSync(String(passwords), salt);
-        const key = usersRecord.indexOf(found);
-        usersRecord[key].password = hash;
-        localStorage.setItem('users', JSON.stringify(usersRecord));
-        res.status(201).json({
-          status: 201,
-          message: 'Password Updated',
-        });
-      } else {
-        res.status(404).json({
-          status: 404,
-          message: 'user not found',
-        });
-      }
-    } else {
-      res.status(404).json({
-        status: 404,
-        message: 'user not found',
-      });
+exports.updatePassword = async (req, res) => {
+  const isUserExists = await executeQuery(queries.users.userById, [req.id]);
+  try {
+    if (isUserExists.rowCount === 0) {
+      return res.status(409).json({ status: 409, error: "this account does not exist" });
     }
-  } else {
-    res.status(400).json({
-      status: 400,
-      message: passed,
+    const hash = bcrypt.hashSync(req.body.password, 10);
+    const updatepwd = await executeQuery(queries.users.updatePassword, [hash, req.id]);
+    res.status(201).json({
+      status: 201,
+      message: 'Password Updated',
     });
+  } catch (err) {
+    return res.status(400).json({ status: 400, error: err.message });
   }
+  return true;
 };

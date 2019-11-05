@@ -112,5 +112,35 @@ describe('Test users auth', () => {
           done();
         });
     });
+    it('Should allow user to update password', (done) => {
+      chai.request(app)
+        .patch('/api/v1/auth/updatepassword')
+        .set('Authorization', mochadata.user1token)
+        .send(mochadata.updatePassword)
+        .end((error, res) => {
+          res.body.status.should.be.equal(201);
+          expect(res.body.message).to.equal('Password Updated');
+          done();
+        });
+    });
+    it('Should not allow user to update password without login token', (done) => {
+      chai.request(app)
+        .patch('/api/v1/auth/updatepassword')
+        .send(mochadata.updatePassword)
+        .end((error, res) => {
+          res.body.status.should.be.equal(401);
+          done();
+        });
+    });
+    it('Should not allow user to update password without valid token', (done) => {
+      chai.request(app)
+        .patch('/api/v1/auth/updatepassword')
+        .set('Authorization', mochadata.invalidToken)
+        .send(mochadata.updatePassword)
+        .end((error, res) => {
+          res.body.status.should.be.equal(401);
+          done();
+        });
+    });
   });
 });

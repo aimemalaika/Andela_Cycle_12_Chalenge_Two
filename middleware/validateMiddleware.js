@@ -27,3 +27,17 @@ exports.validateLogin = (req, res, next) => {
     });
   }
 };
+
+exports.validateEmail = (req, res, next) => {
+  const validation = new Validate();
+  const values = req.body;
+  const passed = validation.check(userModule.userPasswordUpdate, values);
+  if (passed === true) {
+    next();
+  } else {
+    res.status(400).json({
+      status: 400,
+      message: passed,
+    });
+  }
+};
