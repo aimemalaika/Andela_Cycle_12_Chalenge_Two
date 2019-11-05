@@ -1,4 +1,4 @@
-import { pool } from './config';
+import config from './config';
 
 const makeTables = async () => {
   const createUsers = `CREATE TABLE IF NOT EXISTS users(
@@ -17,8 +17,8 @@ const makeTables = async () => {
         auther INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE
     );`;
 
-  await pool.query(createUsers);
-  await pool.query(createStory);
+  await config.pool.query(createUsers);
+  await config.pool.query(createStory);
 };
 
 makeTables();

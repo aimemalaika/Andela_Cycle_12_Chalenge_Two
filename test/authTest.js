@@ -153,5 +153,15 @@ describe('Test users auth', () => {
           done();
         });
     });
+    it('Should allow a user to reset password', (done) => {
+      chai.request(app)
+        .patch('/api/v1/auth/resetpassword')
+        .send(mochadata.resetemail)
+        .end((error, res) => {
+          res.body.status.should.be.equal(201);
+          expect(res.body.message).to.equal('Password Updated check email');
+          done();
+        });
+    });
   });
 });

@@ -98,8 +98,12 @@ const userUpdateprofile = {
   email: "aimemalaika1995@gmail.com",
 };
 
+const resetemail = {
+  email: 'aimemalaika1995@gmail.com',
+};
+
 const invalidToken = 'iJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZmlyc3ROYW1lIjoid2lsbH';
 
 export default {
-  user1token, user1, userUpdateprofile, invalidToken, signupUser, requiredinfo, validatetex, lengthrequired, noemailsignup, loginuser, badpassword, passworddontmatch, unregistreduser, incorrectpassword, updatePassword,
+  user1token, user1, resetemail, userUpdateprofile, invalidToken, signupUser, requiredinfo, validatetex, lengthrequired, noemailsignup, loginuser, badpassword, passworddontmatch, unregistreduser, incorrectpassword, updatePassword,
 };
