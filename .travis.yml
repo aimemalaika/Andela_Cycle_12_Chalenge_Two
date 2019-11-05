@@ -12,13 +12,13 @@ node_js:
 branches:
   only:
     - develop
+before_script:
+  - psql -c 'create database pg_promise_test;' -U postgres
 install:
   - npm install
 cache:
   directories:
     - node_modules
-before_script:
-  - psql -c 'create database travis_ci_test;' -U postgres
 script:
   - npm test
 after_sucess:
