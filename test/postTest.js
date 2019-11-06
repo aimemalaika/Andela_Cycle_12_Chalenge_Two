@@ -29,24 +29,4 @@ describe('Test post management', () => {
       });
     done();
   });
-  it('user should allow a user to update one story', (done) => {
-    chai.request(app)
-      .patch('/api/v1/entries/2')
-      .set('Authorization', mochadata.user2token)
-      .send(dummypost.entryUpdate)
-      .end((err, res) => {
-        console.log(res.body);
-        res.should.have.status(200);
-      });
-    done();
-  });
-  it('user should allow a user to delete one story', (done) => {
-    chai.request(app)
-      .delete('/api/v1/entries/4')
-      .set('Authorization', mochadata.user3token)
-      .end((err, res) => {
-        res.should.have.status(204);
-      });
-    done();
-  });
 });

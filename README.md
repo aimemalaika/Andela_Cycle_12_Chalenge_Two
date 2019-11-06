@@ -100,7 +100,7 @@ Make sure you have cloned this repo to your local machine, and after then run `c
 Heroku
 ```
 ### API Documentation
-[Documentation](https://diaryapp2019.herokuapp.com/apiDocumentation)
+[Documentation](https://documenter.getpostman.com/view/5048653/SW15zHJp?version=latest)
 ### Pivotal Tracker Stories 
 [Project Stories](https://www.pivotaltracker.com/n/projects/2401031)
 ### Heroku link

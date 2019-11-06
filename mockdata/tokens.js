@@ -11,7 +11,7 @@ const user1token = jwt.sign({
 }, '0123456789abcdfghjkmnpqrstvwxyzABCDEFGHIJKLMNOPQRE');
 
 const user2token = jwt.sign({
-  id: 6,
+  id: 1,
   first_name: 'aime',
   last_name: 'malaika',
   email: 'aimemalaika1995@gmail.com',

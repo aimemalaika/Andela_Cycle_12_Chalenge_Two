@@ -5,11 +5,7 @@ dotenv.config();
 
 
 const pool = new Pool({
-  user: 'postgres',
-  password: 'aime1995',
-  host: 'localhost',
-  port: '5432',
-  database: 'mydiarydb',
+  connectionString: process.env.DATABASE_URL,
 });
 
 const executeQuery = async (myQuery, params = []) => {
