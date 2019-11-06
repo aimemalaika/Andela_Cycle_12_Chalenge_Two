@@ -1,9 +1,10 @@
 import userModule from '../models/userModel';
 import Validate from '../helpers/validationHelper';
-exports.validateRegistration = (req, res, next) => {
+
+const validatefx = (keymodule, datasent, next, res) => {
   const validation = new Validate();
-  const values = req.body;
-  const passed = validation.check(userModule.UserRegitration, values);
+  const values = datasent;
+  const passed = validation.check(keymodule, values);
   if (passed === true) {
     next();
   } else {
@@ -12,60 +13,23 @@ exports.validateRegistration = (req, res, next) => {
       message: passed,
     });
   }
+};
+exports.validateRegistration = (req, res, next) => {
+  validatefx(userModule.UserRegitration, req.body, next, res);
 };
 
 exports.validateLogin = (req, res, next) => {
-  const validation = new Validate();
-  const values = req.body;
-  const passed = validation.check(userModule.UserLogin, values);
-  if (passed === true) {
-    next();
-  } else {
-    res.status(400).json({
-      status: 400,
-      message: passed,
-    });
-  }
+  validatefx(userModule.UserLogin, req.body, next, res);
 };
 
 exports.validateEmail = (req, res, next) => {
-  const validation = new Validate();
-  const values = req.body;
-  const passed = validation.check(userModule.userPasswordUpdate, values);
-  if (passed === true) {
-    next();
-  } else {
-    res.status(400).json({
-      status: 400,
-      message: passed,
-    });
-  }
+  validatefx(userModule.userPasswordUpdate, req.body, next, res);
 };
 
 exports.validateProfile = (req, res, next) => {
-  const validation = new Validate();
-  const values = req.body;
-  const passed = validation.check(userModule.UserProfileUpdate, values);
-  if (passed === true) {
-    next();
-  } else {
-    res.status(400).json({
-      status: 400,
-      message: passed,
-    });
-  }
+  validatefx(userModule.UserProfileUpdate, req.body, next, res);
 };
 
 exports.validateReset = (req, res, next) => {
-  const validation = new Validate();
-  const values = req.body;
-  const passed = validation.check(userModule.resetPassword, values);
-  if (passed === true) {
-    next();
-  } else {
-    res.status(400).json({
-      status: 400,
-      message: passed,
-    });
-  }
+  validatefx(userModule.resetPassword, req.body, next, res);
 };

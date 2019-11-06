@@ -20,16 +20,6 @@ describe('Test post management', () => {
       });
     done();
   });
-  it('user should not diplicate a post', (done) => {
-    chai.request(app)
-      .post('/api/v1/entry')
-      .set('Authorization', mochadata.user1token)
-      .send(dummypost.createpostDummy)
-      .end((err, res) => {
-        res.should.have.status(409);
-      });
-    done();
-  });
   it('user should allow a user to see his posts with a token header', (done) => {
     chai.request(app)
       .get('/api/v1/entries')
@@ -41,7 +31,7 @@ describe('Test post management', () => {
   });
   it('user should allow a user to update one story', (done) => {
     chai.request(app)
-      .patch('/api/v1/entries/1')
+      .patch('/api/v1/entries/7')
       .set('Authorization', mochadata.user1token)
       .send(dummypost.entryUpdate)
       .end((err, res) => {
