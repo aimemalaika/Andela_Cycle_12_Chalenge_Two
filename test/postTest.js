@@ -20,7 +20,7 @@ describe('Test post management', () => {
       });
     done();
   });
-  it('user should not dupicate a post', (done) => {
+  it('user should not diplicate a post', (done) => {
     chai.request(app)
       .post('/api/v1/entry')
       .set('Authorization', mochadata.user1token)
@@ -39,22 +39,13 @@ describe('Test post management', () => {
       });
     done();
   });
-  it('user should allow a user to delete one story', (done) => {
-    chai.request(app)
-      .delete('/api/v1/entries/1')
-      .set('Authorization', mochadata.user1token)
-      .end((err, res) => {
-        res.should.have.status(204);
-      });
-    done();
-  });
   it('user should allow a user to update one story', (done) => {
     chai.request(app)
-      .patch('/api/v1/entries/6')
+      .patch('/api/v1/entries/1')
       .set('Authorization', mochadata.user1token)
       .send(dummypost.entryUpdate)
       .end((err, res) => {
-        console.log(res);
+        console.log(res.body);
         res.should.have.status(200);
       });
     done();
