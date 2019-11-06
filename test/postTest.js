@@ -48,4 +48,14 @@ describe('Test post management', () => {
       });
     done();
   });
+  it('user should allow a user to update one story', (done) => {
+    chai.request(app)
+      .patch('/api/v1/entries/6')
+      .set('Authorization', mochadata.user1token)
+      .send(dummypost.entryUpdate)
+      .end((err, res) => {
+        res.should.have.status(200);
+      });
+    done();
+  });
 });
