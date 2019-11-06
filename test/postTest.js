@@ -54,6 +54,7 @@ describe('Test post management', () => {
       .set('Authorization', mochadata.user1token)
       .send(dummypost.entryUpdate)
       .end((err, res) => {
+        console.log(res);
         res.should.have.status(200);
       });
     done();
