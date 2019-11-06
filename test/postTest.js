@@ -39,4 +39,13 @@ describe('Test post management', () => {
       });
     done();
   });
+  it('user should allow a user to delete one story', (done) => {
+    chai.request(app)
+      .delete('/api/v1/entries/1')
+      .set('Authorization', mochadata.user1token)
+      .end((err, res) => {
+        res.should.have.status(204);
+      });
+    done();
+  });
 });
