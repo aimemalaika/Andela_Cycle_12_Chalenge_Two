@@ -6,7 +6,7 @@ import isValid from '../middleware/validateEntryMiddleware';
 
 const route = express.Router();
 
-route.delete('/entries/:storyId', isAuth, storyController.deleteStory);
+route.delete('/entries/:storyId', isAuth, isValid.updateEntrie, storyController.deleteStory);
 route.post('/entry', isAuth, isValid.addingEntry, storyController.addStory);
 route.get('/entries', isAuth, storyController.getAllStories);
 route.get('/entries/:storyId', isAuth, storyController.getOneStory);
