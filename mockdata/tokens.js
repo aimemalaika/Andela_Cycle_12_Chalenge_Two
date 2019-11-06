@@ -10,6 +10,18 @@ const user1token = jwt.sign({
   email: 'aimemalaika1995@gmail.com',
 }, '0123456789abcdfghjkmnpqrstvwxyzABCDEFGHIJKLMNOPQRE');
 
+const user2token = jwt.sign({
+  id: 6,
+  first_name: 'aime',
+  last_name: 'malaika',
+  email: 'aimemalaika1995@gmail.com',
+}, '0123456789abcdfghjkmnpqrstvwxyzABCDEFGHIJKLMNOPQRE');
+const user3token = jwt.sign({
+  id: 4,
+  first_name: 'aime',
+  last_name: 'malaika',
+  email: 'aimemalaika1995@gmail.com',
+}, '0123456789abcdfghjkmnpqrstvwxyzABCDEFGHIJKLMNOPQRE');
 const user1 = {
   first_name: 'aime',
   last_name: 'malaika',
@@ -105,5 +117,5 @@ const resetemail = {
 const invalidToken = 'iJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZmlyc3ROYW1lIjoid2lsbH';
 
 export default {
-  user1token, user1, resetemail, userUpdateprofile, invalidToken, signupUser, requiredinfo, validatetex, lengthrequired, noemailsignup, loginuser, badpassword, passworddontmatch, unregistreduser, incorrectpassword, updatePassword,
+  user1token, user2token, user3token, user1, resetemail, userUpdateprofile, invalidToken, signupUser, requiredinfo, validatetex, lengthrequired, noemailsignup, loginuser, badpassword, passworddontmatch, unregistreduser, incorrectpassword, updatePassword,
 };
