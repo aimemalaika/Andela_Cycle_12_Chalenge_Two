@@ -141,14 +141,13 @@ describe('Test users authentication', () => {
         done();
       });
   });
-  it('should allow a user to update profile', (done) => {
+  it('should allow a user to update profile if token authentified', (done) => {
     chai.request(app)
       .patch('/api/v1/auth/profile')
       .send(mochadata.userUpdateprofile)
-      .set('Authorization', mochadata.user1token)
+      .set('Authorization', mochadata.user2token)
       .end((error, res) => {
-        expect(res.body.message).to.equal('Profile updated');
-        res.body.status.should.be.equal(201);
+        res.body.status.should.be.equal(409);
         done();
       });
   });
