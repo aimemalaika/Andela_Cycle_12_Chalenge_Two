@@ -4,14 +4,14 @@ import jwt from 'jsonwebtoken';
 dotenv.config();
 
 const user1token = jwt.sign({
-  id: 7,
+  id: 1,
   first_name: 'aime',
   last_name: 'malaika',
   email: 'aimemalaika1995@gmail.com',
 }, '0123456789abcdfghjkmnpqrstvwxyzABCDEFGHIJKLMNOPQRE');
 
 const user2token = jwt.sign({
-  id: 1,
+  id: 2,
   first_name: 'aime',
   last_name: 'malaika',
   email: 'aimemalaika1995@gmail.com',

@@ -8,7 +8,7 @@ const createpostDummy = {
 };
 
 const duplicate = {
-  subject: "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout one.",
+  subject: "the story of a ma starting to date dummy one",
   content: "making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for lorem ipsum will uncover many web sites still in their infancy.",
 };
 
