@@ -10,7 +10,7 @@ const entries = {
   getAllStories: `SELECT * FROM stories WHERE auther=$1`,
   getOneStory: `SELECT * FROM stories WHERE auther=$1 AND id=$2`,
   deleteStory: `DELETE FROM stories WHERE id=$1`,
-  updateStory: `UPDATE stories SET subject=$1,content=$2 WHERE auther=$1 AND id=$2`,
+  updateStory: `UPDATE stories SET subject=$1,content=$2 WHERE auther=$3 AND id=$4`,
   getDiplicateTitle: `SELECT * FROM stories WHERE subject=$1`,
 };
 

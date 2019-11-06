@@ -69,53 +69,68 @@ exports.deleteStory = async (req, res) => {
   }
 };
 
-exports.updateStory = (req, res) => {
-  const { storyId } = req.params;
-  const validation = new Validate();
-  const values = req.body;
-  req.body.id = storyId;
-  const auther = req.id;
-  const storyRecord = JSON.parse(localStorage.getItem('stories')) || [];
-  const passed = validation.check(storyModule.StoryUpdate, values, storyRecord);
-  if (passed === true) {
-    if (storyRecord.length > 0) {
-      const found = storyRecord.find((storydata) => storydata.id === parseInt(storyId));
-      if (typeof (found) !== 'undefined') {
-        if (found.Auther === parseInt(auther)) {
-          const key = storyRecord.indexOf(found);
-          storyRecord[key].subject = values.subject;
-          storyRecord[key].content = values.content;
-          localStorage.setItem('stories', JSON.stringify(storyRecord));
-          res.status(200).json({
-            status: 200,
-            message: 'entry successfully edited',
-            data: {
-              subject: storyRecord[key].subject,
-              content: storyRecord[key].content,
-            },
-          });
-        } else {
-          res.status(403).json({
-            status: 403,
-            message: 'trying to get post that are not yours',
-          });
-        }
-      } else {
-        res.status(404).json({
-          status: 404,
-          message: 'story not found',
-        });
-      }
-    } else {
-      res.status(404).json({
-        status: 404,
-        message: 'story not found',
-      });
+exports.updateStory = async (req, res) => {
+  const isPostExist = await config.executeQuery(queries.entries.getOneStory, [req.id, req.params.storyId]);
+  try {
+    if (isPostExist.rowCount === 0) {
+      return res.status(409).json({ status: 409, error: "no topic found" });
     }
-  } else {
-    res.status(400).json({
-      status: 400,
-      message: passed,
+    const postId = isPostExist.rows[0].id;
+    const { subject, content } = req.body;
+    await config.executeQuery(queries.entries.updateStory, [subject, content, req.id, postId]);
+    return res.status(200).json({
+      status: 200,
+      data: req.body,
     });
+  } catch (err) {
+    return res.status(400).json({ status: 400, error: err.message });
   }
+  // const { storyId } = req.params;
+  // const validation = new Validate();
+  // const values = req.body;
+  // req.body.id = storyId;
+  // const auther = req.id;
+  // const storyRecord = JSON.parse(localStorage.getItem('stories')) || [];
+  // const passed = validation.check(storyModule.StoryUpdate, values, storyRecord);
+  // if (passed === true) {
+  //   if (storyRecord.length > 0) {
+  //     const found = storyRecord.find((storydata) => storydata.id === parseInt(storyId));
+  //     if (typeof (found) !== 'undefined') {
+  //       if (found.Auther === parseInt(auther)) {
+  //         const key = storyRecord.indexOf(found);
+  //         storyRecord[key].subject = values.subject;
+  //         storyRecord[key].content = values.content;
+  //         localStorage.setItem('stories', JSON.stringify(storyRecord));
+  //         res.status(200).json({
+  //           status: 200,
+  //           message: 'entry successfully edited',
+  //           data: {
+  //             subject: storyRecord[key].subject,
+  //             content: storyRecord[key].content,
+  //           },
+  //         });
+  //       } else {
+  //         res.status(403).json({
+  //           status: 403,
+  //           message: 'trying to get post that are not yours',
+  //         });
+  //       }
+  //     } else {
+  //       res.status(404).json({
+  //         status: 404,
+  //         message: 'story not found',
+  //       });
+  //     }
+  //   } else {
+  //     res.status(404).json({
+  //       status: 404,
+  //       message: 'story not found',
+  //     });
+  //   }
+  // } else {
+  //   res.status(400).json({
+  //     status: 400,
+  //     message: passed,
+  //   });
+  // }
 };
