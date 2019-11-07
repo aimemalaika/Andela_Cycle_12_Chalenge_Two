@@ -17,7 +17,7 @@ exports.addStory = async (req, res) => {
       data: resultdb.rows[0],
     });
   } catch (err) {
-    return res.status(500).json({ status: 500, error: err.message });
+    return res.status(500).json({ status: 500, error: 'internal server error' });
   }
 };
 
@@ -36,7 +36,7 @@ exports.getOneStory = async (req, res) => {
       data: isPostExist.rows[0],
     });
   } catch (err) {
-    return res.status(500).json({ status: 500, error: err.message });
+    return res.status(500).json({ status: 500, error: 'internal server error' });
   }
 };
 
@@ -51,7 +51,7 @@ exports.getAllStories = async (req, res) => {
       data: isPostExist.rows,
     });
   } catch (err) {
-    return res.status(500).json({ status: 500, error: err.message });
+    return res.status(500).json({ status: 500, error: 'internal server error' });
   }
 };
 
@@ -68,7 +68,7 @@ exports.deleteStory = async (req, res) => {
       message: 'entry deleted succesfully',
     });
   } catch (err) {
-    return res.status(500).json({ status: 500, error: err.message });
+    return res.status(500).json({ status: 500, error: 'internal server error' });
   }
 };
 
@@ -87,6 +87,6 @@ exports.updateStory = async (req, res) => {
       data: req.body,
     });
   } catch (err) {
-    return res.status(500).json({ status: 500, error: err.message });
+    return res.status(500).json({ status: 500, error: 'internal server error' });
   }
 };

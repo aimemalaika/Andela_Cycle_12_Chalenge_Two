@@ -100,7 +100,7 @@ Make sure you have cloned this repo to your local machine, and after then run `c
 Heroku
 ```
 ### API Documentation
-[Documentation](https://documenter.getpostman.com/view/5048653/SW15zHJp?version=latest)
+[Documentation](https://documenter.getpostman.com/view/5048653/SW15zHJp?version=latestori)
 ### Pivotal Tracker Stories 
 [Project Stories](https://www.pivotaltracker.com/n/projects/2401031)
 ### Heroku link

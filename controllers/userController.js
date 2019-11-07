@@ -13,29 +13,30 @@ const transporter = nodemailer.createTransport({
     pass: 'Aime1995',
   },
 });
+const returToken = (firstname, lastname, uemail, uid) => jwt.sign({
+  first_name: firstname,
+  last_name: lastname,
+  email: uemail,
+  id: uid,
+}, '0123456789abcdfghjkmnpqrstvwxyzABCDEFGHIJKLMNOPQRE', { expiresIn: '24d' });
 exports.getLoginAuth = async (req, res) => {
   try {
     const isUserExists = await config.executeQuery(queries.users.isUserExist, [req.body.email]);
     if (isUserExists.rowCount === 0) {
-      return res.status(400).json({ status: 400, error: "invalid email address" });
+      return res.status(401).json({ status: 401, error: "user email or password incorrect" });
     }
     const data = isUserExists.rows[0];
     if (bcrypt.compareSync(req.body.password, data.password)) {
-      const token = jwt.sign({
-        first_name: data.first_name,
-        last_name: data.last_name,
-        email: data.email,
-        id: data.id,
-      }, '0123456789abcdfghjkmnpqrstvwxyzABCDEFGHIJKLMNOPQRE', { expiresIn: '24d' });
+      const token = returToken(data.first_name, data.last_name, data.email, data.id);
       res.status(200).json({ status: 200, message: "User is succefully logged in", data: token });
     } else {
       res.status(401).json({
         status: 401,
-        message: 'user password incorrect',
+        message: 'user email or password incorrect',
       });
     }
   } catch (err) {
-    return res.status(500).json({ status: 500, error: err.message });
+    return res.status(500).json({ status: 500, error: 'internal server error' });
   }
   return true;
 };
@@ -53,19 +54,14 @@ exports.getRegisterAuth = async (req, res) => {
     const hash = bcrypt.hashSync(req.body.password, 10);
     const resultdb = await config.executeQuery(queries.users.insertUser, [first_name, last_name, email, hash]);
     const { password, ...data } = resultdb.rows[0];
-    const token = jwt.sign({
-      first_name,
-      last_name,
-      email,
-      id: data.id,
-    }, '0123456789abcdfghjkmnpqrstvwxyzABCDEFGHIJKLMNOPQRE', { expiresIn: '24d' });
+    const token = returToken(data.first_name, data.last_name, data.email, data.id);
     return res.status(201).json({
       status: 201,
       message: "User created successfully",
       token,
     });
   } catch (err) {
-    return res.status(500).json({ status: 500, error: err.message });
+    return res.status(500).json({ status: 500, error: 'internal server error' });
   }
 };
 
@@ -89,7 +85,7 @@ exports.updateUser = async (req, res) => {
       message: 'Profile updated',
     });
   } catch (err) {
-    return res.status(500).json({ status: 500, error: err.message });
+    return res.status(500).json({ status: 500, error: 'internal server error' });
   }
 };
 
@@ -124,7 +120,7 @@ exports.recoverPassword = async (req, res) => {
       message: 'Password Updated check email',
     });
   } catch (err) {
-    return res.status(500).json({ status: 500, error: err.message });
+    return res.status(500).json({ status: 500, error: 'internal server error' });
   }
 };
 
@@ -141,6 +137,6 @@ exports.updatePassword = async (req, res) => {
       message: 'Password Updated',
     });
   } catch (err) {
-    return res.status(500).json({ status: 500, error: err.message });
+    return res.status(500).json({ status: 500, error: 'internal server error' });
   }
 };
