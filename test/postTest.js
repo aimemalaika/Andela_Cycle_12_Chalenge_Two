@@ -29,13 +29,4 @@ describe('Test post management', () => {
       });
     done();
   });
-  it('user should allow a user to see his specific post', (done) => {
-    chai.request(app)
-      .get('/api/v1/entries/2')
-      .set('Authorization', mochadata.user1token)
-      .end((err, res) => {
-        res.should.have.status(200);
-      });
-    done();
-  });
 });

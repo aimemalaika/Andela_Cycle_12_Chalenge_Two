@@ -96,7 +96,7 @@ describe('Test users authentication', () => {
       .post('/api/v1/auth/signin')
       .send(mochadata.unregistreduser)
       .end((error, res) => {
-        res.body.status.should.be.equal(409);
+        res.body.status.should.be.equal(400);
         expect(res.body.error).to.equal('invalid email address');
         done();
       });
@@ -117,7 +117,7 @@ describe('Test users authentication', () => {
       .set('Authorization', mochadata.user1token)
       .send(mochadata.updatePassword)
       .end((error, res) => {
-        res.body.status.should.be.equal(201);
+        res.body.status.should.be.equal(200);
         expect(res.body.message).to.equal('Password Updated');
         done();
       });
@@ -156,7 +156,7 @@ describe('Test users authentication', () => {
       .patch('/api/v1/auth/resetpassword')
       .send(mochadata.resetemail)
       .end((error, res) => {
-        res.body.status.should.be.equal(201);
+        res.body.status.should.be.equal(200);
         expect(res.body.message).to.equal('Password Updated check email');
         done();
       });
