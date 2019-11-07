@@ -14,10 +14,10 @@ const transporter = nodemailer.createTransport({
   },
 });
 exports.getLoginAuth = async (req, res) => {
-  const isUserExists = await config.executeQuery(queries.users.isUserExist, [req.body.email]);
   try {
+    const isUserExists = await config.executeQuery(queries.users.isUserExist, [req.body.email]);
     if (isUserExists.rowCount === 0) {
-      return res.status(409).json({ status: 409, error: "invalid email address" });
+      return res.status(400).json({ status: 400, error: "invalid email address" });
     }
     const data = isUserExists.rows[0];
     if (bcrypt.compareSync(req.body.password, data.password)) {
@@ -35,14 +35,14 @@ exports.getLoginAuth = async (req, res) => {
       });
     }
   } catch (err) {
-    return res.status(400).json({ status: 400, error: err.message });
+    return res.status(500).json({ status: 500, error: err.message });
   }
   return true;
 };
 
 exports.getRegisterAuth = async (req, res) => {
-  const isUserExists = await config.executeQuery(queries.users.isUserExist, [req.body.email]);
   try {
+    const isUserExists = await config.executeQuery(queries.users.isUserExist, [req.body.email]);
     if (isUserExists.rowCount > 0) {
       return res.status(409).json({ status: 409, error: "user already exist in the system" });
     }
@@ -66,15 +66,15 @@ exports.getRegisterAuth = async (req, res) => {
       data,
     });
   } catch (err) {
-    return res.status(400).json({ status: 400, error: err.message });
+    return res.status(500).json({ status: 500, error: err.message });
   }
 };
 
 exports.updateUser = async (req, res) => {
-  const isUserExists = await config.executeQuery(queries.users.userById, [req.id]);
   try {
+    const isUserExists = await config.executeQuery(queries.users.userById, [req.id]);
     if (isUserExists.rowCount === 0) {
-      return res.status(409).json({ status: 409, error: "this account does not exist" });
+      return res.status(404).json({ status: 404, error: "account not found" });
     }
     const {
       first_name, last_name, email,
@@ -85,20 +85,20 @@ exports.updateUser = async (req, res) => {
       return res.status(409).json({ status: 409, error: "this email already exist" });
     }
     await config.executeQuery(queries.users.updateUser, [first_name, last_name, email, req.id]);
-    return res.status(201).json({
-      status: 201,
+    return res.status(200).json({
+      status: 200,
       message: 'Profile updated',
     });
   } catch (err) {
-    return res.status(400).json({ status: 400, error: err.message });
+    return res.status(500).json({ status: 500, error: err.message });
   }
 };
 
 exports.recoverPassword = async (req, res) => {
-  const isUserExists = await config.executeQuery(queries.users.isUserExist, [req.body.email]);
   try {
+    const isUserExists = await config.executeQuery(queries.users.isUserExist, [req.body.email]);
     if (isUserExists.rowCount === 0) {
-      return res.status(409).json({ status: 409, error: "invalid email address" });
+      return res.status(400).json({ status: 400, error: "invalid email address" });
     }
     const makepassword = (length) => {
       let result = '';
@@ -118,36 +118,30 @@ exports.recoverPassword = async (req, res) => {
       subject: 'MyDiary Password reset',
       html: `<div style="background-color: lightblue;color: black;padding: 40px;color: white;"><h1>MyDiary</h1><p> bellow is our new password use it to login and change your password in your account profile</p><p>Passowrd: <input style="border: none;background: #fff;padding: 5px 20px;font-size: 14px;width: 200px;font-weight: 500;color: burlywood;" type="text" value="${password}"/></p></div>`,
     };
-    try {
-      await config.executeQuery(queries.users.updatePassword, [hash, isUserExists.rows[0].id]);
-      transporter.sendMail(mailOptions);
-      return res.status(200).json({
-        status: 201,
-        message: 'Password Updated check email',
-      });
-    } catch (error) {
-      return res.status(200).json({
-        message: 'user found',
-      });
-    }
+    await config.executeQuery(queries.users.updatePassword, [hash, isUserExists.rows[0].id]);
+    transporter.sendMail(mailOptions);
+    return res.status(200).json({
+      status: 200,
+      message: 'Password Updated check email',
+    });
   } catch (err) {
-    return res.status(400).json({ status: 400, error: err.message });
+    return res.status(500).json({ status: 500, error: err.message });
   }
 };
 
 exports.updatePassword = async (req, res) => {
-  const isUserExists = await config.executeQuery(queries.users.userById, [req.id]);
   try {
+    const isUserExists = await config.executeQuery(queries.users.userById, [req.id]);
     if (isUserExists.rowCount === 0) {
-      return res.status(409).json({ status: 409, error: "this account does not exist" });
+      return res.status(404).json({ status: 404, error: "account not found" });
     }
     const hash = bcrypt.hashSync(req.body.password, 10);
     await config.executeQuery(queries.users.updatePassword, [hash, req.id]);
-    return res.status(201).json({
-      status: 201,
+    return res.status(200).json({
+      status: 200,
       message: 'Password Updated',
     });
   } catch (err) {
-    return res.status(400).json({ status: 400, error: err.message });
+    return res.status(500).json({ status: 500, error: err.message });
   }
 };
