@@ -23,16 +23,16 @@ exports.getLoginAuth = async (req, res) => {
   try {
     const isUserExists = await config.executeQuery(queries.users.isUserExist, [req.body.email]);
     if (isUserExists.rowCount === 0) {
-      return res.status(401).json({ status: 401, error: "email address or password are incorect" });
+      return res.status(401).json({ status: 401, error: "user email or password incorrect" });
     }
     const data = isUserExists.rows[0];
-    if (bcrypt.compareSync(req.body.password, data.password, data.email, id)) {
-      const token = returToken(data.first_name, data.last_name);
+    if (bcrypt.compareSync(req.body.password, data.password)) {
+      const token = returToken(data.first_name, data.last_name, data.email, data.id);
       res.status(200).json({ status: 200, message: "User is succefully logged in", data: token });
     } else {
       res.status(401).json({
         status: 401,
-        message: 'email address or password are incorect',
+        message: 'user email or password incorrect',
       });
     }
   } catch (err) {
@@ -54,7 +54,7 @@ exports.getRegisterAuth = async (req, res) => {
     const hash = bcrypt.hashSync(req.body.password, 10);
     const resultdb = await config.executeQuery(queries.users.insertUser, [first_name, last_name, email, hash]);
     const { password, ...data } = resultdb.rows[0];
-    const token = returToken(data.first_name, data.last_name);
+    const token = returToken(data.first_name, data.last_name, data.email, data.id);
     return res.status(201).json({
       status: 201,
       message: "User created successfully",
@@ -93,7 +93,7 @@ exports.recoverPassword = async (req, res) => {
   try {
     const isUserExists = await config.executeQuery(queries.users.isUserExist, [req.body.email]);
     if (isUserExists.rowCount === 0) {
-      return res.status(404).json({ status: 404, error: "email address not found" });
+      return res.status(400).json({ status: 400, error: "invalid email address" });
     }
     const makepassword = (length) => {
       let result = '';
