@@ -63,7 +63,6 @@ exports.getRegisterAuth = async (req, res) => {
       status: 201,
       message: "User created successfully",
       token,
-      data,
     });
   } catch (err) {
     return res.status(500).json({ status: 500, error: err.message });
